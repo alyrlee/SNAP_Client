@@ -1,0 +1,55 @@
+.banner {
+    margin-top: 40px;
+    background: 
+    url("../../Components/images/fruit.png") 
+    no-repeat
+    fixed;
+    background-size: 2250px 1500px;
+    position: relative;
+    width: 100%;
+    height: 95vh;
+    padding: 20px;
+    color: white;
+    overflow: hidden;
+}
+
+.Cover {
+ padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.banner h2 {
+    margin-top: 200px;
+    margin-left: 100px;
+    font-size: 7rem;
+}
+
+.banner p {
+    font-size: 2rem;
+    margin-left: 150px;
+}
+
+.banner button {
+    width: 200px;
+    height: 75px;
+    background-color: rgb(235, 177, 225);
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: all 0.9s;
+    border: none;
+    margin-top: 25px;
+    margin-left: 250px;
+}
+
+.banner button:hover {
+    cursor: pointer;
+    background-color: #907DE8; 
+    color: white;
+}
+

@@ -10,6 +10,7 @@
     height: 95vh;
     padding: 20px;
     color: white;
+    font-family: 'Roboto Mono', monospace;
     overflow: hidden;
 }
 
@@ -49,7 +50,7 @@
 
 .banner button:hover {
     cursor: pointer;
-    background-color: #907DE8; 
+    background-color: #EF5252;; 
     color: white;
 }
 

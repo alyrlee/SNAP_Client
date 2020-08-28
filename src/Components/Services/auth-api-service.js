@@ -1,66 +1,37 @@
-import config from '../config'
-import TokenService from './token-service'
+import config from '../../config';
 
 const AuthApiService = {
-  postLogin(credentials) {
-    return fetch(`${config.API_ENDPOINT}/auth/login`, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(credentials),
-    })
-      .then(res =>
-        (!res.ok)
-          ? res.json().then(e => Promise.reject(e))
-          : res.json()
-      )
-  },
-  postUser(user) {
+    // client-side POST for handling user logins. //
+    postLogin({user_name, password}) {
+        return fetch(`${config.API_ENDPOINT}/auth/login`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify({user_name, password})
+        })
+            .then(res => {
+                return (!res.ok)
+                    ? res.json().then(e => Promise.reject(e))
+                    : res.json()
+            });
+    },
+    // client-side POST for registering new users. //
+    postUser(user) {
         return fetch(`${config.API_ENDPOINT}/users`, {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json',
-        },
-        body: JSON.stringify(user),
-    })
-        .then(res =>
-            (!res.ok)
-            ? res.json().then(e => Promise.reject(e))
-            : res.json()
-        )
-  },
-  postPup(pup) {
-    const proxyurl = 'https://cors-anywhere.herokuapp.com/';
-    return fetch(`${proxyurl}${config.API_ENDPOINT}/stores`, {
-      method: 'POST',
-      headers: {
-        'authorization': `bearer ${TokenService.getAuthToken()}`,
-        'Access-Control-Allow-Origin': 'http://localhost:3000'
-    },
-    body: pup,
-      })
-    .then(res =>
-        (!res.ok)
-        ? res.json().then(e => Promise.reject(e))
-        : res.json()
-    )
-  },
-  postComment(comment) {
-    return fetch(`${config.API_ENDPOINT}/comments`, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        'authorization': `bearer ${TokenService.getAuthToken()}`
-    },
-    body: JSON.stringify(comment),
-      })
-    .then(res =>
-        (!res.ok)
-        ? res.json().then(e => Promise.reject(e))
-        : res.json()
-    )
-  },
-}
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => {
+                return (!res.ok)
+                    ? res.json().then(e => Promise.reject(e))
+                    : res.json()
+            });
+    }
+};
 
-export default AuthApiService
+export default AuthApiService;
+

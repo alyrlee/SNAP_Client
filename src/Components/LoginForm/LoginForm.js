@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
+import TokenService from '../Services/token-service';
+import AuthApiService from '../Services/auth-api-service';
+import { Link } from 'react-router-dom';
 import './LoginForm.css';
-import { Link, Route } from 'react-router-dom';
 
 class LoginForm extends Component {
+  static defaultProps = {
+    onValidLogin: () => {}
+};
     constructor(props) {
       super(props)
       this.state = {
@@ -19,6 +24,34 @@ class LoginForm extends Component {
       }
     }
     
+    // handle login authentication and validation on submit. //
+    handleJwtLoginAuth = e => {
+      e.preventDefault();
+      const {return_user, return_pass} = e.target;
+
+      this.setState({
+          error: null
+      });
+
+      AuthApiService.postLogin({
+          user_name: return_user.value,
+          password: return_pass.value 
+      })
+          .then(res => {
+              return_user.value = '';
+              return_pass.value = '';
+              TokenService.saveAuthToken(res.authToken);
+              this.props.onValidLogin();
+          })
+          .then(() => {
+              window.location=`/your-garden`;
+          })
+          .catch(res => {
+              this.setState({
+                  error: alert("Invalid username or password. Please double-check your credentials.")
+              });
+          });
+  }
     
     render() {
       return(
@@ -96,4 +129,8 @@ class LoginForm extends Component {
       )
     }
   }
+  // render() {
+  //   <form onSubmit={this.handleSubmit} />
+  // }
+
 export default LoginForm;

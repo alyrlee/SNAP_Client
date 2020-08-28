@@ -8,14 +8,15 @@ class LoginForm extends Component {
   static defaultProps = {
     onValidSignUp: () => {},
     onValidLogin: () => {},
-    emailAddress: "",
-    password : ""
+
 };
     constructor(props) {
       super(props)
       this.state = {
         newUser: true,
         right: 0,
+        emailAddress: "",
+        password : ""
       }
     }
   

@@ -7,7 +7,7 @@ const mapStyles = {
   top:0,
   width: '100%',
   height: '100%',
-  position: 'relative',
+  position: 'absolute',
   overflow: 'hidden'
 };
 export class MapContainer extends React.Component {

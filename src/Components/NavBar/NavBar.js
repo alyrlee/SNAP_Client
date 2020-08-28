@@ -50,7 +50,7 @@ render () {
 
             <ul className="navbar">
                 <li><Link to="/">Home</Link></li>
-                <li><Link to="/aboutus">About</Link></li>
+                <li><Link to="/about">About</Link></li>
                 <li><Link to="/find">Find SNAP retailer</Link></li>
                 {TokenService.hasAuthToken() ? <li><Link to='/account'>My Account</Link></li> : null}
                 <li>{TokenService.hasAuthToken()

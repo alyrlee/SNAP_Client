@@ -1,4 +1,5 @@
 import React from 'react';
+import NavBar from '../NavBar/NavBar';
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -25,10 +26,19 @@ export default class GooglePlaces extends React.Component {
  
   render() {
     return (
+      <NavBar />,
+      <>
       <PlacesAutocomplete
         value={this.state.address}
         onChange={this.handleChange}
         onSelect={this.handleSelect}
+        style={{
+          width: '100%',
+          height: '40px',
+          paddingLeft: '16px',
+          marginTop: '2px',
+          marginBottom: '500px'
+        }}
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>
@@ -66,6 +76,7 @@ export default class GooglePlaces extends React.Component {
       <div>
       <MapContainer/>
       </div>
+      </>
     )
  }
 }

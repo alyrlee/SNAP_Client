@@ -7,6 +7,7 @@ import './App.css';
 import NavBar from './Components/NavBar/NavBar'
 import LandingPage from './Components/LandingPage /LandingPage';
 import LoginForm from '../src/Components/LoginForm/LoginForm'
+import About from '../src/Components/About/About'
 import GooglePlaces from './Components/Google Map/GooglePlaces';
 
 class App extends Component {
@@ -49,6 +50,7 @@ class App extends Component {
     <Switch>
       <Route path='/NavBar' component={NavBar}/> 
      < Route exact path='/' component={LandingPage}/> 
+     < Route exact path='/about' component={About}/> 
       <Route path='/login' component={LoginForm}/>
       <Route path='/find' component={GooglePlaces}/>
   </Switch> 

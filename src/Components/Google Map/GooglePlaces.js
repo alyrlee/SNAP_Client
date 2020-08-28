@@ -3,7 +3,7 @@ import React from 'react';
 import { withGoogleMap, GoogleMap, withScriptjs, InfoWindow, Marker } from "react-google-maps";
 import Geocode from "react-geocode";
 import Autocomplete from 'react-google-autocomplete';
-import { Descriptions } from 'antd';
+// import { Descriptions } from 'antd';
 import NavBar from '../NavBar/NavBar'
 
 
@@ -181,7 +181,6 @@ class LocationSearchModal extends React.Component {
         const AsyncMap = withScriptjs(
             withGoogleMap(
                 props => (
-                    // <NavBar>
                     <GoogleMap
                         defaultZoom={this.state.zoom}
                         defaultCenter={{ lat: this.state.mapPosition.lat, lng: this.state.mapPosition.lng }}>

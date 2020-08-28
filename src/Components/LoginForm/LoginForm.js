@@ -6,7 +6,10 @@ import './LoginForm.css';
 
 class LoginForm extends Component {
   static defaultProps = {
-    onValidLogin: () => {}
+    onValidSignUp: () => {},
+    onValidLogin: () => {},
+    emailAddress: "",
+    password : ""
 };
     constructor(props) {
       super(props)
@@ -44,7 +47,7 @@ class LoginForm extends Component {
               this.props.onValidLogin();
           })
           .then(() => {
-              window.location=`/your-garden`;
+              window.location=`/my-account`;
           })
           .catch(res => {
               this.setState({
@@ -77,6 +80,7 @@ class LoginForm extends Component {
                 </div>
                 <div className='formFooter'>
                   <button className='saveForm'> { this.state.newUser ? 'Submit' : 'Login'} </button>
+                  {/* handle submit to login or signup. Once either are completed page updates to main screen as user signed in */}
                 </div>
              </div>
       ) 
@@ -129,8 +133,5 @@ class LoginForm extends Component {
       )
     }
   }
-  // render() {
-  //   <form onSubmit={this.handleSubmit} />
-  // }
-
+ 
 export default LoginForm;

@@ -6,7 +6,6 @@ import Autocomplete from 'react-google-autocomplete';
 import { Descriptions } from 'antd';
 import NavBar from '../NavBar/NavBar'
 
-// const { MarkerWithLabel } = require("react-google-maps/lib/components/addons/MarkerWithLabel");
 
 
 Geocode.setApiKey("AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU");
@@ -182,11 +181,10 @@ class LocationSearchModal extends React.Component {
         const AsyncMap = withScriptjs(
             withGoogleMap(
                 props => (
-                    <NavBar />
+                    // <NavBar>
                     <GoogleMap
                         defaultZoom={this.state.zoom}
-                        defaultCenter={{ lat: this.state.mapPosition.lat, lng: this.state.mapPosition.lng }}
-                    >
+                        defaultCenter={{ lat: this.state.mapPosition.lat, lng: this.state.mapPosition.lng }}>
                         {/* InfoWindow on top of marker */}
 
                         {/*Marker*/}
@@ -206,17 +204,6 @@ class LocationSearchModal extends React.Component {
                             </div>
                         </InfoWindow>
                         <Marker />
-
-                        {/* <MarkerWithLabel
-                            position={{ lat: -34.397, lng: 150.644 }}
-                            labelAnchor={new google.maps.Point(0, 0)}
-                            labelStyle={{ backgroundColor: "yellow", fontSize: "32px", padding: "16px" }}
-                        >
-                            <div>Hello There!</div>
-                        </MarkerWithLabel> */}
-
-
-                        {/* For Auto complete Search Box */}
                         <Autocomplete
                             style={{
                                 width: '100%',
@@ -235,13 +222,13 @@ class LocationSearchModal extends React.Component {
 
         return (
             <div style={{ padding: '1rem', margin: '0 auto', maxWidth: 1000 }}>
-                <h1>Google Map Basic</h1>
-                <Descriptions bordered>
+                <NavBar />
+                {/* <Descriptions bordered>
                     <Descriptions.Item label="City">{this.state.city}</Descriptions.Item>
                     <Descriptions.Item label="Area">{this.state.area}</Descriptions.Item>
                     <Descriptions.Item label="State">{this.state.state}</Descriptions.Item>
                     <Descriptions.Item label="Address">{this.state.address}</Descriptions.Item>
-                </Descriptions>
+                </Descriptions> */}
 
                 <AsyncMap
                     googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU&libraries=places"

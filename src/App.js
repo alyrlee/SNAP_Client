@@ -1,34 +1,32 @@
-import React from 'react';
-// import React, { Component } from 'react';
-// import { Switch, Link, Route } from 'react-router';
+
+import React, { Component } from 'react';
+import { Switch, Link, Route } from 'react-router';
 import './App.css';
-var cors = require('cors')
-// import LandingPage from './Components/LandingPage /LandingPage';
-// import LoginForm from '../src/Components/LoginForm/LoginForm'
-import GoogleMap from '../src/Components/Google Map/GoogleMap'
-import SearchBox from '../src/Components/Search/Search'
+import NavBar from './Components/NavBar/NavBar'
+import LandingPage from './Components/LandingPage /LandingPage';
+import LoginForm from '../src/Components/LoginForm/LoginForm'
+import GooglePlaces from './Components/Google Map/GooglePlaces';
+// var cors = require('cors');
 
-app.use(cors())
 
-function App() {
-  const location = {
-    address: '1600 Amphitheatre Parkway, Mountain View, california.',
-    lat: 37.42216,
-    lng: -122.08427,
-  }
+class App extends Component {
+  render() {
   return (
     <main className="App">
     {/* <LandingPage />
-    <LoginForm /> */}
-    <SearchBox />
-    <GoogleMap location={location} zoomLevel={8} />
-      {/* <Switch>
-      {/* <Route exact path='/' component={LandingPage}/> */}
-      {/* <Route path='/login' component={LoginForm}/> */}
-      {/* <Route path='/NavBar' component={NavBar}/> */}
-    {/* </Switch> */} 
+    <LoginForm />
+    <GooglePlaces />
+    <MapContainer />  */}
+    <Switch>
+    <Route path='/NavBar' component={NavBar}/> 
+     <Route exact path='/' component={LandingPage}/> 
+      <Route path='/login' component={LoginForm}/>
+      <Route path='/find' component={GooglePlaces}/>
+      
+  </Switch> 
     </main>
   );
+}
 }
 
 export default App;

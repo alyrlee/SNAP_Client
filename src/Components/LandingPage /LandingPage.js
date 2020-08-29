@@ -33,7 +33,7 @@ export default class LandingPage extends Component {
                 <div className="Cover">
                 <h2>SNAP Locator</h2>
                 <p>Connect with SNAP retailers and locations in your area</p>
-                <button onClick={() => this.switchPage('Login')}>Get started</button>
+                <button onClick={() => this.switchPage('find')}>Get started</button>
                 {/* Users/ashley/Desktop/Thinkful2/snap-locator-client/src/Components/LoginForm/LoginForm.js */}
                     </div>
                 </section>

@@ -1,11 +1,10 @@
-
 import React from 'react';
 import { withGoogleMap, GoogleMap, withScriptjs, InfoWindow, Marker } from "react-google-maps";
 import Geocode from "react-geocode";
 import Autocomplete from 'react-google-autocomplete';
 // import { Descriptions } from 'antd';
-import NavBar from '../NavBar/NavBar'
 
+const { MarkerWithLabel } = require("react-google-maps/lib/components/addons/MarkerWithLabel");
 
 
 Geocode.setApiKey("AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU");
@@ -72,6 +71,21 @@ class LocationSearchModal extends React.Component {
             console.error("Geolocation is not supported by this browser!");
         }
     };
+
+    // shouldComponentUpdate(nextProps, nextState, nextContext) {
+    //     if (
+    //         this.state.markerPosition.lat !== this.state.center.lat ||
+    //         this.state.address !== nextState.address ||
+    //         this.state.city !== nextState.city ||
+    //         this.state.area !== nextState.area ||
+    //         this.state.state !== nextState.state
+    //     ) {
+    //         return true
+    //     } else if (this.state.mapPosition.lat === nextState.mapPosition.lat) {
+    //         return false
+    //     }
+    // }
+
     getCity = (addressArray) => {
         let city = '';
         for (let i = 0; i < addressArray.length; i++) {
@@ -176,6 +190,17 @@ class LocationSearchModal extends React.Component {
         })
     };
 
+    // const AsyncMap = compose(
+    //     withProps({
+    //         googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyALVjLwOIM1gf7EzdJJVmWLKdLP-yZGTcw&v=3.exp&libraries=geometry,drawing,places",
+    //         loadingElement: <div style={{ height: `100%` }} />,
+    //         containerElement: <div style={{ height: `400px` }} />,
+    //         mapElement: <div style={{ height: `100%` }} />,
+    //     }),
+    //     withScriptjs,
+    //     withGoogleMap
+    // )((props) =>
+    //     <GoogleMap
 
     render() {
         const AsyncMap = withScriptjs(
@@ -183,7 +208,8 @@ class LocationSearchModal extends React.Component {
                 props => (
                     <GoogleMap
                         defaultZoom={this.state.zoom}
-                        defaultCenter={{ lat: this.state.mapPosition.lat, lng: this.state.mapPosition.lng }}>
+                        defaultCenter={{ lat: this.state.mapPosition.lat, lng: this.state.mapPosition.lng }}
+                    >
                         {/* InfoWindow on top of marker */}
 
                         {/*Marker*/}
@@ -203,6 +229,17 @@ class LocationSearchModal extends React.Component {
                             </div>
                         </InfoWindow>
                         <Marker />
+
+                        {/* <MarkerWithLabel
+                            position={{ lat: -34.397, lng: 150.644 }}
+                            labelAnchor={new google.maps.Point(0, 0)}
+                            labelStyle={{ backgroundColor: "yellow", fontSize: "32px", padding: "16px" }}
+                        >
+                            <div>Hello There!</div>
+                        </MarkerWithLabel> */}
+
+
+                        {/* For Auto complete Search Box */}
                         <Autocomplete
                             style={{
                                 width: '100%',
@@ -221,7 +258,7 @@ class LocationSearchModal extends React.Component {
 
         return (
             <div style={{ padding: '1rem', margin: '0 auto', maxWidth: 1000 }}>
-                <NavBar />
+                <h1>Find a SNAP retailer or grocer in your area</h1>
                 {/* <Descriptions bordered>
                     <Descriptions.Item label="City">{this.state.city}</Descriptions.Item>
                     <Descriptions.Item label="Area">{this.state.area}</Descriptions.Item>

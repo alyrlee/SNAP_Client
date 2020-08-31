@@ -4,17 +4,29 @@ import config from '../src/config';
 import TokenService from '../src/Components/Services/token-service'
 import { Switch, Route } from 'react-router';
 import './App.css';
-import NavBar from './Components/NavBar/NavBar'
+import NavBar from './Components/NavBar/NavBar';
 import LandingPage from './Components/LandingPage /LandingPage';
-import LoginForm from '../src/Components/LoginForm/LoginForm'
-import About from '../src/Components/About/About'
-import GooglePlaces from './Components/Google Map/GooglePlaces';
+import LoginForm from '../src/Components/LoginForm/LoginForm';
+import About from '../src/Components/About/About';
+import MapLanding from './Components/GoogleMap/MapLanding'
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { address: '', location: '' };
+  }
   state  = {
     stores: []
   };
 
+  handleChange = address => {
+    this.setState({ address });
+  };
+
+  handleChange = location => {
+    this.setState({ location })
+  }; 
+   
   componentDidMount() {
     if (!TokenService.getAuthToken()){
    return;
@@ -41,10 +53,6 @@ class App extends Component {
 }
 
   render() {
-  //error handler
-  //store context
-
-
   return (
     <main className="App">
     <Switch>
@@ -52,7 +60,7 @@ class App extends Component {
      < Route exact path='/' component={LandingPage}/> 
      < Route exact path='/about' component={About}/> 
       <Route path='/login' component={LoginForm}/>
-      <Route path='/find' component={GooglePlaces}/>
+      <Route path='/find' component={MapLanding}/>
   </Switch> 
 </main>
   );

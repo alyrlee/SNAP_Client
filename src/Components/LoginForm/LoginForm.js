@@ -1,138 +1,163 @@
-import React, { Component } from 'react';
-import TokenService from '../Services/token-service';
-import AuthApiService from '../Services/auth-api-service';
-import { Link } from 'react-router-dom';
-import './LoginForm.css';
+import React, { Component } from "react";
+import "./LoginForm.css";
+
+const emailRegex = RegExp(
+  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+);
+
+const formValid = ({ formErrors, ...rest }) => {
+  let valid = true;
+
+  // validate form errors being empty
+  Object.values(formErrors).forEach(val => {
+    val.length > 0 && (valid = false);
+  });
+
+  // validate the form was filled out
+  Object.values(rest).forEach(val => {
+    val === null && (valid = false);
+  });
+
+  return valid;
+};
 
 class LoginForm extends Component {
-  static defaultProps = {
-    onValidSignUp: () => {},
-    onValidLogin: () => {},
+  constructor(props) {
+    super(props);
 
-};
-    constructor(props) {
-      super(props)
-      this.state = {
-        newUser: true,
-        right: 0,
-        emailAddress: "",
-        password : ""
+    this.state = {
+      firstName: null,
+      lastName: null,
+      email: null,
+      password: null,
+      formErrors: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: ""
       }
-    }
-  
-    handleClick(button) {
-      if(this.state.newUser && button != 'signUp') {
-        this.setState({newUser: false})
-      } else if(!this.state.newUser && button != 'signIn') {
-        this.setState({newUser: true})
-      }
-    }
-    
-    // handle login authentication and validation on submit. //
-    handleJwtLoginAuth = e => {
-      e.preventDefault();
-      const {return_user, return_pass} = e.target;
+    };
+  }
 
-      this.setState({
-          error: null
-      });
+  handleSubmit = e => {
+    e.preventDefault();
 
-      AuthApiService.postLogin({
-          user_name: return_user.value,
-          password: return_pass.value 
-      })
-          .then(res => {
-              return_user.value = '';
-              return_pass.value = '';
-              TokenService.saveAuthToken(res.authToken);
-              this.props.onValidLogin();
-          })
-          .then(() => {
-              window.location=`/my-account`;
-          })
-          .catch(res => {
-              this.setState({
-                  error: alert("Invalid username or password. Please double-check your credentials.")
-              });
-          });
-  }
-    
-    render() {
-      return(
-             <div className='formContainer'>
-                <div className='formHeader'>
-                    <div 
-                      className={ this.state.newUser ? 'headerActive' : 'headerInActive' } 
-                      onClick={() => this.handleClick('signUp')}
-                      >
-                      <button className='headerButton'> Sign Up </button>
-                    </div>
-                    <div 
-                      className={ this.state.newUser ? 'headerInActive' : 'headerActive' } 
-                      onClick={() => this.handleClick('signIn')}
-                      >
-                      <button className='headerButton'> Sign In </button>
-                    </div>
-                </div>
-                <div className='formBody'>
-                  {
-                    this.state.newUser ? <SignUp />: <SignIn />
-                  }
-                </div>
-                <div className='formFooter'>
-                  <button className='saveForm'> { this.state.newUser ? 'Submit' : 'Login'} </button>
-                  {/* handle submit to login or signup. Once either are completed page updates to main screen as user signed in */}
-                </div>
-             </div>
-      ) 
-  
+    if (formValid(this.state)) {
+      console.log(`
+        --SUBMITTING--
+        First Name: ${this.state.firstName}
+        Last Name: ${this.state.lastName}
+        Email: ${this.state.email}
+        Password: ${this.state.password}
+      `);
+    } else {
+      console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
     }
-  }
-  
-  
-  class SignUp extends Component {
-    render() {
-      return(      
-        <div className='signUpContainer'>
-          <h4 className='headerText'>Join Us Today</h4>
-          <div className='inputSectionSplit'>
-            <input type='text' className='firstName' required/>
-            <label className='inputLabel'>First Name</label>
-          </div>
-          <div className='inputSectionSplit'>
-            <input type='text' className='lastName' required/>
-            <label className='inputLabel'>Last Name</label>
-          </div>
-          <div className='inputSection'>
-            <input type='text' className='emailAddress' required/>
-            <label className='inputLabel'>Email Address</label>
-          </div>
-          <div className='inputSection'>
-            <input type='password' className='password' required/>
-            <label className='inputLabel'>Password</label>
-          </div>
+  };
+
+  handleChange = e => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    let formErrors = { ...this.state.formErrors };
+
+    switch (name) {
+      case "firstName":
+        formErrors.firstName =
+          value.length < 3 ? "minimum 3 characaters required" : "";
+        break;
+      case "lastName":
+        formErrors.lastName =
+          value.length < 3 ? "minimum 3 characaters required" : "";
+        break;
+      case "email":
+        formErrors.email = emailRegex.test(value)
+          ? ""
+          : "invalid email address";
+        break;
+      case "password":
+        formErrors.password =
+          value.length < 6 ? "minimum 6 characaters required" : "";
+        break;
+      default:
+        break;
+    }
+
+    this.setState({ formErrors, [name]: value }, () => console.log(this.state));
+  };
+
+  render() {
+    const { formErrors } = this.state;
+
+    return (
+      <div className="wrapper">
+        <div className="form-wrapper">
+          <h1>Create Account</h1>
+          <form onSubmit={this.handleSubmit} noValidate>
+            <div className="firstName">
+              <label htmlFor="firstName">First Name</label>
+              <input
+                className={formErrors.firstName.length > 0 ? "error" : null}
+                placeholder="First Name"
+                type="text"
+                name="firstName"
+                noValidate
+                onChange={this.handleChange}
+              />
+              {formErrors.firstName.length > 0 && (
+                <span className="errorMessage">{formErrors.firstName}</span>
+              )}
+            </div>
+            <div className="lastName">
+              <label htmlFor="lastName">Last Name</label>
+              <input
+                className={formErrors.lastName.length > 0 ? "error" : null}
+                placeholder="Last Name"
+                type="text"
+                name="lastName"
+                noValidate
+                onChange={this.handleChange}
+              />
+              {formErrors.lastName.length > 0 && (
+                <span className="errorMessage">{formErrors.lastName}</span>
+              )}
+            </div>
+            <div className="email">
+              <label htmlFor="email">Email</label>
+              <input
+                className={formErrors.email.length > 0 ? "error" : null}
+                placeholder="Email"
+                type="email"
+                name="email"
+                noValidate
+                onChange={this.handleChange}
+              />
+              {formErrors.email.length > 0 && (
+                <span className="errorMessage">{formErrors.email}</span>
+              )}
+            </div>
+            <div className="password">
+              <label htmlFor="password">Password</label>
+              <input
+                className={formErrors.password.length > 0 ? "error" : null}
+                placeholder="Password"
+                type="password"
+                name="password"
+                noValidate
+                onChange={this.handleChange}
+              />
+              {formErrors.password.length > 0 && (
+                <span className="errorMessage">{formErrors.password}</span>
+              )}
+            </div>
+            <div className="createAccount">
+              <button type="submit">Submit</button>
+              <small>Already Have an Account?</small>
+            </div>
+          </form>
         </div>
-      )
-    }
+      </div>
+    );
   }
-  
-  class SignIn extends Component {
-    render() {
-      return(
-        <div className='signInContainer'>
-          <h4 className='headerText'>Welcome Back</h4>
-          <div className='inputSection'>
-            <input type='text' className='userName' required/>
-            <label className='inputLabel'>User Name</label>
-          </div>
-          <div className='inputSection'>
-            <input type='text' className='password' required/>
-            <label className='inputLabel'>Password</label>
-          </div>
-          
-        </div>
-      )
-    }
-  }
- 
+}
+
 export default LoginForm;

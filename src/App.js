@@ -33,7 +33,7 @@ class App extends Component {
  } 
 
  fetch(`${config.API_ENDPOINT}/stores`,{
-   headers: {
+   headers: { 
      'authorization': `bearer ${TokenService.getAuthToken()}`
    }
  })
@@ -57,8 +57,9 @@ class App extends Component {
     <main className="App">
     <Switch>
       <Route path='/NavBar' component={NavBar}/> 
-     < Route exact path='/' component={LandingPage}/> 
-     < Route exact path='/about' component={About}/> 
+     < Route exact path='/' component={LoginForm}/> 
+     <Route exact path= '/home' component={LandingPage}/>
+     <Route exact path='/about' component={About}/> 
       <Route path='/login' component={LoginForm}/>
       <Route path='/find' component={MapLanding}/>
   </Switch> 

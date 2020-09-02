@@ -1,8 +1,7 @@
 import React from 'react';
 import NavBar from '../NavBar/NavBar';
-import LocationSearchModal from './GooglePlaces';
-// import MapContainer from './GoogleMaps'
-// import MapWithASearchBox from './GoogleMaps';
+import Map from './GoogleMaps'
+
 
 const MapLanding = () => (
   <div className="page-wrapper">
@@ -11,8 +10,7 @@ const MapLanding = () => (
       <hr />
     </div>
     <div className="container">
-    <LocationSearchModal />  
-       {/* <MapContainer /> */}
+       <Map /> 
     </div>
   </div>
 );

@@ -65,6 +65,13 @@ input::placeholder {
   color: red;;
 }
 
+.userName,
+.email,
+.password,
+input::placeholder {
+text-align: center;
+}
+
 input.error {
   border: 1px solid blue;
 }
@@ -83,10 +90,20 @@ input.error {
   margin-left: 1%;
 }
 
+.userName {
+  margin-left: 1%;
+}
+
+.retype-password
+{
+  margin-left: 1%;
+}
 .firstName,
 .lastName,
+.userName,
 .email,
-.password {
+.password,
+.retype-password {
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
@@ -97,9 +114,12 @@ input.error {
   width: 49%;
 }
 
+.userName,
 .email,
-.password {
+.password,
+.retype-password {
   width: 100%;
+  text-align: center;
 }
 
 .createAccount {

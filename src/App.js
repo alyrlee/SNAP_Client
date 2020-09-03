@@ -6,7 +6,8 @@ import { Switch, Route } from 'react-router';
 import './App.css';
 import NavBar from './Components/NavBar/NavBar';
 import LandingPage from './Components/LandingPage /LandingPage';
-import LoginForm from '../src/Components/LoginForm/LoginForm';
+import RegistrationForm from './Components/RegistrationForm/RegistrationForm';
+import LoginForm from './Components/LoginForm/Loginform'
 import About from '../src/Components/About/About';
 import MapLanding from './Components/GoogleMap/MapLanding'
 
@@ -57,7 +58,7 @@ class App extends Component {
     <main className="App">
     <Switch>
       <Route path='/NavBar' component={NavBar}/> 
-     < Route exact path='/' component={LoginForm}/> 
+     < Route exact path='/' component={RegistrationForm}/> 
      <Route exact path= '/home' component={LandingPage}/>
      <Route exact path='/about' component={About}/> 
       <Route path='/login' component={LoginForm}/>
@@ -65,7 +66,7 @@ class App extends Component {
   </Switch> 
 </main>
   );
-}
+ }
 }
 
 export default App;

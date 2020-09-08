@@ -11,7 +11,6 @@ export default class LoginForm extends Component {
     };
     constructor(props) {
         super(props);
-        this.state = {error: null};
     };
 
     handleJwtLoginAuth = e => {
@@ -33,7 +32,7 @@ export default class LoginForm extends Component {
                 this.props.onValidLogin();
             })
             .then(() => {
-                window.location=`/your-garden`;
+                window.location=`/profile`;
             })
             .catch(res => {
                 this.setState({
@@ -76,6 +75,10 @@ export default class LoginForm extends Component {
                  <button>Demo User: DemoUser2020</button>
                 <button>Demo Password: DemoUserSnap1234!</button>
                      </div>
+                     <Link to='/'>
+                        <small>Back to Create Account</small>
+                        </Link>
+
           </form>
         </div>
       </div>

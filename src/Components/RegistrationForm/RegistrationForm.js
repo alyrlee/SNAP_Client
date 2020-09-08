@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import ErrorValidation from '../../ErrorHandlers/ErrorValidation'
 import AuthApiService from '../Services/auth-api-service';
@@ -14,10 +14,7 @@ export default class RegistrationForm extends Component {
     super(props);
 
     this.state = {
-      firstName: '',
-      lastName: '',
       username: '',
-      // email: '',
       password: '',
       validUserName: false,
       validPass: false,
@@ -27,15 +24,11 @@ export default class RegistrationForm extends Component {
     };
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
-  }
-
 validateRegistrationForm() {
   const { validUserName, validPass, validConfirm } = this.state;
 
   this.setState({
-    validRegistration: validUserName, validPass ,validConfirm
+    validRegistration: validUserName && validPass && validConfirm
   });
 }
 
@@ -149,7 +142,7 @@ submitRegistration = e => {
       .then(user => {
           username.value = '';
           password.value = '';
-          this.props.onValidRegistration();
+          this.props.onFormValid();
       })
       .then(() => {
           window.location=`/login`;
@@ -218,7 +211,6 @@ submitRegistration = e => {
               <Link to="/login">
               <small>Already Have an Account?</small>
                 </Link>
-              {/* sign in page */}
             </div>
           </form>
         </div>

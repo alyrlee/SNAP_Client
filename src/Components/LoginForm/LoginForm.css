@@ -137,3 +137,10 @@ input.error {
   background-color: #fff;
   border: 2px solid #9e519e;
 }
+
+small {
+  margin-top: 1em;
+  color: #999;
+  font-weight: lighter;
+  padding-left: 75px;
+}

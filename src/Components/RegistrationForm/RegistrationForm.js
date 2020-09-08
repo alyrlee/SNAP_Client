@@ -4,30 +4,11 @@ import ErrorValidation from '../../ErrorHandlers/ErrorValidation'
 import AuthApiService from '../Services/auth-api-service';
 import "./RegistrationForm.css";
 
-const emailRegex = RegExp(
-  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-);
-
-const formValid = ({ formErrors, ...rest }) => {
-  let valid = true;
-
-  // validate form errors being empty
-  Object.values(formErrors).forEach(val => {
-    val.length > 0 && (valid = false);
-  });
-
-  // validate the form was filled out
-  Object.values(rest).forEach(val => {
-    val === null && (valid = false);
-  });
-
-  return valid;
-};
 
 export default class RegistrationForm extends Component {
-  //static default props = {
-  //   onFormValid: () => {}
-  // };
+  static defaultProps = {
+    onFormValid: () => {}
+  };
 
   constructor(props) {
     super(props);
@@ -36,7 +17,7 @@ export default class RegistrationForm extends Component {
       firstName: '',
       lastName: '',
       username: '',
-      email: '',
+      // email: '',
       password: '',
       validUserName: false,
       validPass: false,
@@ -44,30 +25,17 @@ export default class RegistrationForm extends Component {
       validRegistration: false,
       errorType: {}
     };
-  }
+  };
 
   handleSubmit = e => {
     e.preventDefault();
+  }
 
-    if (formValid(this.state)) {
-      console.log(`
-        --SUBMITTING--
-        First Name: ${this.state.firstName}
-        Last Name: ${this.state.lastName}
-        User Name: ${this.state.username}
-        Email: ${this.state.email}
-        Password: ${this.state.password}
-      `);
-    } else {
-      console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
-    }
-  };
-
-validateLoginForm() {
-  const { username, password, validConfirm } = this.state;
+validateRegistrationForm() {
+  const { validUserName, validPass, validConfirm } = this.state;
 
   this.setState({
-    validRegistration: {username, password, validConfirm}
+    validRegistration: validUserName, validPass ,validConfirm
   });
 }
 
@@ -96,13 +64,13 @@ confirmPassword(retypePass) {
 }
 
 validateUsername() {
-  const {userName} = this.state;
+  const {username} = this.state;
   let validUserName = true;
   let errorType = {...this.state.errorType};
 
-  if (userName.length < 3) {
+  if (username.length < 3) {
       validUserName = false;
-      errorType.userName = "Please create a username that is longer than 3 characters.";
+      errorType.username = "Please create a username that is longer than 3 characters.";
   }
 
   this.setState({
@@ -199,26 +167,6 @@ submitRegistration = e => {
         <div className="form-wrapper">
           <h1>Create Account</h1>
           <form onSubmit={this.submitRegistration}>
-            <div className="firstName">
-              <label htmlFor="firstName">First Name</label>
-              <input
-                placeholder="First Name"
-                type="text"
-                id="firstName"
-                name="firstName"
-                value={this.state.firstName}
-              />
-            </div>
-            <div className="lastName">
-              <label htmlFor="lastName">Last Name</label>
-              <input
-                placeholder="Last Name"
-                type="text"
-                id="lastName"
-                name="lastName"
-                value={this.state.lastName}
-              />
-            </div>
             <div className="userName">
               <label htmlFor="username">Last Name</label>
               <input
@@ -233,16 +181,6 @@ submitRegistration = e => {
                 className="Username_Error"
                 valid={this.state.validName}
                 message={this.state.errorType.username}/>
-            </div>
-            <div className="email">
-              <label htmlFor="email">Email</label>
-              <input
-                placeholder="Email"
-                type="email"
-                id="email"
-                name="email"
-                value="email"
-              />
             </div>
             <div className="password">
               <label htmlFor="password">Password</label>
@@ -277,8 +215,9 @@ submitRegistration = e => {
             </div>                                     
             <div className="createAccount">
               <button type="submit" id="register-user"> Submit</button>
+              <Link to="/login">
               <small>Already Have an Account?</small>
-              <Link to='/Signin'></Link>
+                </Link>
               {/* sign in page */}
             </div>
           </form>

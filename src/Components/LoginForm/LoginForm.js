@@ -34,7 +34,6 @@ export default class LoginForm extends Component {
          }
 
     render() {
-        const { error } = this.state
         return (
         <div className="wrapper">
         <div className="form-wrapper">
@@ -66,7 +65,7 @@ export default class LoginForm extends Component {
         <div className="demoLogin">
                 <button type="submit" id="submit-login">Login</button>
                  Demo User: DemoUser2020
-                Demo Password: DemoUserSnap1234!
+                 Demo Password: DemoUserSnap1234!
                      </div>
                      <Link to='/'>
                         <small>Back to Create Account</small>

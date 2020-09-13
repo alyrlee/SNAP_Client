@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
+import { Link, } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 // import NavBar from '../NavBar/NavBar';
 import TokenService from '../Services/token-service';
 import AuthApiService from '../Services/auth-api-service';
@@ -9,31 +10,48 @@ export default class LoginForm extends Component {
     static defaultProps = {
         onValidLogin: () => {}
     };
-    constructor(props) {
-        super(props);
-    };
-
     handleJwtLoginAuth = ev => {
-           ev.preventDefault()
-           this.setState({ error: null })
-           const { user_name, password } = ev.target
-        
-           AuthApiService.postLogin({
-             user_name: user_name.value,
-             password: password.value,
-           })
-             .then(res => {
-               user_name.value = ''
-               password.value = ''
-               TokenService.saveAuthToken(res.authToken)
-               this.props.onLoginSuccess()
-             })
-             .catch(res => {
-               this.setState({ error: res.error })
-             })
-         }
+        ev.preventDefault()
+        this.setState({ error: null })
+        const { user_name, password } = ev.target
+     
+        AuthApiService.postLogin({
+          user_name: user_name.value,
+          password: password.value,
+        })
+          .then(res => {
+            user_name.value = ''
+            password.value = ''
+            TokenService.saveAuthToken(res.authToken)
+            this.props.onLoginSuccess()
+          })
+          .catch(res => {
+            this.setState({ error: res.error })
+          })
+      }
 
+    state = {
+        redirect: false,
+        where: ''
+    }
+    switchPage = ( link ) => {
+        if (link === 'Home' && TokenService.hasAuthToken()){
+            link = 'LandingPage'
+        }
+        this.setState({
+            redirect: (!this.state.redirect),
+            where: link
+        })
+        return;
+    }
     render() {
+          const { redirect, where } = this.state;
+
+        if (redirect) {
+         return <Redirect to={`/${where}`}/>
+        }
+
+    // render() {
         return (
         <div className="wrapper">
         <div className="form-wrapper">
@@ -63,7 +81,7 @@ export default class LoginForm extends Component {
                     </div>
                     
         <div className="demoLogin">
-                <button type="submit" id="submit-login">Login</button>
+        <button type="submit" id="submit-login" onClick={() => this.switchPage('home')}>Login</button>
                  Demo User: DemoUser2020
                  Demo Password: DemoUserSnap1234!
                      </div>

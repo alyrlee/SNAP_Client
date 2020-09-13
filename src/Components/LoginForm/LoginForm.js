@@ -13,35 +13,28 @@ export default class LoginForm extends Component {
         super(props);
     };
 
-    handleJwtLoginAuth = e => {
-        e.preventDefault();
-        const {return_user, return_pass} = e.target;
-
-        this.setState({
-            error: null
-        });
-
-        AuthApiService.postLogin({
-            user_name: return_user.value,
-            password: return_pass.value 
-        })
-            .then(res => {
-                return_user.value = '';
-                return_pass.value = '';
-                TokenService.saveAuthToken(res.authToken);
-                this.props.onValidLogin();
-            })
-            .then(() => {
-                window.location=`/profile`;
-            })
-            .catch(res => {
-                this.setState({
-                    error: alert("Invalid username or password. Please double-check your credentials.")
-                });
-            });
-    }
+    handleJwtLoginAuth = ev => {
+           ev.preventDefault()
+           this.setState({ error: null })
+           const { user_name, password } = ev.target
+        
+           AuthApiService.postLogin({
+             user_name: user_name.value,
+             password: password.value,
+           })
+             .then(res => {
+               user_name.value = ''
+               password.value = ''
+               TokenService.saveAuthToken(res.authToken)
+               this.props.onLoginSuccess()
+             })
+             .catch(res => {
+               this.setState({ error: res.error })
+             })
+         }
 
     render() {
+        const { error } = this.state
         return (
         <div className="wrapper">
         <div className="form-wrapper">
@@ -72,8 +65,8 @@ export default class LoginForm extends Component {
                     
         <div className="demoLogin">
                 <button type="submit" id="submit-login">Login</button>
-                 <button>Demo User: DemoUser2020</button>
-                <button>Demo Password: DemoUserSnap1234!</button>
+                 Demo User: DemoUser2020
+                Demo Password: DemoUserSnap1234!
                      </div>
                      <Link to='/'>
                         <small>Back to Create Account</small>

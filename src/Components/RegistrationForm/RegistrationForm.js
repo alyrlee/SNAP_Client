@@ -24,6 +24,15 @@ export default class RegistrationForm extends Component {
     };
   };
 
+  handleSubmit = ev => {
+    ev.preventDefault()
+    const { user_name, password } = ev.target
+
+    console.log('registration form submitted')
+    console.log({user_name, password })
+  };
+    
+
 validateRegistrationForm() {
   const { validUserName, validPass, validConfirm } = this.state;
 

@@ -14,8 +14,10 @@ export default class RegistrationForm extends Component {
     super(props);
 
     this.state = {
+      fullname: '',
       username: '',
       password: '',
+      validateFullname: false,
       validUserName: false,
       validPass: false,
       validConfirm: false,
@@ -26,10 +28,10 @@ export default class RegistrationForm extends Component {
 
   handleSubmit = ev => {
     ev.preventDefault()
-    const { user_name, password } = ev.target
+    const { fullname, user_name, password } = ev.target
 
     console.log('registration form submitted')
-    console.log({user_name, password })
+    console.log({fullname, user_name, password })
   };
     
 
@@ -39,6 +41,14 @@ validateRegistrationForm() {
   this.setState({
     validRegistration: validUserName && validPass && validConfirm
   });
+}
+
+updateFullname(fullname) {
+  this.setState({
+      fullname: fullname,
+  },
+      this.validateFullname
+  );
 }
 
 updateUsername(username) {
@@ -138,17 +148,19 @@ validateConfirmedPassword() {
 
 submitRegistration = e => {
   e.preventDefault();
-  const {username, password} = e.target; 
+  const {fullname, username, password} = e.target; 
 
   this.setState({
       error: null
   });
 
   AuthApiService.postUser({
+      fullname: fullname.value,
       user_name: username.value,
       password: password.value
   })
       .then(user => {
+          fullname.value = '';
           username.value = '';
           password.value = '';
           this.props.onFormValid();
@@ -169,8 +181,18 @@ submitRegistration = e => {
         <div className="form-wrapper">
           <h1>Create Account</h1>
           <form onSubmit={this.submitRegistration}>
+             <div className="fullName">
+              <label htmlFor="fullName">Full Name</label>
+              <input
+                onChange={e => this.updateFullname(e.target.value)}
+                placeholder="Full Name"
+                type="text"
+                id="fullname"
+                name="fullname"
+                value={this.fullname}
+              />
             <div className="userName">
-              <label htmlFor="username">Last Name</label>
+              <label htmlFor="username">User Name</label>
               <input
                 onChange={e => this.updateUsername(e.target.value)}
                 placeholder="User Name"
@@ -220,6 +242,7 @@ submitRegistration = e => {
               <Link to="/login">
               <small>Already Have an Account?</small>
                 </Link>
+            </div>
             </div>
           </form>
         </div>

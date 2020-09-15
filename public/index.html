@@ -16,15 +16,15 @@
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <script>
-     fetch('https://maps.googleapis.com/maps/api/js?key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU&libraries=places'), {
+     fetch('https://maps.googleapis.com/maps/api/js?key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU&libraries=places'),  {
         mode: 'cors',
         credentials: 'include',
         Cookie: Version=1,
-        Origin: 'http://localhost:3000/find',
-        // Credentials: 'same-origin',
+        Origin: 'localhost:3000',
+        Credentials: 'same-origin',
         Method: 'GET',
         headers: {
-        'Content-Type': 'application/json','text/javascript',
+        'Content-Type': 'application/json',
         'Access-Control-Allow-Origin':"https://maps.googleapis.com/maps/api/js?key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU&libraries=places",
         'Access-Control-Allow-Headers': "Origin, X-Requested-With, Content-Type, Accept"
       // 'Content-Type': 'application/x-www-form-urlencoded',
@@ -58,7 +58,7 @@
     <script type="text/javascript"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
-    <script crossorigin src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU&libraries=places"></script>
+    <!-- <script crossorigin src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU&libraries=places"></script> -->
    
    
   </body>

@@ -16,8 +16,8 @@ class Map extends Component{
 			area: '',
 			state: '',
 			mapPosition: {
-				lat: this.props.center.lat,
-				lng: this.props.center.lng
+				const lat: this.state.mapPosition.lat ,
+				const lng: this.state.mapPosition.lng
 			},
 			markerPosition: {
 				lat: this.props.center.lat,

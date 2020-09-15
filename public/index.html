@@ -15,7 +15,12 @@
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU&libraries=places"></script>
+    <script>
+      window.myCallbackFunc = function() {
+        window.initOne && window.initOne();
+        window.initTwo && window.initTwo();
+      }
+    // <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU&libraries=places&callback=myCallbackFunc">"></script>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -45,7 +50,7 @@
     <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpUcallback=initAutocomplete&libraries=places&v=weekly"></script> -->
 
     <!-- <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU&callback=initMap"></script>  -->
-    <!-- <script src="https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJN1t_tDeuEmsRUsoyG83frY4&fields=name,rating,formatted_phone_number&key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU"></script> -->
+    <script src="https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJN1t_tDeuEmsRUsoyG83frY4&fields=name,rating,formatted_phone_number&key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU"></script>
    
     <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU&libraries=places&callback=initAutocomplete" async defer></script> -->
    <!-- <script crossorigin src="https://maps.googleapis.com/maps/api/place/autocomplete/json?input=1600+Amphitheatre&key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU&sessiontoken=5cb43e57-6002-490c-9f0c-a20bbdf4a50b"></script> -->

@@ -1,6 +1,6 @@
 import React from 'react';
 import NavBar from '../NavBar/NavBar';
-import Map from './GoogleMaps'
+import Map from './GooglePlaces'
 
 
 const MapLanding = () => (
@@ -10,7 +10,7 @@ const MapLanding = () => (
       <hr />
     </div>
     <div className="container">
-       <Map /> 
+       <Map  /> 
     </div>
   </div>
 );

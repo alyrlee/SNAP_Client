@@ -20,10 +20,16 @@
         mode: 'cors',
         credentials: 'include',
         Cookie: Version=1,
-        Origin: 'localhost:8000',
-        Credentials: 'true',
-        Methods: GET, USE, POST, DELETE, HEAD, OPTIONS
-     }
+        Origin: 'http://localhost:3000/find',
+        // Credentials: 'same-origin',
+        Method: 'GET',
+        headers: {
+        'Content-Type': 'application/json','text/javascript',
+        'Access-Control-Allow-Origin':"https://maps.googleapis.com/maps/api/js?key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU&libraries=places",
+        'Access-Control-Allow-Headers': "Origin, X-Requested-With, Content-Type, Accept"
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    }}
+     
     // <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU&libraries=places&callback=myCallbackFunc">"></script>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.

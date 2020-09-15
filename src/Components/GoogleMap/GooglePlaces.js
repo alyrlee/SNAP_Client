@@ -5,8 +5,8 @@ import Autocomplete from 'react-google-autocomplete';
 // import { Descriptions } from 'antd';
 
 const { MarkerWithLabel } = require("react-google-maps/lib/components/addons/MarkerWithLabel");
-
-// Geocode.setApiKey(`${API_KEY}`);
+// const ApiKey = `${API_KEY}`;
+Geocode.setApiKey(`AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU`);
 Geocode.enableDebug();
 
 class LocationSearchModal extends React.Component {
@@ -69,21 +69,6 @@ class LocationSearchModal extends React.Component {
             console.error("Geolocation is not supported by this browser!");
         }
     };
-
-    // shouldComponentUpdate(nextProps, nextState, nextContext) {
-    //     if (
-    //         this.state.markerPosition.lat !== this.state.center.lat ||
-    //         this.state.address !== nextState.address ||
-    //         this.state.city !== nextState.city ||
-    //         this.state.area !== nextState.area ||
-    //         this.state.state !== nextState.state
-    //     ) {
-    //         return true
-    //     } else if (this.state.mapPosition.lat === nextState.mapPosition.lat) {
-    //         return false
-    //     }
-    // }
-
     getCity = (addressArray) => {
         let city = '';
         for (let i = 0; i < addressArray.length; i++) {

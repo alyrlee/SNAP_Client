@@ -1,7 +1,6 @@
 import React from 'react';
 import NavBar from '../NavBar/NavBar';
-import Map from './GooglePlaces'
-
+import SnapLocationList from '../SnapLocationStores/SnapLocationList';
 
 const MapLanding = () => (
   <div className="page-wrapper">
@@ -10,7 +9,7 @@ const MapLanding = () => (
       <hr />
     </div>
     <div className="container">
-       <Map  /> 
+       <SnapLocationList />
     </div>
   </div>
 );

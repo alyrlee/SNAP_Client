@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import config from '../src/config';
 import TokenService from '../src/Components/Services/token-service'

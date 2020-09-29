@@ -14,6 +14,7 @@ class SnapLocationsList extends Component {
       <React.Fragment>
         <div className="snaplocationslist">
           {this.props.snapLocationsList.map(SLL => { 
+            if (this.props.snapLocationList){this.props.snapLocationList.map(....)}
             return (
               <div key={SLL._ObjectId} className="placename">
                 <h1 to={`/snaplocations/${SLL._ObjectId}`}>

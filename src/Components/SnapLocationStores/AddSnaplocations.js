@@ -5,13 +5,13 @@ class AddSnapLocations extends Component {
     constructor(props) {
         super(props);
         state = {
-                name: "",
-                latitude: "",
-                longitude: "",
-                address: "",
-                city: "",
-                area: "",
-                state: "",
+                name: '',
+                latitude: '',
+                longitude: '',
+                address: '',
+                city: '',
+                area: '',
+                state: '',
         };
     }
 
@@ -32,13 +32,13 @@ class AddSnapLocations extends Component {
         )
         .then(() => {
             this.setState({
-                name: "",
-                latitude: "",
-                longitude: "",
-                address: "",
-                city: "",
-                area: "",
-                state: "",   
+                name: '',
+                latitude: '',
+                longitude: '',
+                address: '',
+                city: '',
+                area: '',
+                state: '',   
             });
             this.props.history.push("/");
         })
@@ -90,6 +90,17 @@ class AddSnapLocations extends Component {
               />
             </div>
             <div className="form-group">
+              <label for="state">State:</label>
+              <input
+                type="text"
+                className="form-control"
+                id="state"
+                name="state"
+                value={this.state.state}
+                onChange={e => this.handleChange(e)}
+              />
+            </div>
+            <div className="form-group">
               <h5>Coordinates:</h5>
               <label for="latitude">Latitude:</label>
               <input
@@ -112,6 +123,7 @@ class AddSnapLocations extends Component {
                 onChange={e => this.handleChange(e)}
               />
             </div>
+            
             <button type="submit" className="tn btn-primary">Submit</button>
                     </form>
                 </div>

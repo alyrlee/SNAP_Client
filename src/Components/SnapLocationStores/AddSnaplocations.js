@@ -4,7 +4,7 @@ import axios from "axios"
 class AddSnapLocations extends Component {
     constructor(props) {
         super(props);
-        state = {
+        this.state = {
                 name: '',
                 latitude: '',
                 longitude: '',
@@ -59,7 +59,7 @@ class AddSnapLocations extends Component {
                             type="text"
                             className="form-control"
                             name="name"
-                            Value={this.state.name}
+                            value={this.state.name}
                             id="name"
                             onChange={ e => this.handleChange(e)}
                             />
@@ -78,7 +78,7 @@ class AddSnapLocations extends Component {
                              <option> </option>
                             </select>
                             </div> */}
-<div className="form-group">
+        <div className="form-group">
               <label for="address">Address:</label>
               <input
                 type="text"

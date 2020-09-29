@@ -6,10 +6,9 @@ import './App.css';
 import NavBar from './Components/NavBar/NavBar';
 import LandingPage from './Components/LandingPage /LandingPage';
 import RegistrationForm from './Components/RegistrationForm/RegistrationForm';
-import LoginForm from './Components/LoginForm/Loginform'
+import LoginForm from './Components/LoginForm/LoginForm'
 import About from '../src/Components/About/About';
 import MapLanding from './Components/GoogleMap/MapLanding'
-import AddSnapLocations from './Components/SnapLocationStores/AddSnaplocations'
 
 class App extends Component {
   constructor(props) {

@@ -24,12 +24,12 @@ export class MapContainer extends Component {
         position={{ lat: 41.8781, lng: -87.6298 }}
         title ={"SNAP Map"}
         />
-        {this.props.snapLocationsList.map(snapLocations => {
+        {this.props.snapLocationsList.map(SLL=> {
             return (
              <Marker
-             key={snapLocations._id}
-             label={snapLocations.name}
-             position={{ lat: snapLocations.latitude, lng: snapLocations.longitude }}
+             key={SLL._ObjectId}
+             label={SLL.name}
+             position={{ lat: SLL.latitude, lng: SLL.longitude }}
              />
           );
         })}

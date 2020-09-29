@@ -6,7 +6,6 @@ class AddSnapLocations extends Component {
         super(props);
         state = {
                 name: "",
-                // type: "",
                 latitude: "",
                 longitude: "",
                 address: "",
@@ -19,7 +18,6 @@ class AddSnapLocations extends Component {
     handleFormSubmit = e => {
         e.preventDefault();
         const name = this.state.name;
-        // const type = this.state.type;
         const latitude = this.state.latitude;
         const longitude = this.state.longitude;
         const address = this.state.address;
@@ -28,14 +26,13 @@ class AddSnapLocations extends Component {
         const state = this.state.state;
         const headers = { Authorization: this.props.jwt };
         axios.post(
-            "http://localhost:8000/api/addsnap",
+            "http://localhost:8000/api/snaplocations",
             { name,latitude, longitude, address, city, area, state, headers },
             { headers: headers}
         )
         .then(() => {
             this.setState({
                 name: "",
-                // type: "",
                 latitude: "",
                 longitude: "",
                 address: "",

@@ -9,6 +9,7 @@ import RegistrationForm from './Components/RegistrationForm/RegistrationForm';
 import LoginForm from './Components/LoginForm/Loginform'
 import About from '../src/Components/About/About';
 import MapLanding from './Components/GoogleMap/MapLanding'
+import AddSnapLocations from './Components/SnapLocationStores/AddSnaplocations'
 
 class App extends Component {
   constructor(props) {
@@ -16,7 +17,13 @@ class App extends Component {
     this.state = { address: '', location: '' };
   }
   state  = {
-    stores: []
+    name: "",
+    latitude: "",
+    longitude: "",
+    address: "",
+    city: "",
+    area: "",
+    state: "",   
   };
 
   handleChange = address => {

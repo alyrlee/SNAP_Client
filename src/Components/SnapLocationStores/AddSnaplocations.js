@@ -26,7 +26,7 @@ class AddSnapLocations extends Component {
         const state = this.state.state;
         const headers = { Authorization: this.props.jwt };
         axios.post(
-            "http://localhost:8000/api/snaplocations",
+            "http://localhost:8000/api/stores",
             { name,latitude, longitude, address, city, area, state, headers },
             { headers: headers}
         )

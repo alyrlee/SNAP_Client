@@ -22,7 +22,7 @@ class MapLanding extends Component {
 
 getSnapLocations = () => {
     if (this.state.snapLocationList);
-  axios.get(`http://localhost:8000/api/stores?`)
+  axios.get(`http://localhost:8000/api/stores`)
    .then(responseFromApi => {
     this.setState({
       SnapLocationList: responseFromApi.data
@@ -38,7 +38,8 @@ render() {
       <hr />
     </div>
     <div className="container">
-       <SnapLocationsList />
+       <SnapLocationsList/>
+      {/* pass info via props */}
     </div>
   </div>
   );

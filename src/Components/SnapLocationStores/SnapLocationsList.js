@@ -4,7 +4,7 @@ import MapContainer from "../GoogleMap/GooglePlaces";
 class SnapLocationsList extends Component {
   constructor(props) {
        super(props);
-        this.state = {snapLocationLists: []}; 
+        this.state = {snapLocationsList: []}; 
      } 
  render() {
       console.log(typeof this.props.snapLocationsList);
@@ -12,8 +12,8 @@ class SnapLocationsList extends Component {
            <React.Fragment>
              <div className="snaplocationslist"> {
                 this.props.snapLocationsList.map(SLL => {
-                if (this.props.snapLocationList) {
-                  this.props.snapLocationList.map(SLL => {
+                if (this.props.snapLocationsList) {
+                  this.props.snapLocationsList.map(SLL => {
                     return (
                    <div key={SLL._ObjectId} className="placename"> 
                       <h1 to={`/snaplocations/${SLL._ObjectId}`}>

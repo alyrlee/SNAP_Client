@@ -11,7 +11,7 @@ class SnapLocationsList extends Component {
       return (
            <React.Fragment>
              <div className="snaplocationslist"> {
-                this.props.snapLocationsList.map(SLL => {
+                this.props.snapLocationsList.map(() => {
                 if (this.props.snapLocationsList) {
                   this.props.snapLocationsList.map(SLL => {
                     return (

@@ -2,16 +2,16 @@ import React, { Component } from "react";
 import MapContainer from "../GoogleMap/GooglePlaces";
 
 class SnapLocationsList extends Component {
-  constructor(props) {
-       super(props);
-        this.state = {snapLocationsList: []}; 
-     } 
+  static defaultProps = {
+      snapLocationsList: []
+}; 
  render() {
+    const { snapLocationsList } = this.props.snapLocationsList
       console.log(typeof this.props.snapLocationsList);
       return (
            <React.Fragment>
              <div className="snaplocationslist"> {
-                this.props.snapLocationsList.map(() => {
+                this.props.snapLocationsList.map((SLL) => {
                 if (this.props.snapLocationsList) {
                   this.props.snapLocationsList.map(SLL => {
                     return (

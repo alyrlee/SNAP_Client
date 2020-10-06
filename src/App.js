@@ -13,65 +13,68 @@ import MapLanding from './Components/GoogleMap/MapLanding'
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { address: '', location: '' };
+    this.state = {
+      // stores: ""
+      // store_name: "",
+      // latitude: "",
+      // longitude: "",
+      // address: "",
+      // city: "",
+      // area: "",
+      // state: "",   
+    };
   }
-  state  = {
-    name: "",
-    latitude: "",
-    longitude: "",
-    address: "",
-    city: "",
-    area: "",
-    state: "",   
-  };
 
-  handleChange = address => {
-    this.setState({ address });
-  };
+  // handleChange = address => {
+  //   this.setState({ address });
+  // };
 
-  handleChange = location => {
-    this.setState({ location })
-  }; 
+  // handleChange = location => {
+  //   this.setState({ location })
+  // }; 
    
   componentDidMount() {
-    if (!TokenService.getAuthToken()){
-   return;
- } 
+    // if (!TokenService.getAuthToken()){
+    //   return;
+    // } 
 
- fetch(`${config.API_ENDPOINT}/stores`,{
-   headers: { 
-     'authorization': `bearer ${TokenService.getAuthToken()}`
-   }
- })
- 
- .then(res => {
-  if (!res.ok) {
-    return res.json().then(e => Promise.reject(e));
+    //check endpoint if it should be users v. stores
+    if (!TokenService.hasAuthToken) {
+      fetch(`${config.API_ENDPOINT}/stores`,{
+        headers: { 
+          'authorization': `bearer ${TokenService.getAuthToken()}`
+        }
+      })
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(e => Promise.reject(e));
+        }
+        return res.json();
+      })
+      .then(stores => {
+        this.setState({stores});
+      })
+      .catch(error => {
+        console.error({error});
+      });
+    }
   }
-  return res.json();
-})
-.then(stores => {
-  this.setState({stores});
-})
-.catch(error => {
-  console.error({error});
-})
-}
+    
 
   render() {
-  return (
-    <main className="App">
-    <Switch>
-      <Route path='/NavBar' component={NavBar}/> 
-     < Route exact path='/' component={RegistrationForm}/> 
-     <Route exact path= '/home' component={LandingPage}/>
-     <Route exact path='/about' component={About}/> 
-      <Route path='/login' component={LoginForm}/>
-      <Route path='/find' component={MapLanding}/>
-  </Switch> 
-</main>
-  );
- }
+    return (
+      <main className="App">
+        <Switch>
+          <Route path='/NavBar' component={NavBar}/> 
+          <Route exact path='/' component={RegistrationForm}/> 
+          <Route exact path= '/home' component={LandingPage}/>
+          <Route exact path='/about' component={About}/> 
+          <Route path='/login' component={LoginForm}/>
+          <Route path='/find' component={MapLanding}/>
+        </Switch> 
+      </main>
+    );
+  }
 }
 
 export default App;

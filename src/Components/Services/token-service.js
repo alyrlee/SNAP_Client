@@ -12,6 +12,7 @@ const TokenService = {
         window.sessionStorage.removeItem(config.TOKEN_KEY);
     }, 
     hasAuthToken() {
+        // casting this into a boolean
         return !!TokenService.getAuthToken();
     },
     makeBasicAuthToken(userName, password) {

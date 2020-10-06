@@ -6,7 +6,8 @@ import SnapLocationsList from '../SnapLocationStores/SnapLocationsList';
 class MapLanding extends Component {
   constructor(props) {
     super(props);
-    this.state = {snapLocationLists: []};
+    this.state = 
+    { type: null, snapLocationLists: []};
   }
 
   onClick = event => {
@@ -19,15 +20,16 @@ class MapLanding extends Component {
   }
 );
   };
-
+//fix {}
 getSnapLocations = () => {
-    if (this.state.snapLocationList);
-  axios.get(`http://localhost:8000/api/stores`)
-   .then(responseFromApi => {
-    this.setState({
-      SnapLocationList: responseFromApi.data
+  if (this.state.snapLocationList) {
+    axios.get(`http://localhost:8000/api/stores`)
+    .then(responseFromApi => {
+      this.setState({
+        SnapLocationList: responseFromApi.data
+      });
     });
-  });
+  };
 }
 
 render() {
@@ -38,7 +40,7 @@ render() {
       <hr />
     </div>
     <div className="container">
-       <SnapLocationsList/>
+       <SnapLocationsList snapLocationsLists={this.state.snapLocationsList} />
       {/* pass info via props */}
     </div>
   </div>

@@ -2,12 +2,23 @@ import React, { Component } from 'react';
 import axios from "axios";
 import NavBar from '../NavBar/NavBar';
 import SnapLocationsList from '../SnapLocationStores/SnapLocationsList';
+import snap_locations from '../../dummy-store';
 
 class MapLanding extends Component {
   constructor(props) {
     super(props);
-    this.state = 
-    { type: null, snapLocationLists: []};
+    this.state = { 
+      type: null, 
+      snapLocationList: []
+    };
+  }
+
+  componentDidMount() {
+    //this will be called once, when the component is initialized
+    // uncomment this to test that the backend api is working 
+    this.getSnapLocations();
+
+    this.setState({snapLocationList: snap_locations});
   }
 
   onClick = event => {
@@ -16,36 +27,39 @@ class MapLanding extends Component {
         type: event.target.ObjectId
       },
       () => {
-    this.getSnapLocations();
-  }
-);
+        this.getSnapLocations();
+      }
+    );
   };
-//fix {}
-getSnapLocations = () => {
-  if (this.state.snapLocationList) {
-    axios.get(`http://localhost:8000/api/stores`)
-    .then(responseFromApi => {
-      this.setState({
-        SnapLocationList: responseFromApi.data
-      });
-    });
-  };
-}
 
-render() {
-   return (
-<div className="page-wrapper">
-    <div className="container">
-     <NavBar />
-      <hr />
-    </div>
-    <div className="container">
-       <SnapLocationsList snapLocationsLists={this.state.snapLocationsList} />
-      {/* pass info via props */}
-    </div>
-  </div>
-  );
- }
+  
+  getSnapLocations = () => {
+    // and empty array evaluates to truthy, not falsely! 
+    // https://brianflove.com/2014-09-02/whats-the-double-exclamation-mark-for-in-javascript/
+    // if (this.state.snapLocationList) {
+      axios.get(`http://localhost:8000/api/stores`)
+      .then(responseFromApi => {
+        this.setState({
+          SnapLocationList: responseFromApi.data
+        });
+      });
+    // };
+  }
+
+  render() {
+    return ( 
+      <div className="page-wrapper">
+        <div className="container">
+        <NavBar />
+          <hr />
+        </div>
+        <div className="container">
+          <SnapLocationsList snapLocationsList={this.state.snapLocationsList} />
+          {/* pass info via props */}
+        </div>
+      </div>
+    );
+  }
 }
 
 export default MapLanding;

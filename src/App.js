@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import config from '../src/config';
-import TokenService from '../src/Components/Services/token-service'
-import { Switch, Route } from 'react-router';
 import './App.css';
 import NavBar from './Components/NavBar/NavBar';
 import LandingPage from './Components/LandingPage /LandingPage';
 import RegistrationForm from './Components/RegistrationForm/RegistrationForm';
-import LoginForm from './Components/LoginForm/LoginForm'
+import LoginForm from './Components/LoginForm/LoginForm';
 import About from '../src/Components/About/About';
-import MapLanding from './Components/GoogleMap/MapLanding'
+import MapLanding from './Components/GoogleMap/MapLanding';
+import config from '../src/config';
+import TokenService from '../src/Components/Services/token-service';
+import { Switch, Route } from 'react-router';
 
 class App extends Component {
   constructor(props) {

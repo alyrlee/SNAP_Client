@@ -9,7 +9,7 @@ class MapLanding extends Component {
     super(props);
     this.state = { 
       type: null, 
-      snapLocationsList: []
+      snapLocationsList: {}
     };
   }
 
@@ -20,7 +20,7 @@ class MapLanding extends Component {
     console.log('ML SL dummy: ', snap_locations);
     this.setState({snapLocationsList: snap_locations});
   }
-
+//onSubmitSearch
   onClick = event => {
     this.setState(
       {

@@ -13,9 +13,9 @@ render() {
   return (
         <React.Fragment>
           <div className="snap_locations_list"> { 
-            snapLocationsList.map.forEach((SLL) => {
+            snapLocationsList.map((SLL) => {
                 if (snapLocationsList) {
-                    snapLocationsList.map.forEach(SLL => {
+                    snapLocationsList.map(SLL => {
                       return (
                         <div key={SLL.Store_Name} className="placename">
                         {SLL.ObjectId}
@@ -28,9 +28,6 @@ render() {
                         {SLL.County}
                         {SLL.Longitude}
                         {SLL.Latitude}            
-            {/* >  */}
-
-{/* snapLocationsList: { snap_locations: { ObjectId: number; Store_Name: string; Address: string;Address_Line__2: any; City: string; State: string; Zip5: string; Zip4: string; County: string; Longitude: number;Latitude: number;}[]; */}
                               <h1 to={`/stores/${SLL.Store_Name}`}>
                                   <h2>{SLL.Store_Name}</h2> 
                               </h1> 

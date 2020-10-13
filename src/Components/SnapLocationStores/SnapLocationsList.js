@@ -6,32 +6,33 @@ class SnapLocationsList extends Component {
       snapLocationsList: []
 }; 
 
- render() {
-    const { snapLocationsList } = this.props;
-      console.log(typeof snapLocationsList);
-      return (
-           <React.Fragment>
-             <div className="snaplocationslist"> {
-                this.props.snapLocationsList.map((SLL) => {
-                   if (this.props.snapLocationsList) {
-                        this.props.snapLocationsList.map(SLL => {
-        return (
-               <div key={SLL.store_name} className="placename"> 
-                     <h1 to={`/stores/${SLL.store_name}`}>
-                          <h2>{SLL.name}</h2> 
-                      </h1> 
-               </div>
-                  );
-               })}
+render() {
+  //destructuring 
+  const { snapLocationsList } = this.props;
+  console.log(typeof snapLocationsList);
+  return (
+        <React.Fragment>
+          <div className="snap_locations_list"> {
+            snapLocationsList.map((SLL) => {
+                if (snapLocationsList) {
+                    snapLocationsList.map(SLL => {
+                      return (
+                        <div key={SLL.store_name} className="placename"> 
+                              <h1 to={`/stores/${SLL.store_name}`}>
+                                  <h2>{SLL.name}</h2> 
+                              </h1> 
+                        </div>
+                      );
+                    })}
             })} 
-            </div>    
+          </div>    
           <div className="snapmap"> 
-               <MapContainer snapLocationsList={this.props.snapLocationsList} />
-                </div> 
-          </React.Fragment>
-               
-           );
-         } 
-       } 
+            <MapContainer snapLocationsList={snapLocationsList} />
+          </div> 
+        </React.Fragment>
+            
+  );
+  } 
+} 
                        
-      export default SnapLocationsList;
+export default SnapLocationsList;

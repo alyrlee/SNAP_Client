@@ -9,7 +9,7 @@ class MapLanding extends Component {
     super(props);
     this.state = { 
       type: null, 
-      snapLocationList: []
+      snapLocationsList: []
     };
   }
 
@@ -17,8 +17,8 @@ class MapLanding extends Component {
     //this will be called once, when the component is initialized
     // uncomment this to test that the backend api is working 
     this.getSnapLocations();
-
-    this.setState({snapLocationList: snap_locations});
+    console.log('ML SL dummy: ', snap_locations);
+    this.setState({snapLocationsList: snap_locations});
   }
 
   onClick = event => {
@@ -37,16 +37,18 @@ class MapLanding extends Component {
     // and empty array evaluates to truthy, not falsely! 
     // https://brianflove.com/2014-09-02/whats-the-double-exclamation-mark-for-in-javascript/
     // if (this.state.snapLocationList) {
-      axios.get(`http://localhost:8000/api/stores`)
+      axios.get(`http://localhost:8001/api/stores`)
       .then(responseFromApi => {
         this.setState({
-          SnapLocationList: responseFromApi.data
+          SnapLocationsList: responseFromApi.data
         });
       });
     // };
   }
 
   render() {
+    /////
+    console.log('ML SLL: ', this.state.snapLocationsList);
     return ( 
       <div className="page-wrapper">
         <div className="container">

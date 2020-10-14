@@ -1,11 +1,6 @@
 import React, { Component } from "react";
-import { Map, GoogleApiWrapper, Marker, InfoWindow  } from "google-maps-react";
-// import SearchBox from '../SearchBox/SearchBox';
-//pass Listing as snap location data?
-//update keys to match SLL
-// const Listing = ({ places }) => (
-//   <ul>{places && places.map(p => <li key={p.id}>{p.name}</li>)}</ul>
-// );
+import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
+
 const mapStyles = {
   width: "100%",
   height: "100%",
@@ -20,7 +15,7 @@ export class MapContainer extends Component {
       places: [], 
     };
   } 
-  onMapReady = (mapProps, map) => this.searchNearby(map, map.center);
+  onMapReady = (map) => this.searchNearby(map, map.center);
 
   searchNearby = (map, center) => {
     const { google } = this.props;
@@ -63,7 +58,7 @@ export class MapContainer extends Component {
         {this.props.snapLocationsList.map(SLL=> {
           return (
             <Marker
-              key={SLL.store_name}
+              key={SLL.Store_Name}
               label={SLL.name}
               position={{ lat: SLL.latitude, lng: SLL.longitude }}
             />

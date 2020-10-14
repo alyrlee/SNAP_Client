@@ -8,14 +8,15 @@ class SnapLocationsList extends Component {
 
 render() {
   //destructuring 
+  // const snapLocationsList = Object.keys(snapLocationsList);
   const { snapLocationsList } = this.props;
   console.log(typeof snapLocationsList);
   return (
         <React.Fragment>
           <div className="snap_locations_list"> { 
-            snapLocationsList.map((SLL) => {
+            this.props.snapLocationsList.map((SLL) => {
                 if (snapLocationsList) {
-                    snapLocationsList.map(SLL => {
+                    this.props.snapLocationsList.map(SLL => {
                       return (
                         <div key={SLL.Store_Name} className="placename">
                         {SLL.ObjectId}
@@ -28,12 +29,9 @@ render() {
                         {SLL.County}
                         {SLL.Longitude}
                         {SLL.Latitude}            
-                              <h1 to={`/stores/${SLL.Store_Name}`}>
-                                  <h2>{SLL.Store_Name}</h2> 
-                              </h1> 
                         </div>
                       );
-                    })}
+                 })}
             })} 
           </div>    
           <div className="snapmap"> 
@@ -41,7 +39,7 @@ render() {
           </div> 
         </React.Fragment>
             
-  );
+    );
   } 
 } 
                        

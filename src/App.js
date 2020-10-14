@@ -14,14 +14,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // stores: ""
-      // store_name: "",
-      // latitude: "",
-      // longitude: "",
-      // address: "",
-      // city: "",
-      // area: "",
-      // state: "",   
+
     };
   }
 
@@ -34,9 +27,9 @@ class App extends Component {
   // }; 
    
   componentDidMount() {
-    // if (!TokenService.getAuthToken()){
-    //   return;
-    // } 
+    if (!TokenService.getAuthToken()){
+      return;
+    } 
 
     //check endpoint if it should be users v. stores
     if (!TokenService.hasAuthToken) {

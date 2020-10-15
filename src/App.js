@@ -16,16 +16,8 @@ class App extends Component {
     this.state = {
 
     };
-  }
-
-  // handleChange = address => {
-  //   this.setState({ address });
-  // };
-
-  // handleChange = location => {
-  //   this.setState({ location })
-  // }; 
-   
+  } 
+  
   componentDidMount() {
     if (!TokenService.getAuthToken()){
       return;
@@ -33,7 +25,7 @@ class App extends Component {
 
     //check endpoint if it should be users v. stores
     if (!TokenService.hasAuthToken) {
-      fetch(`${config.API_ENDPOINT}/stores`,{
+      fetch(`${config.API_ENDPOINT}/users`,{
         headers: { 
           'authorization': `bearer ${TokenService.getAuthToken()}`
         }
@@ -44,8 +36,8 @@ class App extends Component {
         }
         return res.json();
       })
-      .then(stores => {
-        this.setState({stores});
+      .then(users => {
+        this.setState({users});
       })
       .catch(error => {
         console.error({error});

@@ -18,6 +18,7 @@ class MapLanding extends Component {
         console.log('About to check for errors');
         if(!response.ok) {
           console.log('An error did occur, let\'s throw an error.');
+          console.log(response);
           throw new Error('Something went wrong');
         }
         return response; 

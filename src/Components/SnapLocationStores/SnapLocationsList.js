@@ -7,8 +7,6 @@ class SnapLocationsList extends Component {
 }; 
 
 render() {
-  //destructuring 
-  // const snapLocationsList = Object.keys(snapLocationsList);
   const { snapLocationsList } = this.props;
   console.log(typeof snapLocationsList);
   return (

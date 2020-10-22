@@ -30,8 +30,49 @@ const AuthApiService = {
                     ? res.json().then(e => Promise.reject(e))
                     : res.json()
             });
+    },
+
+// const userName = 'DemoUser2020'
+// const password = 'DemoUserSnap1234!'
+
+getStores(stores,userName, password) {
+    return fetch(`${config.API_ENDPOINT}/stores`, {
+        method: 'P',
+        headers: {
+        Authorization: `Schema ${userName}:${password}`,
+        'content-type': 'application/json',
+        },
+        body: JSON.stringify(stores)
+        // ObjectId: 1,
+        // Store_Name: "Walmart Super Center"
+    })
+    .then(res => {
+        return (!res.ok)
+        ? res.json().then(e => Promise.reject(e))
+        : res.json()
+    });
+},
+
+
+//client side POST for store locations when user us logged in //
+    postStores(stores,userName, password) {
+        return fetch(`${config.API_ENDPOINT}/stores`, {
+            method: 'POST',
+            headers: {
+            Authorization: `Schema ${userName}:${password}`,
+            'content-type': 'application/json',
+            },
+            body: JSON.stringify(stores)
+            // ObjectId: 1,
+            // Store_Name: "Walmart Super Center"
+        })
+        .then(res => {
+            return (!res.ok)
+            ? res.json().then(e => Promise.reject(e))
+            : res.json()
+        });
     }
-};
+}
 
 export default AuthApiService;
 

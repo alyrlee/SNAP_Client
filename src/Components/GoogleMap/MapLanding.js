@@ -28,7 +28,7 @@ class MapLanding extends Component {
         const snapLocationsList = Object.keys(data)
               .map(key => data[key].item[0]);
         this.setState({
-          snapLocationsList: snap_locations
+          // snapLocationsList: snap_locations
         });
       })
       .catch(err => {

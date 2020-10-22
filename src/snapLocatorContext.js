@@ -14,12 +14,12 @@ const snapLocatorContext = React.createContext({
   setStore: () => {},
   clearStore: () => {},
   setsnapLocations: () => {},
-  addsnapLocations () => {},
+  addsnapLocations: () => {},
 })
 
-export default ThingContext
+export default snapLocatorContext
 
-export class snapLocatorContext extends Component {
+export class snapLocatorProvider extends Component {
   state = {
     store: nullStore,
     error: null,

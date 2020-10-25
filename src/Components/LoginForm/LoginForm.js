@@ -10,10 +10,17 @@ export default class LoginForm extends Component {
     static defaultProps = {
         onValidLogin: () => {}
     };
-    handleJwtLoginAuth = ev => {
+
+    state = { error: null }
+   
+  handleJwtLoginAuth = ev => {
         ev.preventDefault()
         this.setState({ error: null })
         const { user_name, password } = ev.target
+
+        console.log('login form submitted')
+        console.log({ user_name, password })
+
      
         AuthApiService.postLogin({
           user_name: user_name.value,
@@ -83,7 +90,7 @@ export default class LoginForm extends Component {
         <div className="demoLogin">
         <button type="submit" id="submit-login" onClick={() => this.switchPage('home')}>Login</button>
                  Demo User: DemoUser2020
-                 Demo Password: DemoUserSnap1234!
+                 Demo Password: DemoUser2020*
                      </div>
                      <Link to='/'>
                         <small>Back to Create Account</small>

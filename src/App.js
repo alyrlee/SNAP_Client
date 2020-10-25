@@ -51,7 +51,7 @@ class App extends Component {
       <main className="App">
         <Switch>
           <Route path='/NavBar' component={NavBar}/> 
-          <Route exact path='/' component={RegistrationForm}/> 
+          <Route exact path='/registration' component={RegistrationForm}/> 
           <Route exact path= '/home' component={LandingPage}/>
           <Route exact path='/about' component={About}/> 
           <Route path='/login' component={LoginForm}/>

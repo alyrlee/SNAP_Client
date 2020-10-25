@@ -15,21 +15,29 @@ TokenService.clearUserName()
 
 renderLogoutLink() {
 return (
+    <div className='NavBar__logged-in'>
     <Link
         onClick={this.handleLogoutClick}
         to='/'>
         Logout
     </Link>
-)
+   </div> 
+ )
 }
 
 renderLoginLink() {
 return (
+    <div className='NavBar__not-logged-in'>
     <Link
         to='/login'>
         Log in
     </Link>
-)
+     <Link
+     to='/register'>
+     Register
+   </Link>
+  </div> 
+ )
 }
 
 onClick = () => {
@@ -40,7 +48,7 @@ onClick = () => {
 
 render () {
 
-    const{clicked} = this.state
+    // const{clicked} = this.state
 
     return (
         <div>

@@ -1,5 +1,19 @@
 import config from '../../config';
 
+const userName = 'DemoUser2020'
+const password = 'DemoUser*'
+
+fetch(`${config.API_ENDPOINT}/auth/login`, {
+    method: 'POST',
+    headers: {
+        Authorization: `Schema ${userName}:${password}`    
+    },
+    body: JSON.stringify({
+        userName, 
+        password
+    })
+})
+
 const AuthApiService = {
     // client-side POST for handling user logins. //
     postLogin({user_name, password}) {
@@ -32,12 +46,10 @@ const AuthApiService = {
             });
     },
 
-// const userName = 'DemoUser2020'
-// const password = 'DemoUserSnap1234!'
 
 getStores(stores,userName, password) {
     return fetch(`${config.API_ENDPOINT}/stores`, {
-        method: 'P',
+        method: 'GET',
         headers: {
         Authorization: `Schema ${userName}:${password}`,
         'content-type': 'application/json',

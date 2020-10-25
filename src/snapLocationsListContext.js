@@ -39,7 +39,7 @@ export class snapLocationsLIstProvider extends Component {
     return (
       <snapLocationsListContext.Provider value={value}>
         {this.props.children}
-      </napLocationsListContext.Provider>
+      </snapLocationsListContext.Provider>
     )
   }
 }

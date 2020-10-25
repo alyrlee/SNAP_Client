@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import NavBar from '../NavBar/NavBar';
 import SnapLocationsList from '../SnapLocationStores/SnapLocationsList';
 import config from '../../config'
+import snapLocationsListContext from '../../snapLocationsListContext';
 
 class MapLanding extends Component {
+  static contextType = snapLocationsListContext
   constructor(props) {
     super(props);
     this.state = { 

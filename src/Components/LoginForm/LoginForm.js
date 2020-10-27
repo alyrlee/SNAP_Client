@@ -92,7 +92,7 @@ export default class LoginForm extends Component {
                  Demo Password: DemoUser2020*
         </div>
 
-         <Link to='/'>
+         <Link to='/register'>
            <small>Back to Create Account</small>
           </Link>
           

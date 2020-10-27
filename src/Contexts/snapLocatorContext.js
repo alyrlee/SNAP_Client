@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 
-export const nullStore = {
-  author: {},
-  tags: [],
+export const nullStores = {
+  Store_Name: {},
+  // tags: [],
 }
 
 const snapLocatorContext = React.createContext({
-  store: nullStore,
+  Store_Name: nullStore,
   snapLocations: [],
   error: null,
   setError: () => {},
@@ -21,7 +21,7 @@ export default snapLocatorContext
 
 export class snapLocatorProvider extends Component {
   state = {
-    store: nullStore,
+    Store_Name: nullStores,
     error: null,
   };
 
@@ -43,7 +43,7 @@ export class snapLocatorProvider extends Component {
   }
 
   clearStores = () => {
-    this.setStores(nullStore)
+    this.setStores(nullStores)
     this.setStores([])
   }
 
@@ -61,7 +61,7 @@ export class snapLocatorProvider extends Component {
       error: this.state.error,
       setError: this.setError,
       clearError: this.clearError,
-      setStore: this.setThing,
+      setStore: this.setStore,
       setsnapLocations: this.setsnapLocations,
       clearsnapLocations: this.clearsnapLocations,
       addsnapLocations: this.addsnapLocations,

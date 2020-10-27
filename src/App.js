@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import NavBar from './Components/NavBar/NavBar';
+import Header from './Components/Headers/Header';
 import LandingPage from './Components/LandingPage /LandingPage';
 import RegistrationForm from './Components/RegistrationForm/RegistrationForm';
 import LoginForm from './Components/LoginForm/LoginForm';
@@ -50,8 +50,8 @@ class App extends Component {
     return (
       <main className="App">
         <Switch>
-          <Route path='/NavBar' component={NavBar}/> 
-          <Route exact path='/registration' component={RegistrationForm}/> 
+          <Route path='/NavBar' component={Header}/> 
+          <Route exact path='/register' component={RegistrationForm}/> 
           <Route exact path= '/home' component={LandingPage}/>
           <Route exact path='/about' component={About}/> 
           <Route path='/login' component={LoginForm}/>

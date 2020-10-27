@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
-import { Hyph } from '../../Utils';
+import { Hyph } from '../../Utils/Utils';
 import TokenService from '../Services/token-service';
 
 export default class NavBar extends Component {

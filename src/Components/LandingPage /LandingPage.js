@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import './LandingPage.css';
 import TokenService from '../Services/token-service';
-import NavBar from '../NavBar/NavBar';
+import Header from '../Headers/Header';
 
 export default class LandingPage extends Component {
     state = {
@@ -28,7 +28,7 @@ export default class LandingPage extends Component {
 
         return (
             <div>
-                <NavBar />
+                <Header />
                 <section className="banner"> 
                 <div className="Cover">
                 <h2>SNAP Locator</h2>

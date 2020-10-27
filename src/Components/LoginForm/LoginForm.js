@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { Link, } from 'react-router-dom';
+import config from '../../config'
 import { Button, Input } from '../../Utils/Utils'
 import { Redirect } from 'react-router-dom';
 // import Header from '../Headers/Header';
 import TokenService from '../Services/token-service';
 import AuthApiService from '../Services/auth-api-service';
-import history from '../../Context/history'
+import history from '../../Contexts/history'
 import './LoginForm.css';
 
 export default class LoginForm extends Component { 
@@ -29,8 +30,8 @@ export default class LoginForm extends Component {
         })
         .then(res => {
           TokenService.saveUserName(userName.value)
-          userName.value = ''
-          password.value = ''
+            userName.value = ''
+            password.value = ''
           TokenService.saveAuthToken(res.authToken)
           fetch(`${config.API_ENDPOINT}/profile/${TokenService.getUserName()}`, {
             headers: {'authorization': `bearer ${TokenService.getAuthToken()}`},})
@@ -82,7 +83,7 @@ export default class LoginForm extends Component {
                   type="text"
                   id="username"
                   name="username"
-                  value={this.username}
+                  value={this.userName}
               />
         </div>
 
@@ -97,8 +98,8 @@ export default class LoginForm extends Component {
        </div>  
 
         <div className="demoLogin">
-        <button type="submit">LogIn</button>               
-          Demo User: DemoUser2020
+           <button type="submit">LogIn</button>               
+                 Demo User: DemoUser2020
                  Demo Password: DemoUser2020*
         </div>
 
@@ -111,5 +112,5 @@ export default class LoginForm extends Component {
       </div>
             
     );
-       }
+  }
 }

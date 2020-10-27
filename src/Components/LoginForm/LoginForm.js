@@ -33,7 +33,7 @@ export default class LoginForm extends Component {
             userName.value = ''
             password.value = ''
           TokenService.saveAuthToken(res.authToken)
-          fetch(`${config.API_ENDPOINT}/profile/${TokenService.getUserName()}`, {
+          fetch(`${config.API_ENDPOINT}/users/${TokenService.getUserName()}`, {
             headers: {'authorization': `bearer ${TokenService.getAuthToken()}`},})
               .then(res =>
                   (!res.ok)

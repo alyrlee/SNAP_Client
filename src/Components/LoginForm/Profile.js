@@ -21,7 +21,6 @@ componentDidMount() {
             TokenService.saveUserId(this.state.user.id)      
         })
 }
-
 render() {
     const {user, userSavedLocations} = this.state
     return (

@@ -11,13 +11,14 @@ import TokenService from '../src/Components/Services/token-service';
 import { Switch, Route } from 'react-router';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+  state = { hasError: false }
 
-    };
-  } 
-  
+  static getDerivedStateFromError(error) {
+    console.error(error)
+    return { hasError: true }
+  }
+
+
   componentDidMount() {
     if (!TokenService.getAuthToken()){
       return;

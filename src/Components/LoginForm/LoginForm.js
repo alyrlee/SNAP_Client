@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 // import Header from '../Headers/Header';
 import TokenService from '../Services/token-service';
 import AuthApiService from '../Services/auth-api-service';
+import history from '../../Context/history'
 import './LoginForm.css';
 
 export default class LoginForm extends Component { 
@@ -26,17 +27,26 @@ export default class LoginForm extends Component {
           userName: userName.value,
           password: password.value,
         })
-          .then(res => {
-            userName.value = ''
-            password.value = ''
-            TokenService.saveAuthToken(res.authToken)
-            this.props.onLoginSuccess()
-          })
-          .catch(res => {
-            this.setState({ error: res.error })
-          })
-      }
-
+        .then(res => {
+          TokenService.saveUserName(userName.value)
+          userName.value = ''
+          password.value = ''
+          TokenService.saveAuthToken(res.authToken)
+          fetch(`${config.API_ENDPOINT}/profile/${TokenService.getUserName()}`, {
+            headers: {'authorization': `bearer ${TokenService.getAuthToken()}`},})
+              .then(res =>
+                  (!res.ok)
+                      ? res.json().then(e => Promise.reject(e))
+                      : res.json()
+              )
+              .then(resJSON => {
+                TokenService.saveUserId(resJSON.id)})
+          history.push('/')
+        })
+        .catch(res => {
+          this.setState({ error: res.error })
+        })
+    }
     state = {
         redirect: false,
         where: ''
@@ -87,8 +97,8 @@ export default class LoginForm extends Component {
        </div>  
 
         <div className="demoLogin">
-          <button type="submit" id="submit-login" onClick={() => this.switchPage('home')}>Login</button>
-                 Demo User: DemoUser2020
+        <button type="submit">LogIn</button>               
+          Demo User: DemoUser2020
                  Demo Password: DemoUser2020*
         </div>
 

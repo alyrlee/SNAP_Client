@@ -34,7 +34,7 @@ const AuthApiService = {
         });
     },  
 
-    getStores(stores,userName, password) {
+    getStores(stores, userName, password) {
         return fetch(`${config.API_ENDPOINT}/stores`, {
             method: 'GET',
             headers: {
@@ -42,8 +42,6 @@ const AuthApiService = {
                 'content-type': 'application/json',
             },
             body: JSON.stringify(stores),
-            // ObjectId: 1,
-            // Store_Name: "Walmart Super Center"
         })
         .then(res => {
             return (!res.ok)
@@ -60,8 +58,6 @@ const AuthApiService = {
                 'content-type': 'application/json',
             },
             body: JSON.stringify(stores)
-            // ObjectId: 1,
-            // Store_Name: "Walmart Super Center"
         })
         .then(res => {
             return (!res.ok)
@@ -108,7 +104,5 @@ const AuthApiService = {
         });
     }
 }   
-
-
 
 export default AuthApiService;

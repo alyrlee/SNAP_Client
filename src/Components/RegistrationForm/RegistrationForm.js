@@ -16,6 +16,7 @@ export default class RegistrationForm extends Component {
     this.state = {
       fullname: '',
       username: '',
+      email: '',
       password: '',
       validateFullname: false,
       validUserName: false,
@@ -28,18 +29,18 @@ export default class RegistrationForm extends Component {
 
   handleSubmit = ev => {
     ev.preventDefault()
-    const { fullname, user_name, password } = ev.target
+    const { fullname, user_name, email, password } = ev.target
 
     console.log('registration form submitted')
-    console.log({fullname, user_name, password })
+    console.log({fullname, user_name, email, password })
   };
     
 
 validateRegistrationForm() {
-  const { validUserName, validPass, validConfirm } = this.state;
+  const { validUserName, validPass, validEmail, validConfirm } = this.state;
 
   this.setState({
-    validRegistration: validUserName && validPass && validConfirm
+    validRegistration: validUserName && validPass && validEmail && validConfirm
   });
 }
 
@@ -56,6 +57,14 @@ updateUsername(username) {
       username: username,
   },
       this.validateUsername
+  );
+}
+
+updateEmail(email) {
+  this.setState({
+      email: email,
+  },
+      this.validateEmail
   );
 }
 
@@ -148,7 +157,7 @@ validateConfirmedPassword() {
 
 submitRegistration = e => {
   e.preventDefault();
-  const {fullname, username, password} = e.target; 
+  const {fullname, username, email, password} = e.target; 
 
   this.setState({
       error: null
@@ -162,6 +171,7 @@ submitRegistration = e => {
       .then(user => {
           fullname.value = '';
           username.value = '';
+          email.value = '';
           password.value = '';
           this.props.onFormValid();
       })
@@ -205,6 +215,19 @@ submitRegistration = e => {
                 className="Username_Error"
                 valid={this.state.validName}
                 message={this.state.errorType.username}/>
+            </div>
+            <div className="email">
+              <label htmlFor="email">Email</label>
+              <input
+                onChange={e => this.updateEmail(e.target.value)}
+                placeholder="Email"
+                type="email"
+                name="email"
+              />
+               <ErrorValidation 
+                className="Email_Error"
+                valid={this.state.validEmail}
+                message={this.state.errorType.email}/>
             </div>
             <div className="password">
               <label htmlFor="password">Password</label>

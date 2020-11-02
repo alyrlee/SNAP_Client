@@ -67,6 +67,7 @@ input::placeholder {
 
 .userName,
 .password,
+.email,
 .fullName,
 input::placeholder {
 text-align: center;
@@ -97,9 +98,15 @@ input.error {
   margin-bottom: 1%;
 }
 
+.email
+{
+  margin-bottom: 1%;
+}
+
 .userName,
 .password,
 .fullName,
+.email,
 .input#retype-password {
   display: flex;
   flex-direction: column;
@@ -109,6 +116,7 @@ input.error {
 .userName,
 .password,
 .fullName,
+.email,
 .input#retype-password {
   width: 100%;
   text-align: center;

@@ -14,8 +14,8 @@ export default class RegistrationForm extends Component {
     super(props);
 
     this.state = {
-      fullname: '',
-      username: '',
+      full_name: '',
+      user_name: '',
       email: '',
       password: '',
       validateFullname: false,
@@ -29,10 +29,10 @@ export default class RegistrationForm extends Component {
 
   handleSubmit = ev => {
     ev.preventDefault()
-    const { fullname, user_name, email, password } = ev.target
+    const { full_name, user_name, email, password } = ev.target
 
     console.log('registration form submitted')
-    console.log({fullname, user_name, email, password })
+    console.log({full_name, user_name, email, password })
   };
     
 
@@ -44,17 +44,17 @@ validateRegistrationForm() {
   });
 }
 
-updateFullname(fullname) {
+updateFullname(full_name) {
   this.setState({
-      fullname: fullname,
+      full_name: full_name,
   },
       this.validateFullname
   );
 }
 
-updateUsername(username) {
+updateUsername(user_name) {
   this.setState({
-      username: username,
+      user_name: user_name,
   },
       this.validateUsername
   );
@@ -85,13 +85,13 @@ confirmPassword(retypePass) {
 }
 
 validateUsername() {
-  const {username} = this.state;
+  const {user_name} = this.state;
   let validUserName = true;
   let errorType = {...this.state.errorType};
 
-  if (username.length < 3) {
+  if (user_name.length < 3) {
       validUserName = false;
-      errorType.username = "Please create a username that is longer than 3 characters.";
+      errorType.user_name = "Please create a username that is longer than 3 characters.";
   }
 
   this.setState({
@@ -157,20 +157,20 @@ validateConfirmedPassword() {
 
 submitRegistration = e => {
   e.preventDefault();
-  const {fullname, username, email, password} = e.target; 
+  const {full_name, user_name, email, password} = e.target; 
 
   this.setState({
       error: null
   });
 
   AuthApiService.postUser({
-      fullname: fullname.value,
-      user_name: username.value,
+      full_name: full_name.value,
+      user_name: user_name.value,
       password: password.value
   })
       .then(user => {
-          fullname.value = '';
-          username.value = '';
+          full_name.value = '';
+          user_name.value = '';
           email.value = '';
           password.value = '';
           this.props.onFormValid();
@@ -199,7 +199,7 @@ submitRegistration = e => {
                 type="text"
                 id="fullname"
                 name="fullname"
-                value={this.fullname}
+                value={this.full_name}
               />
             <div className="userName">
               <label htmlFor="username">User Name</label>
@@ -209,12 +209,12 @@ submitRegistration = e => {
                 type="text"
                 id="username"
                 name="username"
-                value={this.username}
+                value={this.user_name}
               />
                <ErrorValidation 
                 className="Username_Error"
                 valid={this.state.validName}
-                message={this.state.errorType.username}/>
+                message={this.state.errorType.user_name}/>
             </div>
             <div className="email">
               <label htmlFor="email">Email</label>

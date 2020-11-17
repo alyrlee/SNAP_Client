@@ -1,8 +1,8 @@
 // import React, { Component } from 'react';
-// import NavBar from '../NavBar/NavBar';
+// import Header from '../Headers/Header';
 // import SnapLocationsList from '../SnapLocationStores/SnapLocationsList';
 // import config from '../../config'
-// import snapLocationsListContext from '../../snapLocationsListContext';
+// import snapLocationsListContext from '../../Contexts/snapLocationsListContext';
 
 // class MapLanding extends Component {
 //   static contextType = snapLocationsListContext
@@ -30,7 +30,7 @@
 //         const snapLocationsList = Object.keys(data)
 //               .map(key => data[key].item[0]);
 //         this.setState({
-//           // snapLocationsList: snap_locations
+//           snapLocationsList: snap_locations
 //         });
 //       })
 //       .catch(err => {
@@ -56,7 +56,7 @@
 //     return ( 
 //       <div className="page-wrapper">
 //         <div className="container">
-//         <NavBar />
+//         <Header />
 //           <hr />
 //         </div>
 //         <div className="container">

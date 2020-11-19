@@ -1,4 +1,4 @@
-.wrapper {
+html {
   height: 100vh;
   width: 100%;
   display: flex;
@@ -12,7 +12,7 @@
   font-family: 'Roboto', sans-serif;
 }
 
-.form-wrapper {
+body {
   color: #D8D9DE;
   width: 400px;
   display: flex;
@@ -65,7 +65,7 @@ input::placeholder {
   color: red;;
 }
 
-.userName,
+.user_name,
 .password,
 input::placeholder {
 text-align: center;
@@ -82,7 +82,7 @@ input.error {
 }
 
 
-.userName {
+.user_name {
   margin-left: 1%;
 }
 
@@ -91,7 +91,7 @@ input.error {
   margin-left: 1%;
 }
 
-.userName,
+.user_name,
 .password,
 .input#retype-password {
   display: flex;
@@ -99,7 +99,7 @@ input.error {
   margin-bottom: 15px;
 }
 
-.userName,
+.user_name,
 .password {
   width: 100%;
   text-align: center;

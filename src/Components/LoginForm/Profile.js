@@ -7,7 +7,7 @@ export default class Profile extends Component {
 
     state = {
         user: {
-            userName: '',
+            user_name: '',
             id: null
         },
         userSavedLocations: []
@@ -28,11 +28,12 @@ render() {
             <Header />
         <div className="profile_page">
             <h3>Welcome, to your user account page!</h3>
-            <h2>{user.userName}</h2>
+            <h2>{user.user_name}</h2>
            </div>
         <div className="SavedLocations">
             <h3>Saved Locations</h3>
             {user.userSavedLocations}
+            {userSavedLocations}
             </div>    
         </div>
     );

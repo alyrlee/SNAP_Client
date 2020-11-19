@@ -1,32 +1,104 @@
 import React, { Component } from 'react'
-import LoginForm from '../../components/LoginForm/LoginForm'
-import { Section } from '../../components/Utils/Utils'
+import TokenService from '../Services/token-service'
+import AuthApiService from '../Services/auth-api-service'
+import { Button, Input } from '../../Utils/Utils'
 
-export default class LoginPage extends Component {
+export default class LoginForm extends Component {
   static defaultProps = {
-    location: {},
-    history: {
-      push: () => {},
-    },
+    onLoginSuccess: () => {}
   }
 
-  handleLoginSuccess = () => {
-    const { location, history } = this.props
-    const destination = (location.state || {}).from || '/'
-    history.push(destination)
+  state = { error: null }
+
+  handleSubmitJwtAuth = ev => {
+    ev.preventDefault()
+    this.setState({ error: null })
+    const { user_name, password } = ev.target
+
+    AuthApiService.postLogin({
+      user_name: user_name.value,
+      password: password.value,
+    })
+      .then(res => {
+        user_name.value = ''
+        password.value = ''
+        TokenService.saveAuthToken(res.authToken)
+        this.props.onLoginSuccess()
+      })
+      .catch(res => {
+        this.setState({ error: res.error })
+      })
   }
 
   render() {
+    const { error } = this.state
     return (
-      <Section className='LoginPage'>
-        <h2>Login</h2>
-        <LoginForm
-          onLoginSuccess={this.handleLoginSuccess}
-        />
-      </Section>
+        
+      <form
+        className='Login'
+        onSubmit={this.handleSubmitJwtAuth}
+      >
+        <div role='alert'>
+          {error && <p className='red'>{error}</p>}
+        </div>
+        <div className='user_name'>
+          <label htmlFor='username'>
+            User name
+          </label>
+          <Input
+            required
+            name='user_name'
+            id='LoginForm__user_name'>
+          </Input>
+        </div>
+        <div className='password'>
+          <label htmlFor='password'>
+            Password
+          </label>
+          <Input
+            required
+            name='password'
+            type='password'
+            id='LoginForm__password'>
+          </Input>
+        </div>
+        <Button type='submit'>
+          Login
+        </Button>
+      </form>
     )
   }
 }
+
+
+
+// import React, { Component } from 'react'
+// import { Section } from '../../Utils/Utils'
+
+// export default class LoginForm extends Component {
+//     static defaultProps = {
+//       onLoginSuccess: () => {}
+//     }
+  
+//     state = { error: null }
+
+//   handleLoginSuccess = () => {
+//     const { location, history } = this.props
+//     const destination = (location.state || {}).from || '/'
+//     history.push(destination)
+//   }
+
+//   render() {
+//     return (
+//       <Section className='Login'>
+//         <h2>Login</h2>
+//         <LoginForm
+//           onLoginSuccess={this.handleLoginSuccess}
+//         />
+//       </Section>
+//     )
+//   }
+// }
 
 
 // import React, { Component } from "react";
@@ -101,8 +173,7 @@ export default class LoginPage extends Component {
 
 //     // render() {
 //         return (
-//         <div className="wrapper">
-//         <div className="form-wrapper">
+//       
 //             <h1>Log In</h1>
 //               <form onSubmit={this.handleJwtLoginAuth}> 
 //               {/* <form onSubmit={this.handleSubmitBasicAuth}> */}

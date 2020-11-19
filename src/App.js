@@ -1,104 +1,70 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import Header from './Components/Headers/Header';
 import LandingPage from './Components/LandingPage /LandingPage';
 import RegistrationForm from './Components/RegistrationForm/RegistrationForm';
-import LoginForm from './Components/LoginForm/LoginForm';
+import LoginForm from '../src/Components/LoginForm/LoginForm';
+import PrivateRoute from '../src/Utils/PrivateRoute';
+import PublicOnlyRoute from '../src/Utils/PublicOnlyRoute';
 import About from '../src/Components/About/About';
 import Profile from './Components/LoginForm/Profile';
 import MapLanding from './Components/GoogleMap/MapLanding';
-import config from '../src/config';
-import TokenService from '../src/Components/Services/token-service';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect
-} from "react-router-dom";
+// import config from '../src/config';
+// import TokenService from '../src/Components/Services/token-service';
+import { Route, Switch} from "react-router-dom";
 
-function App() {
+class App extends Component {
+  state = { hasError: false }
 
-  const checkAuthenticated = async () => {
-    try {
-      const res = await fetch("http://localhost:8008/authentication/verify", {
-        method: "POST",
-        headers: { jwt_token: localStorage.token }
-      });
+  static getDerivedStateFromError(error) {
+    console.error(error)
+    return { hasError: true }
+  }
 
-      const parseRes = await res.json();
-
-      parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
-
-  useEffect(() => {
-    checkAuthenticated();
-  }, []);
-
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  const setAuth = boolean => {
-    setIsAuthenticated(boolean);
-  };
-    
-  return (
-    <Fragment>
-      <Router>
-      <main className="App">
-        <Switch>
-          <Route path='/NavBar' component={Header}/> 
-          <Route exact path='/register' 
-                render={props =>
-                !isAuthenticated ? (
-                <RegistrationForm {...props} setAuth={setAuth} />
-                ) : (
-                  <Redirect to ='Profile' />
-                )
-              }
-              />     
-          <Route exact path= '/home' 
-                  render={props =>
-                  !isAuthenticated ? (
-                  <LandingPage {...props} setAuth={setAuth} />
-                ) : (
-                  <Redirect to ='Home' />
-                ) 
-              } 
-            />   
-          <Route exact path='/about' 
-                   render={props =>
-                    !isAuthenticated ? (
-                    <About {...props} setAuth={setAuth} />
-                    ) : (
-                      <Redirect to ='About' />
-                    ) 
-                  } 
-                />    
-          <Route path='/login'
-                  render={props =>
-                   !isAuthenticated ? (
-                    <LoginForm {...props} setAuth={setAuth} />
-                    ) : (
-                      <Redirect to ='Home' />
-                    ) 
-                  } 
-                />    
-          <Route path='/find' 
-                  render={props =>
-                  !isAuthenticated ? (
-                  <MapLanding {...props} setAuth={setAuth} />
-                  ) : (
-                 <Redirect to ='Find' />
-                    ) 
-                  } 
-                />     
-        </Switch> 
-      </main>
-      </Router>
-    </Fragment>
-    );
+  render() {
+    return (
+      <div className='App'>
+        <header className='App__header'>
+          <Header />
+        </header>
+        <main className='App__main'>
+          {this.state.hasError && <p className='red'>There was an error! Oh no!</p>}
+          <Switch>
+            <Route
+              exact
+              path={'/'}
+              component={LandingPage}
+            />
+            <Route
+              exact
+              path={'/about'}
+              component={About}
+            />
+            <Route
+              exact
+              path={'/find'}
+              component={MapLanding}
+            />
+            <PublicOnlyRoute
+              path={'/login'}
+              component={LoginForm}
+            />
+            <PublicOnlyRoute
+              path={'/register'}
+              component={RegistrationForm}
+            />
+            <PrivateRoute
+              path={'/profile'}
+              component={Profile}
+            />
+            {/* <Route
+              component={NotFoundPage}
+            /> */}
+          </Switch>
+        </main>
+      </div>
+    )
+  }
 }
 
-export default App;
+export default App

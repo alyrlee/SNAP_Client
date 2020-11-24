@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
-import TokenService from '../Services/token-service'
-import AuthApiService from '../Services/auth-api-service'
-import { Button, Input } from '../../Utils/Utils'
+import React, { Component } from 'react';
+import TokenService from '../Services/token-service';
+import AuthApiService from '../Services/auth-api-service';
+import {Link} from 'react-router-dom';
+// import { Button, Input } from '../../Utils/Utils'
 
 export default class LoginForm extends Component {
   static defaultProps = {
@@ -44,31 +45,35 @@ export default class LoginForm extends Component {
           {error && <p className='red'>{error}</p>}
         </div>
         <div className='userName'>
-          <label htmlFor='username'>
-            User name
-          </label>
-          <Input
+          <label htmlFor='username'> User Name</label>
+          <input
             required
             name='user_name'
-            id='username'>
-          </Input>
+            id='username'
+            placeholder="User Name"
+            type="text">
+          </input>
         </div>
         <div className='password'>
-          <label htmlFor='password'>
-            Password
-          </label>
-          <Input
+          <label htmlFor='password'>Password</label>
+          <input
             required
             name='password'
-            type='password'
+            placeholder="Password"
+            type="password"
             id='password'>
-          </Input>
+          </input>
         </div>
-        <Button type='submit'>
-          Login
-        </Button>
-        </form>
-        </div>
+        <div className="demoLogin">
+        <button type="submit" id="submit-login">Login</button>
+                 <h4>Demo User: DemoUser2020</h4>
+                 <h4>Demo Password: DemoUser2020*</h4>
+    </div>
+                    <Link to='/'>
+                        <small>Back to Create Account</small>
+                    </Link>    
+    </form>
+    </div>
     </div>  
     ); 
   }

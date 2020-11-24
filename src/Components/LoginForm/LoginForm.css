@@ -137,8 +137,8 @@ input.error {
   background-color: #fff;
   border: 2px solid #9e519e;
 }
-
-small {
+form.Login 
+a small {
   margin-top: 1em;
   color: #999;
   font-weight: lighter;

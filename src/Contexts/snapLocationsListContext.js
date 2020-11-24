@@ -9,13 +9,13 @@ const snapLocationsListContext = React.createContext({
 })
 export default snapLocationsListContext
 
-export class snapLocationsLIstProvider extends Component {
+export class snapLocationsListProvider extends Component {
   state = {
     snapLocationsList: [],
     error: null,
   };
 
-  setThingList = snapLocationsList => {
+  setsnapLocationsList = snapLocationsList => {
     this.setState({ snapLocationsList })
   }
 

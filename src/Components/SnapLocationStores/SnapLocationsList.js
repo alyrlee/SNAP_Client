@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import MapContainer from "../GoogleMap/GooglePlaces";
+import React, { Component } from 'react';
 
 class SnapLocationsList extends Component {
   static defaultProps = {
@@ -33,10 +32,8 @@ render() {
             })} 
           </div>    
           <div className="snapmap"> 
-            <MapContainer snapLocationsList={snapLocationsList} />
           </div> 
-        </React.Fragment>
-            
+        </React.Fragment>        
     );
   } 
 } 

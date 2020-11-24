@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 
 export const nullStores = {
   Store_Name: {},
-  // tags: [],
 }
 
 const snapLocatorContext = React.createContext({

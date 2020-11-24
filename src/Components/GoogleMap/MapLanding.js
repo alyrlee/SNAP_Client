@@ -1,8 +1,10 @@
 // import React, { Component } from 'react';
 // import Header from '../Headers/Header';
-// import SnapLocationsList from '../SnapLocationStores/SnapLocationsList';
+// // import SnapLocationsList from '../SnapLocationStores/SnapLocationsList';
 // import config from '../../config'
 // import snapLocationsListContext from '../../Contexts/snapLocationsListContext';
+// import MapContainer from "../GoogleMap/GooglePlaces";
+
 
 // class MapLanding extends Component {
 //   static contextType = snapLocationsListContext
@@ -15,7 +17,6 @@
 //   }
 //   componentDidMount() {
 //     fetch(`${config.API_ENDPOINT}/stores`)
-//       // if (this.state.snapLocationList) {
 //       .then(response => {
 //         console.log('About to check for errors');
 //         if(!response.ok) {
@@ -30,7 +31,7 @@
 //         const snapLocationsList = Object.keys(data)
 //               .map(key => data[key].item[0]);
 //         this.setState({
-//           snapLocationsList: snap_locations
+//           snapLocationsList: snapLocationsList
 //         });
 //       })
 //       .catch(err => {
@@ -60,8 +61,7 @@
 //           <hr />
 //         </div>
 //         <div className="container">
-//           <SnapLocationsList snapLocationsList={this.state.snapLocationsList} />
-//           {/* pass info via props */}
+//           <MapContainer snapLocationsList={this.state.snapLocationsList} />      
 //         </div>
 //       </div>
 //     );

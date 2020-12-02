@@ -28,7 +28,7 @@
 import React, { Component } from 'react';
 import './SearchBox.css';
 var google;
-export class locationInput extends Component {
+export class searchBox extends Component {
     render() {
         const { values, handleChange } = this.props;
 
@@ -49,32 +49,32 @@ export class locationInput extends Component {
               });
               markers = [];
 
-              var bounds = new google.maps.LatLngBounds();
-              places.forEach(function(place) {
-                if (!place.geometry) {
-                  console.log("Returned place contains no geometry");
-                  return;
-                }
-                var icon = {
-                  url: place.icon,
-                  size: new google.maps.Size(71, 71),
-                  origin: new google.maps.Point(0, 0),
-                  anchor: new google.maps.Point(17, 34),
-                  scaledSize: new google.maps.Size(25, 25)
-                };
+          //     var bounds = new google.maps.LatLngBounds();
+          //     places.forEach(function(place) {
+          //       if (!place.geometry) {
+          //         console.log("Returned place contains no geometry");
+          //         return;
+          //       }
+          //       var icon = {
+          //         url: place.icon,
+          //         size: new google.maps.Size(71, 71),
+          //         origin: new google.maps.Point(0, 0),
+          //         anchor: new google.maps.Point(17, 34),
+          //         scaledSize: new google.maps.Size(25, 25)
+          //       };
 
-                markers.push(new google.maps.Marker({
-                  icon: icon,
-                  title: place.name,
-                  position: place.geometry.location
-                }));
+          //       markers.push(new google.maps.Marker({
+          //         icon: icon,
+          //         title: place.name,
+          //         position: place.geometry.location
+          //       }));
 
-                if (place.geometry.viewport) {
-                  bounds.union(place.geometry.viewport);
-                } else {
-                  bounds.extend(place.geometry.location);
-                }
-              });
+          //       if (place.geometry.viewport) {
+          //         bounds.union(place.geometry.viewport);
+          //       } else {
+          //         bounds.extend(place.geometry.location);
+          //       }
+          //     });
 
             });
           }
@@ -94,4 +94,4 @@ export class locationInput extends Component {
     }
 }
 
-export default locationInput;
+export default searchBox;

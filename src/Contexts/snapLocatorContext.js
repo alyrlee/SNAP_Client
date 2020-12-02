@@ -5,7 +5,7 @@ export const nullStores = {
 }
 
 const snapLocatorContext = React.createContext({
-  Store_Name: nullStore,
+  store_Nnme: nullStore,
   snapLocations: [],
   error: null,
   setError: () => {},

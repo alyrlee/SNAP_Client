@@ -11,7 +11,7 @@ export default class UserSavedLocationsForm extends Component {
     ev.preventDefault()
     const { stores } = this.context
     const { text } = ev.target
-    AuthApiService.postStores(ObjectId, text.value)
+    AuthApiService.postStores(objectid, text.value)
       .then(this.context.addStores)
       .then(() => {
         text.value = ''

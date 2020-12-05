@@ -19,6 +19,7 @@ const mapStyles = {
 
 
 export class MapContainer extends Component {
+  constructor(props) {};
   state = {
     places: [],
     showingInfoWindow: false,

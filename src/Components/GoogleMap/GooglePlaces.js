@@ -40,7 +40,17 @@ export class MapContainer extends Component {
     coordinates: {
         lat: 42.3600825,
         lng: -71.0588801
-    }  
+    },
+    setSearch(search) {
+      this.setState({
+        search
+      });
+    },
+    setSort(sort) {
+      this.setState({
+        sort
+      });
+    } 
   };
 
   // //allow load place and configure search to load snap locations

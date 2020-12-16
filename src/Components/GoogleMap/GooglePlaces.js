@@ -19,9 +19,6 @@ const mapStyles = {
 
 
 export class MapContainer extends Component {
-  constructor(props) {
-    super(props);
-  };
   state = {
     places: [],
     showingInfoWindow: false,
@@ -43,52 +40,22 @@ export class MapContainer extends Component {
     coordinates: {
         lat: 42.3600825,
         lng: -71.0588801
-    },
-  } 
-  //   setSearch(search) {
-  //     this.setState({
-  //       search
-  //     });
-  //   },
-  //   setSort(sort) {
-  //     this.setState({
-  //       sort
-  //     });
-  //   } 
-  // };
-  // handleSubmit(e) {
-  //   e.preventDefault();
-//   const URL = 'http://localhost:8000/api/stores/?';
-    
-//   const params = [];
-//     if (this.state.search) {
-//       params.push(`search=${this.state.search}`);
-//     }
-//     if (this.state.sort) {
-//       params.push(`sort=${this.state.sort}`);
-//     }
-//     const query = params.join('&');
-//     const SearchUrl = `${URL}?${query}`;
+    }  
+  };
 
-//     fetch(SearchUrl)
-//     .then(res => {
-//       if (!res.ok) {
-//         throw new Error(res.statusText);
-//       }
-//       return res.json();
-//     })
-//     .then(data => {
-//       this.setState({
-//         stores: data,
-//         error: null
-//       });
-//     })
-//     .catch(err => {
-//       this.setState({
-//         error: 'Sorry, could not get stores at this time.'
-//       });
-//     })
-// }
+  // //allow load place and configure search to load snap locations
+  // onPlaceSelected = ( place ) => {
+  //   console.log('plc', place);
+
+  //   if (place) {
+  //     const lat = place.geometry.location.lat();
+  //     const lng = place.geometry.location.lng();
+      // debugger;
+  //     this.setState({coordinates: {lat, lng}});
+  //   }
+
+  // this.setState({coordinates: {lat: lat, lng: lng}});
+  // this.setState({coordinates: {lat: place.geometry.location.lat(), lng: place.geometry.location.lng()}});
 
   componentDidMount() {
     if (navigator.geolocation) {
@@ -201,6 +168,8 @@ export class MapContainer extends Component {
     );
   };
 
+
+
   onPlaceSelected = ( place ) => {
     console.log('plc', place);
 
@@ -286,9 +255,6 @@ textSearch = (map, center) => {
      
 //add data from state onto map with address, city , etc....
   render() {
-    const stores = this.state.stores.map((stores, i) => {
-      return <stores {...stores} key={i}/>
-    })
     // if (!this.props.loaded) return <div>Loading...</div>;
     console.log(this.props.snapLocationsList);
     console.log('ML SLL: ', this.state.snapLocationsList);

@@ -19,7 +19,9 @@ const mapStyles = {
 
 
 export class MapContainer extends Component {
-  constructor(props) {};
+  constructor(props) {
+    super(props);
+  };
   state = {
     places: [],
     showingInfoWindow: false,
@@ -42,51 +44,51 @@ export class MapContainer extends Component {
         lat: 42.3600825,
         lng: -71.0588801
     },
-    setSearch(search) {
-      this.setState({
-        search
-      });
-    },
-    setSort(sort) {
-      this.setState({
-        sort
-      });
-    } 
-  };
-  handleSubmit(e) {
-    e.preventDefault();
-    const URL = 'http://localhost:8000/api/stores';
+  } 
+  //   setSearch(search) {
+  //     this.setState({
+  //       search
+  //     });
+  //   },
+  //   setSort(sort) {
+  //     this.setState({
+  //       sort
+  //     });
+  //   } 
+  // };
+  // handleSubmit(e) {
+  //   e.preventDefault();
+//   const URL = 'http://localhost:8000/api/stores/?';
     
-  const params = [];
-    if (this.state.search) {
-      params.push(`search=${this.state.search}`);
-    }
-    if (this.state.sort) {
-      params.push(`sort=${this.state.sort}`);
-    }
-    const query = params.join('&');
-    const SearchUrl = `${URL}?${query}`;
+//   const params = [];
+//     if (this.state.search) {
+//       params.push(`search=${this.state.search}`);
+//     }
+//     if (this.state.sort) {
+//       params.push(`sort=${this.state.sort}`);
+//     }
+//     const query = params.join('&');
+//     const SearchUrl = `${URL}?${query}`;
 
-    fetch(SearchUrl)
-    .then(res => {
-      if (!res.ok) {
-        throw new Error(res.statusText);
-      }
-      return res.json();
-    })
-    .then(data => {
-      this.setState({
-        stores: data,
-        error: null
-      });
-    })
-    .catch(err => {
-      this.setState({
-        error: 'Sorry, could not get stores at this time.'
-      });
-    })
-
-}
+//     fetch(SearchUrl)
+//     .then(res => {
+//       if (!res.ok) {
+//         throw new Error(res.statusText);
+//       }
+//       return res.json();
+//     })
+//     .then(data => {
+//       this.setState({
+//         stores: data,
+//         error: null
+//       });
+//     })
+//     .catch(err => {
+//       this.setState({
+//         error: 'Sorry, could not get stores at this time.'
+//       });
+//     })
+// }
 
   componentDidMount() {
     if (navigator.geolocation) {
@@ -198,8 +200,6 @@ export class MapContainer extends Component {
         }
     );
   };
-
-
 
   onPlaceSelected = ( place ) => {
     console.log('plc', place);

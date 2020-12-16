@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import Autocomplete from 'react-google-autocomplete';
 import Geocode from "react-geocode";
-
+import snapLocationsList from '../SnapLocationStores/SnapLocationsList';
 const URL = 'http://localhost:8000/api/stores';
 Geocode.setApiKey("AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU");
 Geocode.enableDebug();
@@ -208,13 +208,13 @@ export class MapContainer extends Component {
     }
   };
 
-  onSearchBtnClicked = () => { 
+  onSearchClicked = () => { 
     fetch(URL)
-    .then(function(response) {
-      // parse the response into suitable format
-      // response.text()
-      response.json();
-    })
+    // .then(function(response) {
+    //   // parse the response into suitable format
+    //   // response.text()
+    //   response.json();
+    // })
     .then(response => response.json())
     .then(stores => {
         const snapLocationsList = Object.keys(stores)
@@ -222,8 +222,8 @@ export class MapContainer extends Component {
         this.setState({
           snapLocationsList: snapLocationsList
         });     
-      console.log(stores);
-      console.log(URL);
+      console.log('stores',stores({}));
+      console.log('URL', URL);
     })
     .catch(err => {
               console.log('Handling the error here.', err);
@@ -297,6 +297,7 @@ textSearch = (map, center) => {
             onClick={this.onMarkerClick}
             name={'Current location'} 
             draggable={true}
+            // snapLocationsList={this.snapLocationsList}
             // onDragEnd={this.onMarkerDragEnd}
             // position={{ lat: this.state.markerPosition.lat, lng: this.state.markerPosition.lng }}
         />

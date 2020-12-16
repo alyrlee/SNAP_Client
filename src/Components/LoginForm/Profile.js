@@ -19,8 +19,23 @@ componentDidMount() {
                     user: resJSON
             })
             TokenService.saveUserId(this.state.user.id)      
+            this.setCards()
         })
 }
+setCards = () => {
+    ApiAuthService.getAllUserProfiles()
+    .then(resJSON => {
+            const userSavedLocations = resJSON.filter(user_name => {
+                    if(user_name=== this.state.user.id){
+                        return user_name;
+                        }
+                        return;
+                    })
+                     this.setState({
+                         userSavedLocations: userSavedLocations
+                     })   
+            })
+    }
 render() {
     const {user, userSavedLocations} = this.state
     return (

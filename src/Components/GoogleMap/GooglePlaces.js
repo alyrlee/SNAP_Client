@@ -42,20 +42,7 @@ export class MapContainer extends Component {
         lng: -71.0588801
     }  
   };
-
-  // //allow load place and configure search to load snap locations
-  // onPlaceSelected = ( place ) => {
-  //   console.log('plc', place);
-
-  //   if (place) {
-  //     const lat = place.geometry.location.lat();
-  //     const lng = place.geometry.location.lng();
-      // debugger;
-  //     this.setState({coordinates: {lat, lng}});
-  //   }
-
-  // this.setState({coordinates: {lat: lat, lng: lng}});
-  // this.setState({coordinates: {lat: place.geometry.location.lat(), lng: place.geometry.location.lng()}});
+ 
 
   componentDidMount() {
     if (navigator.geolocation) {
@@ -167,8 +154,7 @@ export class MapContainer extends Component {
         }
     );
   };
-
-
+  // //allow load place and configure search to load snap locations
 
   onPlaceSelected = ( place ) => {
     console.log('plc', place);
@@ -181,8 +167,6 @@ export class MapContainer extends Component {
       if (location) {
         this.setState({
           coordinates: {
-            // lat: place.geometry.location.lat(), 
-            // lng: place.geometry.location.lng()
             lat: location.lat(), 
             lng: location.lng()
           }
@@ -230,29 +214,7 @@ export class MapContainer extends Component {
     });
   };
  
-
-onMapReady = (map) => this.textSearch(map, map.center);
-
-
-textSearch = (map, center) => {
-  const { google } = this.props;
-  
-  var service = new google.maps.places.PlacesService(map);
-
-  //Specify location, radius and place types for your Places API search.
-  const request = {
-    location: center,
-    radius: '500',
-    query: '',
-    type: ['cities']
-  };
-
-  service.textSearch(request, (results, status) => {
-    if (status === google.maps.places.TextSearchRequest.OK)
-      this.setState({ places: results });
-  });
-};
-     
+    
 //add data from state onto map with address, city , etc....
   render() {
     // if (!this.props.loaded) return <div>Loading...</div>;
@@ -297,7 +259,7 @@ textSearch = (map, center) => {
             onClick={this.onMarkerClick}
             name={'Current location'} 
             draggable={true}
-            // snapLocationsList={this.snapLocationsList}
+            snapLocationsList={this.snapLocationsList}
             // onDragEnd={this.onMarkerDragEnd}
             // position={{ lat: this.state.markerPosition.lat, lng: this.state.markerPosition.lng }}
         />

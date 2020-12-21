@@ -193,7 +193,24 @@ export class MapContainer extends Component {
   // //allow load place and configure search to load snap locations
 
   onPlaceSelected = ( place ) => {
-    console.log('plc', place);
+    fetch(URL)
+  
+    .then(response => response.json())
+    .then(stores => {
+        const snapLocationsList = Object.keys(stores)
+              .map(key => stores[key].item[0]);
+        this.setState({
+          snapLocationsList: snapLocationsList
+        });     
+        console.log('plc', place);
+      console.log('stores',stores({}));
+      console.log('URL', URL);
+    })
+    .catch(err => {
+              console.log('Handling the error here.', err);
+    });
+  // };
+    // console.log('plc', place);
   
 
     // if search returns an unknown city, the search term will be inside of place.name
@@ -230,27 +247,6 @@ export class MapContainer extends Component {
     }
   };
 
-  onSearchClicked = () => { 
-    fetch(URL)
-    // .then(function(response) {
-    //   // parse the response into suitable format
-    //   // response.text()
-    //   response.json();
-    // })
-    .then(response => response.json())
-    .then(stores => {
-        const snapLocationsList = Object.keys(stores)
-              .map(key => stores[key].item[0]);
-        this.setState({
-          snapLocationsList: snapLocationsList
-        });     
-      console.log('stores',stores({}));
-      console.log('URL', URL);
-    })
-    .catch(err => {
-              console.log('Handling the error here.', err);
-    });
-  };
     
 //add data from state onto map with address, city , etc....
   render() {

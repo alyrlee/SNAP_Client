@@ -1,27 +1,31 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import Autocomplete from 'react-google-autocomplete';
-import Geocode from "react-geocode";
-import snapLocationsList from '../SnapLocationStores/SnapLocationsList';
+import Geocode from 'react-geocode';
+import snapLocationsList from '../GoogleMap/MapLanding'
 const URL = 'http://localhost:8000/api/stores';
 Geocode.setApiKey("AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU");
 Geocode.enableDebug();
-
 
 const mapStyles = {
   // width: "100%",
   height: "100%",
   // position: 'relative',
 };
-// const Listing = ({ stores, store_name }) => (
+
+//snapLocationsList is an object that contains an array of store information to display to the user as markers on the google map.
+//pass snapLocationsList as a prop?
+//make request to API to get store location data, pass via component 
+
+// const snapLocationsList = ({ stores, SLL}) => (
 //   <ul>{stores && stores.map(stores => <li key={Store_Name.objectid}>{Store_Name.objectid}</li>)}</ul>
 // );
 
-
 export class MapContainer extends Component {
   state = {
+    snapLocationsList: {},
     places: [],
-    showingInfoWindow: false,
+    showingInfoWindow: true,
     activeMarker: {},
     selectedPlace: {},
     stores: {},
@@ -43,7 +47,6 @@ export class MapContainer extends Component {
     }  
   };
  
-
   componentDidMount() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
@@ -86,7 +89,40 @@ export class MapContainer extends Component {
         console.error("Geolocation is not supported by this browser!");
     }
   };
+  //get all locations from db
 
+  
+//get list of snap locations for Boston 
+  // setSnapLocationsList() {
+  //   const data =[
+  //     {
+  //       // x   |     y      | objectid |                     store_name                     |                address                | address_line__2 |  city  | state | zip5 | zip4 | county  |  longitude  |  l
+  //       // -71.0622020 | 42.3649290 |     4030 | 7-eleven 32476C                                    | 91 Causeway St                        | 91-99           | Boston | MA    | 2114 | 1308 | SUFFOLK | -71.0622020 | 42.3649290 | 2020-12-15 02:22:00-05
+  //       X: -71.0622020,
+  //       Y: 42.36492920,
+  //       objectid: 4030,
+  //       store_name: '7-eleven 32476C',
+  //       address: '91 Causeway St',
+  //       city: 'Boston',
+  //       state: 'MA'  
+  //     },
+  //     {
+  //       // x   |     y      | objectid |                     store_name                     |                address                | address_line__2 |  city  | state | zip5 | zip4 | county  |  longitude  |  l
+  //       // -71.0622020 | 42.3649290 |     4030 | 7-eleven 32476C                                    | 91 Causeway St                        | 91-99           | Boston | MA    | 2114 | 1308 | SUFFOLK | -71.0622020 | 42.3649290 | 2020-12-15 02:22:00-05
+  //       X: -71.0622021,
+  //       Y: 42.36492922,
+  //       objectid: 4031,
+  //       store_name: '8-eleven 32476C',
+  //       address: '93 Causeway St',
+  //       city: 'Boston',
+  //       state: 'MA'  
+  //     }
+  //   ]
+  
+  //   this.setState({     
+  //     snapLocationsList: {}
+  //    })
+  // }
   getCity = (addressArray) => {
     let city = '';
     for (let i = 0; i < addressArray.length; i++) {
@@ -158,6 +194,7 @@ export class MapContainer extends Component {
 
   onPlaceSelected = ( place ) => {
     console.log('plc', place);
+  
 
     // if search returns an unknown city, the search term will be inside of place.name
     // if search results a real city, place.geometry will contain place.geometry.location
@@ -175,9 +212,10 @@ export class MapContainer extends Component {
     }
   }
 
-  onMarkerClick = (props, marker, e) => {
+  onMarkerClick = (props, marker,snapLocationsList, e) => {
     this.setState({
       selectedPlace: props,
+      snapLocationsList: props,
       activeMarker: marker,
       showingInfoWindow: true
     });
@@ -213,13 +251,12 @@ export class MapContainer extends Component {
               console.log('Handling the error here.', err);
     });
   };
- 
     
 //add data from state onto map with address, city , etc....
   render() {
     // if (!this.props.loaded) return <div>Loading...</div>;
-    console.log(this.props.snapLocationsList);
-    console.log('ML SLL: ', this.state.snapLocationsList);
+    console.log(this.props.snaplocationslist);
+    console.log('ML SLL: ', this.state.snaplocationslist);
     return (
       <Map
       //change the key to force lat,lng to re-render a new key 
@@ -247,9 +284,14 @@ export class MapContainer extends Component {
               marginTop: '2px',
               marginBottom: '100px'
             }}
+           snapLocationsList={this.snaplocationslist}
            onPlaceSelected={ this.onPlaceSelected }
            types={['(cities)']}
            componentRestrictions={{country: 'us'}}
+           onPress={(data, details = null) => {
+            // 'details' is provided when fetchDetails = true
+            console.log(data, details);
+          }}
            query={{
               key: 'AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU',
               language: 'en',
@@ -259,8 +301,7 @@ export class MapContainer extends Component {
             onClick={this.onMarkerClick}
             name={'Current location'} 
             draggable={true}
-            snapLocationsList={this.snapLocationsList}
-            // onDragEnd={this.onMarkerDragEnd}
+            onDragEnd={this.onMarkerDragEnd}
             // position={{ lat: this.state.markerPosition.lat, lng: this.state.markerPosition.lng }}
         />
 
@@ -282,4 +323,5 @@ export class MapContainer extends Component {
 
 export default GoogleApiWrapper({
   apiKey: "AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU"
- })(MapContainer);
+  // `${process.env.API_KEY}`
+})(MapContainer);

@@ -293,7 +293,7 @@ export class MapContainer extends Component {
            query={{
               key: 'AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU',
               language: 'en',
-              query: this.search.value
+              search: this.search.value
           }}
       />    
         <Marker 

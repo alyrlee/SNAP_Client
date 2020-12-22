@@ -3,7 +3,7 @@ import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import Autocomplete from 'react-google-autocomplete';
 import Geocode from 'react-geocode';
 // import MapLanding from '../GoogleMap/MapLanding'
-const URL = 'http://localhost:8000/api/stores';
+const url = 'http://localhost:8000/api/stores';
 Geocode.setApiKey("AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU");
 Geocode.enableDebug();
 
@@ -23,6 +23,7 @@ const mapStyles = {
 
 export class MapContainer extends Component {
   state = {
+    query: '',
     snapLocationsList: {},
     places: [],
     showingInfoWindow: true,
@@ -192,9 +193,9 @@ export class MapContainer extends Component {
   };
   // //allow load place and configure search to load snap locations
 
+
   onPlaceSelected = ( place ) => {
-    fetch(URL)
-  
+    fetch(url)
     .then(response => response.json())
     .then(stores => {
         const snapLocationsList = Object.keys(stores)
@@ -202,9 +203,8 @@ export class MapContainer extends Component {
         this.setState({
           snapLocationsList: snapLocationsList
         });     
-        console.log('plc', place);
+      console.log('plc', place);
       console.log('stores',stores({}));
-      console.log('URL', URL);
     })
     .catch(err => {
               console.log('Handling the error here.', err);
@@ -273,6 +273,8 @@ export class MapContainer extends Component {
       >
       <Autocomplete
            placeholder='Search'
+           ref={input => this.search = input}
+          //  input = {this.searchField}
            style={{
               width: '100%',
               height: '40px',
@@ -280,17 +282,18 @@ export class MapContainer extends Component {
               marginTop: '2px',
               marginBottom: '100px'
             }}
-           snapLocationsList={this.snaplocationslist}
+           snaplocationslist={this.snaplocationslist}
            onPlaceSelected={ this.onPlaceSelected }
            types={['(cities)']}
            componentRestrictions={{country: 'us'}}
-           onPress={(data, details = null) => {
-            // 'details' is provided when fetchDetails = true
-            console.log(data, details);
-          }}
+          //  onPress={(data, details = null) => {
+          //   // 'details' is provided when fetchDetails = true
+          //   console.log(data, details);
+          // }}
            query={{
               key: 'AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU',
               language: 'en',
+              query: this.search.value
           }}
       />    
         <Marker 

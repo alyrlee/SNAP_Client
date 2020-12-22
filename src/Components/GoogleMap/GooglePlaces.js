@@ -286,10 +286,10 @@ export class MapContainer extends Component {
            onPlaceSelected={ this.onPlaceSelected }
            types={['(cities)']}
            componentRestrictions={{country: 'us'}}
-          //  onPress={(data, details = null) => {
-          //   // 'details' is provided when fetchDetails = true
-          //   console.log(data, details);
-          // }}
+           onClick={(data, details = null) => {
+            // 'details' is provided when fetchDetails = true
+            console.log(data, details);
+          }}
            query={{
               key: 'AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU',
               language: 'en',

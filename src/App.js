@@ -8,20 +8,58 @@ import PrivateRoute from '../src/Utils/PrivateRoute';
 import PublicOnlyRoute from '../src/Utils/PublicOnlyRoute';
 import About from '../src/Components/About/About';
 import Profile from './Components/LoginForm/Profile';
-// import MapContainer from './Components/GoogleMap/GooglePlaces'
 import MapLanding from './Components/GoogleMap/MapLanding';
-// import config from '../src/config';
-// import TokenService from '../src/Components/Services/token-service';
+import config from '../src/config';
+import TokenService from '../src/Components/Services/token-service';
 import { Route, Switch} from "react-router-dom";
 
 class App extends Component {
-  state = { hasError: false }
+  state = {
+     hasError: false,
+     snapLocationsList: [],
+     user: [] 
+    };
 
   static getDerivedStateFromError(error) {
     console.error(error)
     return { hasError: true }
   }
 
+  componentDidMount() {
+		Promise.all([
+			fetch(`${config.API_ENDPOINT}/auth`),
+      fetch(`${config.API_ENDPOINT}/stores`),
+      fetch(`${config.API_ENDPOINT}/profile`),
+			fetch(`${config.API_ENDPOINT}/savedLocations`)
+		])
+			.then(([userRes, snapLocationsListRes]) => {
+				if (!userRes.ok)
+					return snapLocationsListRes.json().then(e => Promise.reject(e));
+				if (!snapLocationsListRes.ok)
+					return snapLocationsListRes.json().then(e => Promise.reject(e));
+
+				return Promise.all([userRes.json(), snapLocationsListRes.json()]);
+			})
+			.then(([user, snapLocationsList]) => {
+				this.setState({user, snapLocationsList});
+			})
+			.catch(error => {
+				console.error({error});
+			});
+	}
+
+	handleGetSnapLocations = ObjectId => {
+			this.setState({
+					snapLocationsList: this.state.snapLocationsList.filter(snapLocationsList => Object.Id !== ObjectId)
+			});
+	};
+
+	handleGetAllUserProfiles = (user) => {
+	this.setState({
+		user: [...this.state.user, user]
+	});
+	}
+    
   render() {
     return (
       <div className='App'>

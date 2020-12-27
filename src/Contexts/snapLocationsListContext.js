@@ -5,7 +5,7 @@ const snapLocationsListContext = React.createContext({
   error: null,
   setError: () => {},
   clearError: () => {},
-  setThingList: () => {},
+  setsnapLocationsList: () => {},
 })
 export default snapLocationsListContext
 

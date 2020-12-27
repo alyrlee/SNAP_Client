@@ -84,9 +84,6 @@ class App extends Component {
               path={'/find'}
               component={MapLanding}
             />
-            <Route
-            component={MapLanding}
-            />
             <PublicOnlyRoute
               path={'/login'}
               component={LoginForm}

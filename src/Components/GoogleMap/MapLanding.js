@@ -1,82 +1,61 @@
-// import React, { useEffect, useState, Component } from 'react';
-// import config from '../../config';
+import React, {Component} from 'react';
+import config from '../../config';
+import SnapLocationsList from '../SnapLocationStores/SnapLocationsList';
+import MapContainer from '../GoogleMap/GooglePlaces';
+import Autocomplete from 'react-google-autocomplete';
 
-// export default class MapLanding extends Component {
-//    snapLocationsList = () => {
-//     const [SnapLocationsList, setSnapLocationsList] = useState([]);
-  
-//     useEffect(() => {
-//       getSnapLocationsList();
-//     }, []);
-  
-//     async function getSnapLocationsList() {
-//       const response = await fetch(`${config.API_ENDPOINT}/stores`);
-//       const snapLocationsList = await response.json();
-//       setSnapLocationsList(snapLocationsList);
-//       console.log('data', response.json());
-//     }
-  
-//     // render() {
-//       console.log('ML SLL: ', this.state.snapLocationsList);
-//       return ( 
-//         <div className="page-wrapper">
-//           <div className="container">
-//          <SnapLocationsList />           
-//           </div>
-//         </div>
-//       );
-//     };
-//   }
+export default class MapLanding extends Component {
+  state = { snapLocationsList: [] };
 
+  onChange = async (term) => {
+    const response = await fetch(`${config.API_ENDPOINT}/stores`,{
+       params: { query: term } 
+    })
+    .then(response => {
+      console.log('data', response.json());
+      console.log('data 2',response.data.results);
+    });
+    this.setState({ snapLocationsList: response.data.results });
+  }
+    render() {
+      return (
+        <div className="ui container" style={{ marginTop: '10px' }}>
+          <SnapLocationsList stores={this.state.snapLocationsList} />
+          <Autocomplete onChange={this.onChange} />
+          Found: {this.state.snapLocationsList.length} SnapLocationsList
+          <MapContainer snapLocationsList={this.state.snapLocationsList}
+          
+          />  
+        </div>
+      );
+    }
+  }
 
-
-
-
-
-
-// //   static contextType = snapLocationsListContext
-//   // constructor(props) {
-//   //  super();
-//   //   this.state = { 
-//   //     type: null, 
-//   //     snapLocationsList: {},
-//   //   };
-//   // }
-
-//   // componentDidMount() {
-//   //   fetch(`${config.API_ENDPOINT}/stores`)
-//   //     .then(response => {
-//   //       console.log('About to check for errors');
-//   //       if(!response.ok) {
-//   //         console.log('An error did occur, let\'s throw an error.');
-//   //         console.log(response);
-//   //         throw new Error('Something went wrong');
-//   //       }
-//   //       return response; 
-//   //     })
-//   //     .then(response => response.json())
-//   //     .then(data => {
-//   //       const snapLocationsList = Object.keys(data)
-//   //             .map(key => data[key].item[0]);
-//   //       this.setState({
-//   //         snapLocationsList: snapLocationsList
-//   //       });
-//   //     })
-//   //     .catch(err => {
-//   //       console.log('Handling the error here.', err);
-//   //     });
-//   // }
-// // //onSubmitSearch
-// //   // onClick = event => {
-// //   //   this.setState(
-// //   //     {
-// //   //       type: event.target.ObjectId
-// //   //     },
-// //   //     () => {
-// //   //       this.getSnapLocations();
-// //   //     }
-// //   //   );
-// //   // };
- 
+    //manipulate based upon how data is returned
+    //ex: 
+    // const data =[
+      //     {
+      //       // x   |     y      | objectid |                     store_name                     |                address                | address_line__2 |  city  | state | zip5 | zip4 | county  |  longitude  |  l
+      //       // -71.0622020 | 42.3649290 |     4030 | 7-eleven 32476C                                    | 91 Causeway St                        | 91-99           | Boston | MA    | 2114 | 1308 | SUFFOLK | -71.0622020 | 42.3649290 | 2020-12-15 02:22:00-05
+      //       X: -71.0622020,
+      //       Y: 42.36492920,
+      //       objectid: 4030,
+      //       store_name: '7-eleven 32476C',
+      //       address: '91 Causeway St',
+      //       city: 'Boston',
+      //       state: 'MA'  
+      //     },
+      //     {
+      //       // x   |     y      | objectid |                     store_name                     |                address                | address_line__2 |  city  | state | zip5 | zip4 | county  |  longitude  |  l
+      //       // -71.0622020 | 42.3649290 |     4030 | 7-eleven 32476C                                    | 91 Causeway St                        | 91-99           | Boston | MA    | 2114 | 1308 | SUFFOLK | -71.0622020 | 42.3649290 | 2020-12-15 02:22:00-05
+      //       X: -71.0622021,
+      //       Y: 42.36492922,
+      //       objectid: 4031,
+      //       store_name: '8-eleven 32476C',
+      //       address: '93 Causeway St',
+      //       city: 'Boston',
+      //       state: 'MA'  
+      //     }
+      //   ]
 
 

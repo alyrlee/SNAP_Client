@@ -8,8 +8,8 @@ import PrivateRoute from '../src/Utils/PrivateRoute';
 import PublicOnlyRoute from '../src/Utils/PublicOnlyRoute';
 import About from '../src/Components/About/About';
 import Profile from './Components/LoginForm/Profile';
-import MapContainer from './Components/GoogleMap/GooglePlaces'
-// import MapLanding from './Components/GoogleMap/MapLanding';
+// import MapContainer from './Components/GoogleMap/GooglePlaces'
+import MapLanding from './Components/GoogleMap/MapLanding';
 // import config from '../src/config';
 // import TokenService from '../src/Components/Services/token-service';
 import { Route, Switch} from "react-router-dom";
@@ -44,7 +44,10 @@ class App extends Component {
             <Route
               exact
               path={'/find'}
-              component={MapContainer}
+              component={MapLanding}
+            />
+            <Route
+            component={MapLanding}
             />
             <PublicOnlyRoute
               path={'/login'}

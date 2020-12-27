@@ -2,28 +2,17 @@ import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import Autocomplete from 'react-google-autocomplete';
 import Geocode from 'react-geocode';
-// import MapLanding from '../GoogleMap/MapLanding'
-const url = 'http://localhost:8000/api/stores';
 Geocode.setApiKey("AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU");
 Geocode.enableDebug();
 
 const mapStyles = {
-  // width: "100%",
+  width: "100%",
   height: "100%",
-  // position: 'relative',
 };
-
-//snapLocationsList is an object that contains an array of store information to display to the user as markers on the google map.
-//pass snapLocationsList as a prop?
-//make request to API to get store location data, pass via component 
-
-// const snapLocationsList = ({ stores, SLL}) => (
-//   <ul>{stores && stores.map(stores => <li key={Store_Name.objectid}>{Store_Name.objectid}</li>)}</ul>
-// );
 
 export class MapContainer extends Component {
   state = {
-    query: '',
+    term: '',
     snapLocationsList: {},
     places: [],
     showingInfoWindow: true,
@@ -90,40 +79,7 @@ export class MapContainer extends Component {
         console.error("Geolocation is not supported by this browser!");
     }
   };
-  //get all locations from db
 
-  
-//get list of snap locations for Boston 
-  // setSnapLocationsList() {
-  //   const data =[
-  //     {
-  //       // x   |     y      | objectid |                     store_name                     |                address                | address_line__2 |  city  | state | zip5 | zip4 | county  |  longitude  |  l
-  //       // -71.0622020 | 42.3649290 |     4030 | 7-eleven 32476C                                    | 91 Causeway St                        | 91-99           | Boston | MA    | 2114 | 1308 | SUFFOLK | -71.0622020 | 42.3649290 | 2020-12-15 02:22:00-05
-  //       X: -71.0622020,
-  //       Y: 42.36492920,
-  //       objectid: 4030,
-  //       store_name: '7-eleven 32476C',
-  //       address: '91 Causeway St',
-  //       city: 'Boston',
-  //       state: 'MA'  
-  //     },
-  //     {
-  //       // x   |     y      | objectid |                     store_name                     |                address                | address_line__2 |  city  | state | zip5 | zip4 | county  |  longitude  |  l
-  //       // -71.0622020 | 42.3649290 |     4030 | 7-eleven 32476C                                    | 91 Causeway St                        | 91-99           | Boston | MA    | 2114 | 1308 | SUFFOLK | -71.0622020 | 42.3649290 | 2020-12-15 02:22:00-05
-  //       X: -71.0622021,
-  //       Y: 42.36492922,
-  //       objectid: 4031,
-  //       store_name: '8-eleven 32476C',
-  //       address: '93 Causeway St',
-  //       city: 'Boston',
-  //       state: 'MA'  
-  //     }
-  //   ]
-  
-  //   this.setState({     
-  //     snapLocationsList: {}
-  //    })
-  // }
   getCity = (addressArray) => {
     let city = '';
     for (let i = 0; i < addressArray.length; i++) {
@@ -160,7 +116,14 @@ export class MapContainer extends Component {
     }
   };
 
-  onMarkerDragEnd = (event) => {
+onChange = (event) => { event.preventDefault();
+  this.props.onChange(this.state.term);
+};
+
+
+onInfoWindowClose = (event) => { };
+
+onMarkerDragEnd = (event) => {
     let newLat = event.latLng.lat(),
         newLng = event.latLng.lng();
 
@@ -191,28 +154,26 @@ export class MapContainer extends Component {
         }
     );
   };
-  // //allow load place and configure search to load snap locations
-
-
-  onPlaceSelected = ( place ) => {
-    fetch(url)
-    .then(response => response.json())
-    .then(stores => {
-        const snapLocationsList = Object.keys(stores)
-              .map(key => stores[key].item[0]);
-        this.setState({
-          snapLocationsList: snapLocationsList
-        });     
-      console.log('plc', place);
-      console.log('stores',stores({}));
-    })
-    .catch(err => {
-              console.log('Handling the error here.', err);
-    });
-  // };
-    // console.log('plc', place);
   
+//allow load place and configure search to load snap locations\//snapLocationsList is an object that contains an array of store information to display to the user as markers on the google map.
+//pass snapLocationsList as a prop
+//make request to API to get store location data, pass via component 
 
+snapLocationsList = (stores) => (
+  <ul>{stores && stores.map(Store_Name => <li key={Store_Name.objectid}>{Store_Name.objectid}</li>)}</ul>
+);
+  onPlaceSelected = ( place ) => {
+    console.log('plc', place);
+        // const address = place.formatted_address,
+        //     addressArray = place.address_components,
+        //     city = this.getCity(addressArray),
+        //     area = this.getArea(addressArray),
+        //     state = this.getState(addressArray),
+        //     latValue = place.geometry.location.lat(),
+        //     lngValue = place.geometry.location.lng();
+
+        // console.log('latvalue', latValue)
+        // console.log('lngValue', lngValue)
     // if search returns an unknown city, the search term will be inside of place.name
     // if search results a real city, place.geometry will contain place.geometry.location
     const {geometry} = place;
@@ -228,11 +189,27 @@ export class MapContainer extends Component {
       }
     }
   }
+// ---
+// {stores.map((snapLocationsList) => (
+//   <Marker
+//     key={place.id}
+//     text={place.name}
+//     lat={place.geometry.location.lat}
+//     lng={place.geometry.location.lng}
+  // />  
+  // markers.push(
+  //   new google.maps.Marker({
+  //     map,
+  //     icon,
+  //     title: place.name,
+  //     position: place.geometry.location,
+  //   })
+  // );
 
-  onMarkerClick = (props, marker,snapLocationsList, e) => {
+  onMarkerClick = (props, marker, e) => {
     this.setState({
       selectedPlace: props,
-      snapLocationsList: props,
+      // snapLocationsList: props,
       activeMarker: marker,
       showingInfoWindow: true
     });
@@ -241,18 +218,17 @@ export class MapContainer extends Component {
   onMapClicked = (props) => {
     if (this.state.showingInfoWindow) {
       this.setState({
-        showingInfoWindow: false,
+        showingInfoWindow: true,
         activeMarker: null
       })
     }
   };
-
     
 //add data from state onto map with address, city , etc....
   render() {
     // if (!this.props.loaded) return <div>Loading...</div>;
-    console.log(this.props.snaplocationslist);
-    console.log('ML SLL: ', this.state.snaplocationslist);
+    console.log(this.props.snapLocationsList);
+    console.log('ML SLL:', this.state.snapLocationsList);
     return (
       <Map
       //change the key to force lat,lng to re-render a new key 
@@ -273,27 +249,29 @@ export class MapContainer extends Component {
       >
       <Autocomplete
            placeholder='Search'
+           fields= {['']}
            ref={input => this.search = input}
-          //  input = {this.searchField}
+           input id="searchTextField"
            style={{
               width: '100%',
-              height: '40px',
+              height: '25px',
               paddingLeft: '16px',
-              marginTop: '2px',
+              // marginTop: '2px',
               marginBottom: '100px'
             }}
-           snaplocationslist={this.snaplocationslist}
            onPlaceSelected={ this.onPlaceSelected }
            types={['(cities)']}
            componentRestrictions={{country: 'us'}}
-           onClick={(data, details = null) => {
+           onChange={e => this.setState({ term: e.target.value })}
+           onClick={(stores, places, snapLocationsList, details = null) => {
+
             // 'details' is provided when fetchDetails = true
-            console.log(data, details);
+            console.log('stores and details!!', stores, places, snapLocationsList, details);
           }}
-           query={{
+           term={{
               key: 'AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU',
-              language: 'en',
-              search: this.search.value
+              language: 'en'
+              // search: 'value'
           }}
       />    
         <Marker 
@@ -303,8 +281,6 @@ export class MapContainer extends Component {
             onDragEnd={this.onMarkerDragEnd}
             // position={{ lat: this.state.markerPosition.lat, lng: this.state.markerPosition.lng }}
         />
-
-        {/* <Listing stores={this.state.stores} /> */}
         <InfoWindow
             onOpen={this.windowHasOpened}
             onClose={this.windowHasClosed}
@@ -314,11 +290,9 @@ export class MapContainer extends Component {
               </div>
         </InfoWindow>
       </Map>
-    )
+    );
   }
 }
-
-
 
 export default GoogleApiWrapper({
   apiKey: "AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU"

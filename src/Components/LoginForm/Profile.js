@@ -29,7 +29,7 @@ setCards = () => {
                     if(user_name=== this.state.user.id){
                         return user_name;
                         }
-                        return;
+                        return resJSON;
                     })
                      this.setState({
                          userSavedLocations: userSavedLocations

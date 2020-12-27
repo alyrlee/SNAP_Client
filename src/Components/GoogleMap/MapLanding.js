@@ -20,7 +20,7 @@ export default class MapLanding extends Component {
     render() {
       return (
         <div className="ui container" style={{ marginTop: '10px' }}>
-          <SnapLocationsList stores={this.state.snapLocationsList} />
+          <SnapLocationsList stores={this.props.snapLocationsList} />
           <Autocomplete onChange={this.onChange} />
           Found: {this.state.snapLocationsList.length} SnapLocationsList
           <MapContainer snapLocationsList={this.state.snapLocationsList}

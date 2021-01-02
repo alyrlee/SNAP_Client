@@ -1,31 +1,38 @@
 import React, {Component} from 'react';
 import config from '../../config';
+// import data from  './SnapData';
+import data from './SnapDataShort';
 import SnapLocationsList from '../SnapLocationStores/SnapLocationsList';
 import MapContainer from '../GoogleMap/GooglePlaces';
-import Autocomplete from 'react-google-autocomplete';
 
 export default class MapLanding extends Component {
-  state = { snapLocationsList: [] };
+  state = {
+     snapLocationsList: [],
+     data: data,
+    //  obj/value pair can be set in state w/ this syntax. Use case: when have the same name    
+    };
 
-  onChange = async (term) => {
-    const response = await fetch(`${config.API_ENDPOINT}/stores`,{
-       params: { query: term } 
-    })
+    onSelect = async () => {
+    const response = await fetch(`${config.API_ENDPOINT}/stores`)
     .then(response => {
       console.log('data', response.json());
       console.log('data 2',response.data.results);
     });
-    this.setState({ snapLocationsList: response.data.results });
+    this.setState({ snapLocationsList: response.data.results,
+    data: data});
+    console.log('json data', data);
   }
     render() {
       return (
         <div className="ui container" style={{ marginTop: '10px' }}>
-          <SnapLocationsList stores={this.props.snapLocationsList} />
-          <Autocomplete onChange={this.onChange} />
-          Found: {this.state.snapLocationsList.length} SnapLocationsList
-          <MapContainer snapLocationsList={this.state.snapLocationsList}
-          
-          />  
+          {/* <SnapLocationsList stores={this.state.data} />
+          Found: {this.state.data.length} SnapLocationsList */}
+          <MapContainer 
+            snapLocationsList={this.state.data} 
+            // onSelect={this.onSelect} 
+            Markers = {this.state.data}
+            
+         />  
         </div>
       );
     }

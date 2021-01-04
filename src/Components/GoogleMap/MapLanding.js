@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import config from '../../config';
+import data from '../Data/snapData.json';
 import SnapLocationsList from '../SnapLocationStores/SnapLocationsList';
 import MapContainer from '../GoogleMap/GooglePlaces';
-import Autocomplete from 'react-google-autocomplete';
+
+
 
 export default class MapLanding extends Component {
   state = { 
@@ -20,7 +22,6 @@ export default class MapLanding extends Component {
       data: data});
       console.log('json data', data);
     }
-  }
     render() {
       return (
         <div className="ui container" style={{ marginTop: '10px' }}>
@@ -32,4 +33,5 @@ export default class MapLanding extends Component {
         </div>
       );
     }
+  }
   

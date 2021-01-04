@@ -1,8 +1,9 @@
 {
-  "name": "snap-locator-client",
-  "version": "0.1.0",
+  "name": "my-webpack-project",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@babel/preset-react": "^7.12.10",
     "@fortawesome/fontawesome-svg-core": "^1.2.14",
     "@fortawesome/free-solid-svg-icons": "^5.7.1",
     "@fortawesome/react-fontawesome": "^0.1.11",
@@ -18,6 +19,7 @@
     "@testing-library/user-event": "^7.2.1",
     "@types/googlemaps": "^3.40.3",
     "@types/markerclustererplus": "^2.1.33",
+    "@webpack-cli/init": "^1.1.1",
     "antd": "^4.6.1",
     "axios": "^0.19.2",
     "cors": "^2.8.5",
@@ -49,7 +51,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "webpack",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -67,5 +69,19 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@webpack-cli/info": "^1.2.1",
+    "babel-loader": "^8.2.2",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "css-loader": "^5.0.1",
+    "json-loader": "^0.5.7",
+    "style-loader": "^2.0.0",
+    "terser-webpack-plugin": "^5.0.3",
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.1"
+  },
+  "description": "My webpack project"
 }

@@ -1,7 +1,20 @@
 const path = require('path');
 const webpack = require('webpack');
+const json = require('./file.json');
 
+const HtmlWebpackPlugin = require('html-webpack-plugin'); //installed via npm
+const webpack = require('webpack'); //to access built-in plugins
 
+module.exports = {
+  module: {
+    rules: [
+      { test: /\.txt$/, use: 'raw-loader' }
+    ]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({template: './src/index.html'})
+  ]
+};
 
 
 /*
@@ -25,55 +38,55 @@ const webpack = require('webpack');
  *
  */
 
-const TerserPlugin = require('terser-webpack-plugin');
+// const TerserPlugin = require('terser-webpack-plugin');
 
 
 
 
-module.exports = {
-  mode: 'development',
+// module.exports = {
+//   mode: 'development',
 
-  entry: {
-    n: './src.js'
-  },
+//   entry: {
+//     n: './src.js'
+//   },
 
-  plugins: [new webpack.ProgressPlugin()],
+//   plugins: [new webpack.ProgressPlugin()],
 
-  module: {
-    rules: [{
-      test: /\.(js|jsx)$/,
-      include: [],
-      loader: 'babel-loader'
-    }, {
-      test: /.css$/,
+//   module: {
+//     rules: [{
+//       test: /\.(js|jsx|json)$/,
+//       include: [],
+//       loader: 'json-loader'
+//     }, {
+//       test: /.css$/,
 
-      use: [{
-        loader: "style-loader"
-      }, {
-        loader: "css-loader",
+//       use: [{
+//         loader: "style-loader"
+//       }, {
+//         loader: "css-loader",
 
-        options: {
-          sourceMap: true
-        }
-      }]
-    }]
-  },
+//         options: {
+//           sourceMap: true
+//         }
+//       }]
+//     }]
+//   },
 
-  optimization: {
-    minimizer: [new TerserPlugin()],
+//   optimization: {
+//     minimizer: [new TerserPlugin()],
 
-    splitChunks: {
-      cacheGroups: {
-        vendors: {
-          priority: -10,
-          test: /[\\/]node_modules[\\/]/
-        }
-      },
+//     splitChunks: {
+//       cacheGroups: {
+//         vendors: {
+//           priority: -10,
+//           test: /[\\/]node_modules[\\/]/
+//         }
+//       },
 
-      chunks: 'async',
-      minChunks: 1,
-      minSize: 30000,
-      name: false
-    }
-  }
-}
+//       chunks: 'async',
+//       minChunks: 1,
+//       minSize: 30000,
+//       name: false
+//     }
+//   }
+// }

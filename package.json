@@ -73,6 +73,7 @@
     "@webpack-cli/info": "^1.2.1",
     "css-loader": "^5.0.1",
     "json-loader": "^0.5.7",
+    "json5-loader": "^4.0.1",
     "style-loader": "^2.0.0",
     "terser-webpack-plugin": "^5.0.3",
     "webpack-cli": "^4.3.1"

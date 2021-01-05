@@ -219,7 +219,7 @@ snapLocationsList = (stores) => (
     if (this.state.showingInfoWindow) {
       this.setState({
         showingInfoWindow: true,
-        activeMarker: null
+        activeMarker: false
       })
     }
   };
@@ -234,7 +234,7 @@ snapLocationsList = (stores) => (
       //change the key to force lat,lng to re-render a new key 
            key={this.state.coordinates.lat+this.state.coordinates.lng} 
            google={this.props.google}
-           zoom={14}
+           zoom={4}
            style={mapStyles}
            initialCenter={
             {
@@ -247,6 +247,31 @@ snapLocationsList = (stores) => (
             stores ={this.state.stores} 
             // visible={false}
       >
+      <Marker
+            title={'The marker`s title will appear as a tooltip.'}
+            name={'Dollar tree'}
+            position={{lat: 32.396797, lng: -82.055046}} 
+            />
+      <Marker
+            name={'Meijer Gas Station'}
+            position={{lat: 42.3325693, lng: -83.405739}} 
+        />
+        <Marker />
+      <Marker
+            name={'Mercados'}
+            position={{lat: 39.526478, lng: -122.19395}}
+            icon={{
+              url: "/path/to/custom_icon.png",
+              // anchor: new google.maps.Point(32,32),
+              // scaledSize: new google.maps.Size(64,64)
+          }} />
+      <Marker 
+            onClick={this.onMarkerClick}
+            name={'Current location'}
+            draggable={true}
+            onDragEnd={this.onMarkerDragEnd}
+            // position={{ lat: this.state.markerPosition.lat, lng: this.state.markerPosition.lng }}
+        />  
       <Autocomplete
            placeholder='Search'
            fields= {['']}
@@ -274,13 +299,6 @@ snapLocationsList = (stores) => (
               // search: 'value'
           }}
       />    
-        <Marker 
-            onClick={this.onMarkerClick}
-            name={'Current location'} 
-            draggable={true}
-            onDragEnd={this.onMarkerDragEnd}
-            // position={{ lat: this.state.markerPosition.lat, lng: this.state.markerPosition.lng }}
-        />
         <InfoWindow
             onOpen={this.windowHasOpened}
             onClose={this.windowHasClosed}

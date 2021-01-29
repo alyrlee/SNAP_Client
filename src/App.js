@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 import Header from './Components/Headers/Header';
 import LandingPage from './Components/LandingPage /LandingPage';
@@ -12,17 +12,7 @@ import MapLanding from './Components/GoogleMap/MapLanding';
 import { Route, Router } from "react-router-dom";
 import history from './Contexts/history';
 
-class App extends Component {
-  state = {
-     hasError: false,
-    };
-
-  static getDerivedStateFromError(error) {
-    console.error(error)
-    return { hasError: true }
-  }
-    
-  render() {
+function App() {
     return (
       <div className='App'>
     <Router history={history}>
@@ -58,8 +48,7 @@ class App extends Component {
          </main>
        </Router> 
       </div>
-    )
+    );
   }
-}
 
-export default App
+export default App;

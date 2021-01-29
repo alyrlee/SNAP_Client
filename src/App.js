@@ -32,19 +32,16 @@ class App extends Component {
         <main className='App__main'>
           {this.state.hasError && <p className='red'>There was an error! Oh no!</p>}
             <Route
-              exact
               path={'/'}
-              component={LandingPage}
+              exact component={LandingPage}
             />
             <Route
-              exact
               path={'/about'}
-              component={About}
+              exact component={About}
             />
             <Route
-              exact
               path={'/find'}
-              component={MapLanding}
+              exact component={MapLanding}
             />
             <PublicOnlyRoute
               path={'/login'}

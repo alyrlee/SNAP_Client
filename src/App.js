@@ -9,7 +9,8 @@ import PublicOnlyRoute from '../src/Utils/PublicOnlyRoute';
 import About from '../src/Components/About/About';
 import Profile from './Components/LoginForm/Profile';
 import MapLanding from './Components/GoogleMap/MapLanding';
-import { Route, Switch} from "react-router-dom";
+import { Route, Router } from "react-router-dom";
+import history from './Contexts/history';
 
 class App extends Component {
   state = {
@@ -24,12 +25,12 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <header className='App__header'>
+    <Router history={history}>
+        <header className="ui container">
           <Header />
         </header>
         <main className='App__main'>
           {this.state.hasError && <p className='red'>There was an error! Oh no!</p>}
-          <Switch>
             <Route
               exact
               path={'/'}
@@ -57,11 +58,8 @@ class App extends Component {
               path={'/profile'}
               component={Profile}
             />
-            {/* <Route
-              component={NotFoundPage}
-            /> */}
-          </Switch>
-        </main>
+         </main>
+       </Router> 
       </div>
     )
   }

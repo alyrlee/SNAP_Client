@@ -16,30 +16,23 @@ TokenService.clearUserName()
 
 renderLogoutLink() {
 return (
-    <div className='NavBar__logged-in'>
-    <Link
-        onClick={this.handleLogoutClick}
-        to='/'>
-        Logout
-    </Link>
+    // <div className="ui container">
+    <div>
+        <Link onClick={this.handleLogoutClick} to='/'> Logout</Link>
    </div> 
  )
 }
 
 renderLoginLink() {
-return (
-    <div className='NavBar__not-logged-in'>
-    <Link
-        to='/login'>
-        Log in
-    </Link>
-    <Hyph />
-    <Link
-        to='/register'>
-        Register
-   </Link>
-  </div> 
- )
+    return (
+    // <div className="ui container">
+
+        <div>
+            <Link to='/login'> Log in</Link>
+            <Hyph />
+            <Link to='/register'> Register</Link>
+        </div> 
+     )
 }
 
 onClick = () => {
@@ -49,13 +42,14 @@ onClick = () => {
 }
 
 render () {
+    // const{clicked} = this.state
     return (
         <div>
             <ul className="navbar">
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/about">About</Link></li>
                 <li><Link to="/find">Find SNAP retailer</Link></li>
-                {/* {TokenService.hasAuthToken() ? <li><Link to='/account'>My Account</Link></li> : null} */}
+                {TokenService.hasAuthToken() ? <li><Link to='/profile'>My Account</Link></li> : null}
                 {TokenService.hasAuthToken() ? <li><Link to='/'>SNAP Locator</Link></li> : null}
                 <li>{TokenService.hasAuthToken()
                     ? this.renderLogoutLink()
@@ -65,7 +59,3 @@ render () {
         </div>
     )}
 }
-
-
-
-

@@ -19,33 +19,12 @@ function App() {
         <header className="ui container">
           <Header />
         </header>
-        <main className='App__main'>
-          {this.state.hasError && <p className='red'>There was an error! Oh no!</p>}
-            <Route
-              path={'/'}
-              exact component={LandingPage}
-            />
-            <Route
-              path={'/about'}
-              exact component={About}
-            />
-            <Route
-              path={'/find'}
-              exact component={MapLanding}
-            />
-            <PublicOnlyRoute
-              path={'/login'}
-              component={LoginForm}
-            />
-            <PublicOnlyRoute
-              path={'/register'}
-              component={RegistrationForm}
-            />
-            <PrivateRoute
-              path={'/profile'}
-              component={Profile}
-            />
-         </main>
+            <Route path={'/'} exact component={LandingPage}/>
+            <Route path={'/about'} exact component={About} />
+            <Route path={'/find'} exact component={MapLanding}/>
+            <PublicOnlyRoute path={'/login'} component={LoginForm}/>
+            <PublicOnlyRoute path={'/register'} component={RegistrationForm}/>
+            <PrivateRoute path={'/profile'} exact component={Profile}/>
        </Router> 
       </div>
     );

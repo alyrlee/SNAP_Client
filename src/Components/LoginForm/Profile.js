@@ -8,7 +8,7 @@ export default class Profile extends Component {
     state = {
         user: {
             user_name: '',
-            id: null
+            id: []
         },
         userSavedLocations: []
     }

@@ -32,7 +32,7 @@ export default class LoginForm extends Component {
             )
         .then(resJSON => {
               TokenService.saveUserId(resJSON.id)})
-        history.push('/')
+        history.push('/profile')
       })
       .catch(res => {
         console.log('error has occurred',res.error);

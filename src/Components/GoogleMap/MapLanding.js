@@ -3,13 +3,12 @@ import config from '../../config';
 import snapLocationsList from '../SnapLocationStores/SnapLocationsList';
 import MapContainer from '../GoogleMap/GooglePlaces';
 
-
-
 export default class MapLanding extends Component {
-  state = { 
-    snapLocationsList: [],
-    // data: data,
-  };
+  constructor(props){
+   super(props);
+   this.state = { snapLocationsList: []} ;
+   
+  }
 
   onSelect = async () => {
     const response = await fetch(`${config.API_ENDPOINT}/stores`)

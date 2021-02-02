@@ -21,7 +21,6 @@ const AuthApiService = {
                     : res.json()
             });
     },
-
     postUser(user) {
         return fetch(`${config.API_ENDPOINT}/users`, {
             method: 'POST',
@@ -38,7 +37,15 @@ const AuthApiService = {
                 : res.json()
         });
     },  
-
+    getProfile(){
+        return fetch(`${config.API_ENDPOINT}/profile/${TokenService.getUserName()}`, {
+          headers: {'authorization': `bearer ${TokenService.getAuthToken()}`},})
+        .then(res =>
+            (!res.ok)
+                ? res.json().then(e => Promise.reject(e))
+                : res.json()
+        )
+      },
     getStores(stores, user_name, password) {
         return fetch(`${config.API_ENDPOINT}/stores`, {
             method: 'GET',

@@ -26,6 +26,7 @@ export default class LoginForm extends Component {
       fetch(`${config.API_ENDPOINT}/profile/${TokenService.getUserName()}`, {
       headers: {'authorization': `bearer ${TokenService.getAuthToken()}`},})
       .then(res =>
+        console.log('response', res)
              (!res.ok)
                      ? res.json().then(e => Promise.reject(e))
                      : res.json()

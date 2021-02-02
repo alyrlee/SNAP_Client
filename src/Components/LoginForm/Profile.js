@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../Headers/Header';
 import TokenService from '../Services/token-service';
-import ApiAuthService from  '../Services/auth-api-service';
+import AuthApiService from  '../Services/auth-api-service';
 
 export default class Profile extends Component {
 
@@ -13,7 +13,7 @@ export default class Profile extends Component {
         userSavedLocations: []
     }
 componentDidMount() {
-    ApiAuthService.getProfile()
+    AuthApiService.getProfile()
         .then(resJSON => {
             this.setState({
                     user: resJSON
@@ -23,7 +23,7 @@ componentDidMount() {
         })
 }
 setCards = () => {
-    ApiAuthService.getAllUserProfiles()
+    AuthApiService.getAllUserProfiles()
     .then(resJSON => {
             const userSavedLocations = resJSON.filter(user_name => {
                     if(user_name=== this.state.user.id){

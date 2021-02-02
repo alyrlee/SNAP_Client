@@ -162,6 +162,9 @@ onMarkerDragEnd = (event) => {
 snapLocationsList = (stores) => (
   <ul>{stores && stores.map(Store_Name => <li key={Store_Name.objectid}>{Store_Name.objectid}</li>)}</ul>
 );
+//(data) => {
+   //this.setState({ snapLocationsList: data });
+})
   onPlaceSelected = ( place ) => {
     console.log('plc', place);
         // const address = place.formatted_address,

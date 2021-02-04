@@ -2,12 +2,14 @@ import React, {Component} from 'react';
 import config from '../../config';
 import snapLocationsList from '../SnapLocationStores/SnapLocationsList';
 import MapContainer from '../GoogleMap/GooglePlaces';
-import UserSavedLocations from '../UserSavedLocationsForm/UserSavedLocations';
+import data from '../Data/snapData.json';
+
+// import UserSavedLocations from '../UserSavedLocationsForm/UserSavedLocations';
 
 export default class MapLanding extends Component {
   constructor(props){
    super(props);
-   this.state = { snapLocationsList: []  } ;
+   this.state = { data: [], snapLocationsList: []  } ;
   }
 
   onSelect = async () => {
@@ -16,7 +18,7 @@ export default class MapLanding extends Component {
       console.log('data', response.json());
       console.log('data 2',response.data.results);
     });
-    this.setState({ snapLocationsList: response.data.results});
+    this.setState({ data, snapLocationsList: response.data.results});
       console.log('json data', snapLocationsList);
     }
     render() {
@@ -27,7 +29,7 @@ export default class MapLanding extends Component {
           onSelect={this.onSelect} 
           Markers = {this.state.snapLocationsList}
           />  
-        <UserSavedLocations />  
+        {/* <UserSavedLocations />   */}
         </div>
       );
     }

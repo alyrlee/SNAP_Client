@@ -94,4 +94,5 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 **snap-locator-app**
 <br>
-**SNAP_Locator_Client**
+
+**snap-client**

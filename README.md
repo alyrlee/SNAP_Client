@@ -92,5 +92,5 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 [create-react-app]: https://facebook.github.io/create-react-app/
 [react]: https://reactjs.org/
 
-# snap-locator-app
-# SNAP_Locator_Client
+**snap-locator-app**
+**SNAP_Locator_Client**

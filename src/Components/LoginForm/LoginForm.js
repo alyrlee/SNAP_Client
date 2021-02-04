@@ -25,12 +25,10 @@ export default class LoginForm extends Component {
     TokenService.saveAuthToken(res.authToken)
       fetch(`${config.API_ENDPOINT}/profile/${TokenService.getUserName()}`, {
       headers: {'authorization': `bearer ${TokenService.getAuthToken()}`},})
-      .then(res =>
+      .then(res => {
         console.log('response', res)
-             (!res.ok)
-                     ? res.json().then(e => Promise.reject(e))
-                     : res.json()
-            )
+       return (!res.ok) ? res.json().then(e => Promise.reject(e)) : res.json()
+        })
         .then(resJSON => {
               TokenService.saveUserId(resJSON.id)})
         history.push('/profile')

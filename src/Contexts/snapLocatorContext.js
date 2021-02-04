@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 
-export const nullStores = {
+export const stores = {
   Store_Name: {},
 }
 
 const snapLocatorContext = React.createContext({
-  store_Nnme: nullStore,
+  store_Name: [],
   snapLocations: [],
   error: null,
   setError: () => {},
@@ -20,7 +20,7 @@ export default snapLocatorContext
 
 export class snapLocatorProvider extends Component {
   state = {
-    Store_Name: nullStores,
+    Store_Name: stores,
     error: null,
   };
 
@@ -42,7 +42,7 @@ export class snapLocatorProvider extends Component {
   }
 
   clearStores = () => {
-    this.setStores(nullStores)
+    this.setStores(stores)
     this.setStores([])
   }
 

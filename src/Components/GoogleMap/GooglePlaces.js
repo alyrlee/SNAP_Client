@@ -6,7 +6,7 @@ Geocode.setApiKey("AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU");
 Geocode.enableDebug();
 
 const mapStyles = {
-  width: "100%",
+  width: "50%",
   height: "100%",
 };
 
@@ -53,8 +53,7 @@ export class MapContainer extends Component {
                 () => {
                     Geocode.fromLatLng(position.coords.latitude, position.coords.longitude).then(
                         response => {
-                            console.log(response)
-                            debugger;
+                            console.log(response);
                             const address = response.results[0].formatted_address,
                                 addressArray = response.results[0].address_components,
                                 city = this.getCity(addressArray),
@@ -155,7 +154,8 @@ onMarkerDragEnd = (event) => {
     );
   };
   
-//allow load place and configure search to load snap locations\//snapLocationsList is an object that contains an array of store information to display to the user as markers on the google map.
+//allow load place and configure search to load snap locations
+//snapLocationsList is an object that contains an array of store information to display to the user as markers on the google map.
 //pass snapLocationsList as a prop
 //make request to API to get store location data, pass via component 
 
@@ -194,7 +194,7 @@ snapLocationsList = (stores) => (
       }
     }
   }
-// ---
+// ---map by user search input on city
 // {stores.map((snapLocationsList) => (
 //   <Marker
 //     key={place.id}
@@ -239,7 +239,7 @@ snapLocationsList = (stores) => (
       //change the key to force lat,lng to re-render a new key 
            key={this.state.coordinates.lat+this.state.coordinates.lng} 
            google={this.props.google}
-           zoom={4}
+           zoom={12}
            style={mapStyles}
            initialCenter={
             {

@@ -19,7 +19,6 @@ componentDidMount() {
                     user: resJSON
             })
             TokenService.saveUserId(this.state.user.id)      
-            this.setCards()
         })
 }
 setCards = () => {

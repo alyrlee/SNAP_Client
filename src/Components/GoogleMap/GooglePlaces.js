@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import Autocomplete from 'react-google-autocomplete';
 import Geocode from 'react-geocode';
+import {marker} from 'leaflet';
 Geocode.setApiKey("AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU");
 Geocode.enableDebug();
 
 const mapStyles = {
-  width: "50%",
+  top: "5px",
+  width: "100%",
   height: "100%",
 };
 
@@ -154,33 +156,8 @@ onMarkerDragEnd = (event) => {
     );
   };
   
-//allow load place and configure search to load snap locations
-//snapLocationsList is an object that contains an array of store information to display to the user as markers on the google map.
-//pass snapLocationsList as a prop
-//make request to API to get store location data, pass via component 
-
-snapLocationsList = (stores) => (
-  <ul>{stores && stores.map(Store_Name => <li key={Store_Name.objectid}>{Store_Name.objectid}</li>)}</ul>
-);
-//(stores) => {
-   //this.setState({ stores: stores});
-   // key prop same variable name??
-   
-
   onPlaceSelected = ( place ) => {
     console.log('plc', place);
-        // const address = place.formatted_address,
-        //     addressArray = place.address_components,
-        //     city = this.getCity(addressArray),
-        //     area = this.getArea(addressArray),
-        //     state = this.getState(addressArray),
-        //     latValue = place.geometry.location.lat(),
-        //     lngValue = place.geometry.location.lng();
-
-        // console.log('latvalue', latValue)
-        // console.log('lngValue', lngValue)
-    // if search returns an unknown city, the search term will be inside of place.name
-    // if search results a real city, place.geometry will contain place.geometry.location
     const {geometry} = place;
     if (geometry) {
       const {location} = place.geometry;
@@ -214,7 +191,7 @@ snapLocationsList = (stores) => (
   onMarkerClick = (props, marker, e) => {
     this.setState({
       selectedPlace: props,
-      // snapLocationsList: props,
+      snapLocationsList: props,
       activeMarker: marker,
       showingInfoWindow: true
     });
@@ -231,7 +208,7 @@ snapLocationsList = (stores) => (
     
 //add data from state onto map with address, city , etc....
   render() {
-    // if (!this.props.loaded) return <div>Loading...</div>;
+    if (!this.props.loaded) return <div>Loading...</div>;
     console.log(this.props.snapLocationsList);
     console.log('ML SLL:', this.state.snapLocationsList);
     return (
@@ -252,31 +229,23 @@ snapLocationsList = (stores) => (
             stores ={this.state.stores} 
             // visible={false}
       >
-      <Marker
-            title={'The marker`s title will appear as a tooltip.'}
-            name={'Dollar tree'}
-            position={{lat: 32.396797, lng: -82.055046}} 
-            />
-      <Marker
-            name={'Meijer Gas Station'}
-            position={{lat: 42.3325693, lng: -83.405739}} 
-        />
-        <Marker />
-      <Marker
-            name={'Mercados'}
-            position={{lat: 39.526478, lng: -122.19395}}
-            icon={{
-              url: "/path/to/custom_icon.png",
-              // anchor: new google.maps.Point(32,32),
-              // scaledSize: new google.maps.Size(64,64)
-          }} />
       <Marker 
+            key={marker.id}
+            google={this.props.google}
             onClick={this.onMarkerClick}
+            // position={{ lat: marker.lat, lng: this.state.markerPosition.lng }}
             name={'Current location'}
             draggable={true}
             onDragEnd={this.onMarkerDragEnd}
-            // position={{ lat: this.state.markerPosition.lat, lng: this.state.markerPosition.lng }}
-        />  
+          >
+               {this.props.selectedMarker === marker &&
+              <InfoWindow>
+                <div>
+                  {marker.snapLocationsList}
+                </div>
+              </InfoWindow>}
+          </Marker>  
+
       <Autocomplete
            placeholder='Search'
            fields= {['']}
@@ -293,11 +262,6 @@ snapLocationsList = (stores) => (
            types={['(cities)']}
            componentRestrictions={{country: 'us'}}
            onChange={e => this.setState({ term: e.target.value })}
-           onClick={(stores, places, snapLocationsList, details = null) => {
-
-            // 'details' is provided when fetchDetails = true
-            console.log('stores and details!!', stores, places, snapLocationsList, details);
-          }}
            term={{
               key: 'AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU',
               language: 'en'

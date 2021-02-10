@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import Autocomplete from 'react-google-autocomplete';
 import Geocode from 'react-geocode';
-import {marker} from 'leaflet';
 Geocode.setApiKey("AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU");
 Geocode.enableDebug();
 
@@ -36,7 +35,11 @@ export class MapContainer extends Component {
     coordinates: {
         lat: 42.3600825,
         lng: -71.0588801
-    }  
+    },  
+    cambridgeCoordinates: {
+      lat: 42.373611,
+      lng: -71.110558
+  }  
   };
  
   componentDidMount() {
@@ -121,7 +124,6 @@ onChange = (event) => { event.preventDefault();
   this.props.onChange(this.state.term);
 };
 
-
 onInfoWindowClose = (event) => { };
 
 onMarkerDragEnd = (event) => {
@@ -156,12 +158,12 @@ onMarkerDragEnd = (event) => {
     );
   };
   
-  onPlaceSelected = ( place ) => {
+onPlaceSelected = ( place ) => {
     console.log('plc', place);
     const {geometry} = place;
     if (geometry) {
       const {location} = place.geometry;
-      if (location) {
+    if (location) {
         this.setState({
           coordinates: {
             lat: location.lat(), 
@@ -188,14 +190,17 @@ onMarkerDragEnd = (event) => {
   //   })
   // );
 
-  onMarkerClick = (props, marker, e) => {
-    this.setState({
-      selectedPlace: props,
-      snapLocationsList: props,
-      activeMarker: marker,
-      showingInfoWindow: true
-    });
-  }
+  onMarkerClick = (props, marker, _e) => {
+    if (this.state.selectedMarker) {
+      this.setState({
+        selectedPlace: props,
+        selectedMarker: props,
+        snapLocationsList: props,
+        activeMarker: marker,
+        showingInfoWindow: true
+      })
+    }
+  };
 
   onMapClicked = (props) => {
     if (this.state.showingInfoWindow) {
@@ -206,14 +211,35 @@ onMarkerDragEnd = (event) => {
     }
   };
     
-//add data from state onto map with address, city , etc....
+  createMarker = (coords) => {
+    console.log(coords);
+    return (
+      <Marker 
+        key={`${coords.lat}${coords.lng}`}
+        google={this.props.google}
+        onClick={this.onMarkerClick}
+        position={{ lat: coords.lat, lng: coords.lng }}
+        name={'Current location'}
+        draggable={true}
+        onDragEnd={this.onMarkerDragEnd}
+      >
+         {/* {this.props.selectedMarker === marker &&
+        <InfoWindow>
+          <div>
+            {marker.snapLocationsList}
+
+          </div>
+        </InfoWindow>} */}
+      </Marker>  
+    )
+
+  } 
   render() {
     if (!this.props.loaded) return <div>Loading...</div>;
     console.log(this.props.snapLocationsList);
     console.log('ML SLL:', this.state.snapLocationsList);
     return (
       <Map
-      //change the key to force lat,lng to re-render a new key 
            key={this.state.coordinates.lat+this.state.coordinates.lng} 
            google={this.props.google}
            zoom={12}
@@ -229,8 +255,12 @@ onMarkerDragEnd = (event) => {
             stores ={this.state.stores} 
             // visible={false}
       >
-      <Marker 
-            key={marker.id}
+      {this.createMarker(this.state.cambridgeCoordinates)}  
+      {console.log('give me data', this.props.data)}
+      {this.props.data.map(mark => this.createMarker({lat: mark.X, lng: mark.Y}))} 
+      <Marker> </Marker>
+      {/* <Marker 
+            // key={marker.id}
             google={this.props.google}
             onClick={this.onMarkerClick}
             // position={{ lat: marker.lat, lng: this.state.markerPosition.lng }}
@@ -242,9 +272,10 @@ onMarkerDragEnd = (event) => {
               <InfoWindow>
                 <div>
                   {marker.snapLocationsList}
+
                 </div>
               </InfoWindow>}
-          </Marker>  
+          </Marker>   */}
 
       <Autocomplete
            placeholder='Search'

@@ -59,7 +59,7 @@ export default class MapLanding extends Component {
 //     </MapContainer>
 //onSelect for backend db
 onSelect =  () => {
-      const response =  fetch(`${config.API_ENDPOINT}/stores`)
+      const response = fetch(`${config.API_ENDPOINT}/stores`)
       .then(response => {
         console.log('data', response.json());
         console.log('data 2',response.data.results);

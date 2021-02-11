@@ -39,7 +39,7 @@ export class MapContainer extends Component {
     cambridgeCoordinates: {
       lat: 42.373611,
       lng: -71.110558
-  }  
+    }  
   };
  
   componentDidMount() {
@@ -124,7 +124,27 @@ onChange = (event) => { event.preventDefault();
   this.props.onChange(this.state.term);
 };
 
-onInfoWindowClose = (event) => { };
+onInfoWindowClose = (props) => {
+  if (this.state.showingInfoWindow) {
+    this.setState({
+      showingInfoWindow: false,
+      activeMarker: null
+    });
+  }
+};
+onInfoWindowOpen =(props) => {
+  if (this.state.showingInfoWindow) {
+    this.setState({
+      showingInfoWindow: true,
+      activeMarker: null
+    });
+  }
+};
+
+// onMarker.addListener("click", () => {
+//   infowindow.open(map, marker);
+// });
+
 
 onMarkerDragEnd = (event) => {
     let newLat = event.latLng.lat(),
@@ -173,25 +193,9 @@ onPlaceSelected = ( place ) => {
       }
     }
   }
-// ---map by user search input on city
-// {stores.map((snapLocationsList) => (
-//   <Marker
-//     key={place.id}
-//     text={place.name}
-//     lat={place.geometry.location.lat}
-//     lng={place.geometry.location.lng}
-  // />  
-  // markers.push(
-  //   new google.maps.Marker({
-  //     map,
-  //     icon,
-  //     title: place.name,
-  //     position: place.geometry.location,
-  //   })
-  // );
 
   onMarkerClick = (props, marker, _e) => {
-    if (this.state.selectedMarker) {
+    if (this.state.marker) {
       this.setState({
         selectedPlace: props,
         selectedMarker: props,
@@ -206,7 +210,7 @@ onPlaceSelected = ( place ) => {
     if (this.state.showingInfoWindow) {
       this.setState({
         showingInfoWindow: true,
-        activeMarker: false
+        activeMarker: null
       })
     }
   };
@@ -219,7 +223,7 @@ onPlaceSelected = ( place ) => {
         google={this.props.google}
         onClick={this.onMarkerClick}
         position={{ lat: coords.lat, lng: coords.lng }}
-        name={'Current location'}
+        name={'Current Location'}
         draggable={true}
         onDragEnd={this.onMarkerDragEnd}
       >
@@ -258,9 +262,17 @@ onPlaceSelected = ( place ) => {
       {this.createMarker(this.state.cambridgeCoordinates)}  
       {console.log('give me data', this.props.data)}
       {this.props.data.map(mark => this.createMarker({lat: mark.X, lng: mark.Y}))} 
-      <Marker> </Marker>
+      {this.props.data. map(mark => this.createMarker({name: mark.store_name}))} 
+      {this.props.data.map(mark => this.createMarker({address: mark.address}))} 
+      {this.props.data.map(mark => this.createMarker({city: mark.city}))} 
+      <Marker
+            onClick={this.onMarkerClick}     
+            name={'store_name'}
+            // position={{ lat: this.state.coordinates.latitude, lng: this.coordinates.longitude }}
+            >   
+      </Marker>
       {/* <Marker 
-            // key={marker.id}
+            // key={marker.id}/{place..id}
             google={this.props.google}
             onClick={this.onMarkerClick}
             // position={{ lat: marker.lat, lng: this.state.markerPosition.lng }}
@@ -300,8 +312,9 @@ onPlaceSelected = ( place ) => {
           }}
       />    
         <InfoWindow
-            onOpen={this.windowHasOpened}
-            onClose={this.windowHasClosed}
+            marker={this.state.activeMarker}
+            onOpen={this.onInfoWindowOpen}
+            onClose={this.onInfoWindowClose}
             visible={this.state.showingInfoWindow}>
               <div>
                 <h1>{this.state.selectedPlace.name}</h1>

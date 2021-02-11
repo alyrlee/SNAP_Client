@@ -68,10 +68,6 @@ onSelect =  () => {
         console.log('json data', snapLocationsList);
 }
 
-handleClick = (marker, event) => {
-      console.log({ marker })
-      this.setState({ selectedMarker: marker })
-}
     render() {
       return (
         <div className="ui container" style={{ marginTop: '26.5px' }}>
@@ -81,7 +77,6 @@ handleClick = (marker, event) => {
           //for db fetch  
           //data={this.state.data}
           onSelect={this.onSelect} 
-          Markers = {this.state.data}
           onClick={this.handleClick}
           />  
         </div>

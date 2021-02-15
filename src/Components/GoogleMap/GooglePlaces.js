@@ -220,7 +220,7 @@ const mapStyles = {
 export class MapContainer extends Component {
   state = {
     term: '',
-    snapLocationsList: {},
+    SnapLocationsList: {},
     places: [],
     showingInfoWindow: true,
     activeMarker: {},
@@ -476,7 +476,7 @@ snapLocationsList = (stores) => (
       //change the key to force lat,lng to re-render a new key 
            key={this.state.coordinates.lat+this.state.coordinates.lng} 
            google={this.props.google}
-           zoom={4}
+           zoom={12}
            style={mapStyles}
            initialCenter={
             {

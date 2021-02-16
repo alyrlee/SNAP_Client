@@ -84,37 +84,37 @@ export class MapContainer extends Component {
 
 
 //get list of snap locations for Boston 
-  setSnapLocationsList() {
-    const data =[
-      {
-        // x   |     y      | objectid |                     store_name                     |                address                | address_line__2 |  city  | state | zip5 | zip4 | county  |  longitude  |  l
-        // -71.0622020 | 42.3649290 |     4030 | 7-eleven 32476C                                    | 91 Causeway St                        | 91-99           | Boston | MA    | 2114 | 1308 | SUFFOLK | -71.0622020 | 42.3649290 | 2020-12-15 02:22:00-05
-        X: -71.0622020,
-        Y: 42.36492920,
-        objectid: 4030,
-        store_name: '7-eleven 32476C',
-        address: '91 Causeway St',
-        city: 'Boston',
-        state: 'MA'  
-      },
-      {
-        // x   |     y      | objectid |                     store_name                     |                address                | address_line__2 |  city  | state | zip5 | zip4 | county  |  longitude  |  l
-        // -71.0622020 | 42.3649290 |     4030 | 7-eleven 32476C                                    | 91 Causeway St                        | 91-99           | Boston | MA    | 2114 | 1308 | SUFFOLK | -71.0622020 | 42.3649290 | 2020-12-15 02:22:00-05
-        X: -71.0622021,
-        Y: 42.36492922,
-        objectid: 4031,
-        store_name: '8-eleven 32476C',
-        address: '93 Causeway St',
-        city: 'Boston',
-        state: 'MA'  
-      }
-    ]
+  // setSnapLocationsList() {
+  //   const data =[
+  //     {
+  //       // x   |     y      | objectid |                     store_name                     |                address                | address_line__2 |  city  | state | zip5 | zip4 | county  |  longitude  |  l
+  //       // -71.0622020 | 42.3649290 |     4030 | 7-eleven 32476C                                    | 91 Causeway St                        | 91-99           | Boston | MA    | 2114 | 1308 | SUFFOLK | -71.0622020 | 42.3649290 | 2020-12-15 02:22:00-05
+  //       X: -71.0622020,
+  //       Y: 42.36492920,
+  //       objectid: 4030,
+  //       store_name: '7-eleven 32476C',
+  //       address: '91 Causeway St',
+  //       city: 'Boston',
+  //       state: 'MA'  
+  //     },
+  //     {
+  //       // x   |     y      | objectid |                     store_name                     |                address                | address_line__2 |  city  | state | zip5 | zip4 | county  |  longitude  |  l
+  //       // -71.0622020 | 42.3649290 |     4030 | 7-eleven 32476C                                    | 91 Causeway St                        | 91-99           | Boston | MA    | 2114 | 1308 | SUFFOLK | -71.0622020 | 42.3649290 | 2020-12-15 02:22:00-05
+  //       X: -71.0622021,
+  //       Y: 42.36492922,
+  //       objectid: 4031,
+  //       store_name: '8-eleven 32476C',
+  //       address: '93 Causeway St',
+  //       city: 'Boston',
+  //       state: 'MA'  
+  //     }
+  //   ]
 
-    this.setState({     
-      setSnapLocationsList: {data}
-     })
-     console.log('get data', data);
-  }
+  //   this.setState({     
+  //     setSnapLocationsList: {data}
+  //    })
+  //    console.log('get data', data);
+  // }
 
   getCity = (addressArray) => {
     let city = '';
@@ -258,12 +258,27 @@ snapLocationsList = (stores) => (
       })
     }
   };
+
+  createMarker = (location) => {
+    console.log('pull all snap locations', location);
+    return (
+      <Marker 
+        key={`${location.Latitude}${location.Longitude}`}
+        id={location.objectid}
+        google={this.props.google}
+        onClick={this.onMarkerClick}
+        position={{ lat: location.Latitude, lng: location.Longitude }}
+        name={'Current Location'}
+        draggable={true}
+        onDragEnd={this.onMarkerDragEnd} />
+    ) 
+  }
     
 //add data from state onto map with address, city , etc....
   render() {
     // if (!this.props.loaded) return <div>Loading...</div>;
-    console.log(this.props.snapLocationsList);
-    console.log('ML SLL:', this.state.snapLocationsList);
+    console.log('data loading', this.props.snapLocationsList);
+    // console.log('ML SLL:', this.state.snapLocationsList);
     return (
       <Map
       //change the key to force lat,lng to re-render a new key 
@@ -271,7 +286,7 @@ snapLocationsList = (stores) => (
            google={this.props.google}
            zoom={12}
            style={mapStyles}
-           initialCenter={
+           center={
             {
               lat: this.state.coordinates.lat,
               lng: this.state.coordinates.lng
@@ -282,7 +297,9 @@ snapLocationsList = (stores) => (
             stores ={this.state.stores} 
             // visible={false}
       >
-        <Marker
+
+       {this.props.markers.map(mark => this.createMarker(mark))}
+        {/* <Marker
           title={'The marker`s title will appear as a tooltip.'}
           name={'Dollar tree'}
           position={{lat: 32.396797, lng: -82.055046}} />
@@ -304,7 +321,7 @@ snapLocationsList = (stores) => (
             draggable={true}
             onDragEnd={this.onMarkerDragEnd}
             // position={{ lat: this.state.markerPosition.lat, lng: this.state.markerPosition.lng }}
-        />
+        /> */}
       <Autocomplete
            placeholder='Search'
            fields= {['']}

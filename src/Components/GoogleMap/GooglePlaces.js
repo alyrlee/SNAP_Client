@@ -8,6 +8,7 @@ Geocode.enableDebug();
 export class MapContainer extends Component {
   state = {
     showingInfoWindow: false,
+    markers:{},
     activeMarker: {},
     selectedPlace: {},
     places: [],
@@ -159,20 +160,32 @@ onMapClicked = (props) => {
   if (this.state.showingInfoWindow) {
     this.setState({
       showingInfoWindow: false,
-      activeMarker: null
+      activeMarker: null,
+      markers: true
     })
   }
 };
 
-createMarker = (Store_Name) => {
-  console.log('pull all snap locations', Store_Name);
+createMarker = (markers) => {
+  // const {geometry} = markers;
+  //   if (geometry) {
+  //     const {location} = markers.geometry;
+  //   if (location) {
+  //       this.setState({
+  //         coordinates: {
+  //           latitude: Store_Name.latitude(), longitude: Store_Name.longitude()
+  //         }
+  //       });
+  //     }
+  console.log('pull all snap locations', markers);
   return (
     <Marker 
-      key={`${Store_Name.latitude}${Store_Name.longitude}`}
-      id={Store_Name.ObjectId}
+      key={`${markers.Store_Name.latitude}${markers.Store_Name.longitude}`}
+      id={markers.Store_Name.ObjectId}
       google={this.props.google}
+      markers={this.props}
       onClick={this.onMarkerClick}
-      position={{ latitude: Store_Name.latitude, longitude: Store_Name.longitude }}
+      position={{ latitude: markers.Store_Name.latitude, longitude: markers.Store_Name.longitude }}
       name={'Current Location'}
       draggable={true}
       onDragEnd={this.onMarkerDragEnd} />
@@ -196,14 +209,18 @@ createMarker = (Store_Name) => {
             }
           }
           zoom={14}
+          
       >
       
-      {this.state.markers.map(marker => this.createMarker(marker))}
-
       <Marker 
           onClick={this.onMarkerClick}
           name={'Current location'}
+          markers={this.props.markers.map(marker=> this.createMarker(marker))}
           />
+
+      {/* <createMarker
+            marker={this.state.markers.map(marker => this.createMarker(marker))}
+            />     */}
 
       <Autocomplete
            placeholder='Search'

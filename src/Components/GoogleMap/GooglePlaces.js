@@ -164,12 +164,29 @@ onMapClicked = (props) => {
   }
 };
 
+createMarker = (location) => {
+  console.log('pull all snap locations', location);
+  return (
+    <Marker 
+      key={`${location.Latitude}${location.Longitude}`}
+      id={location.objectid}
+      google={this.props.google}
+      onClick={this.onMarkerClick}
+      position={{ lat: location.Latitude, lng: location.Longitude }}
+      name={'Current Location'}
+      draggable={true}
+      onDragEnd={this.onMarkerDragEnd} />
+     ) 
+  }
+
   render() {
     if (!this.props.loaded) return <div>Loading...</div>;
-     console.log(this.state.snapLocationsList);
-     console.log('SLL data', this.state.data);
-     console.log('SLL data props', this.state.props);
-     console.log('ML SLL:', this.state.snapLocationsList);
+    console.log('data loading', this.props.snapLocationsList);
+
+    //  console.log(this.state.snapLocationsList);
+    //  console.log('SLL data', this.state.data);
+    //  console.log('SLL data props', this.state.props);
+    //  console.log('ML SLL:', this.state.snapLocationsList);
      
     return (
       <Map

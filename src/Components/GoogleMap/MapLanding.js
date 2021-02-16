@@ -1,64 +1,45 @@
 import React, {Component} from 'react';
-import config from '../../config';
-import snapLocationsList from '../SnapLocationStores/SnapLocationsList';
 import MapContainer from '../GoogleMap/GooglePlaces'; 
-
-// const testData =[
-//   {
-//     X: -71.0622020,
-//     Y: 42.36492920,
-//     objectid: 4030,
-//     store_name: '7-eleven 32476C',
-//     address: '91 Causeway St',
-//     city: 'Boston',
-//     state: 'MA'  
-//   },
-//   {
-//     X: -71.075058,
-//     Y: 42.337936,
-//     objectid: 4031,
-//     store_name: '8-eleven 32476C',
-//     address: '93 Causeway St',
-//     city: 'Boston',
-//     state: 'MA'  
-//   },
-//   {
-//     X: -71.054825,
-//     Y: 42.340183,
-//     objectid: 4031,
-//     store_name: '7-eleven 32476C',
-//     address: '95 Causeway St',
-//     city: 'Boston',
-//     state: 'MA'  
-//   },
-// ];
+import AuthApiService from '../Services/auth-api-service';
 
 export default class MapLanding extends Component {
   constructor(props){
    super(props);
-   this.state = { selectedMarker: false,  data: [], snapLocationsList: []  } ;
+   this.state = {stores: [] } ;
   }
 
-  onSelect = () => {
-    const response = fetch(`${config.API_ENDPOINT}/stores`)
-    .then(response => {
-      console.log('data', response.json());
-      console.log('data 2',response.data.results);
-    });
-    this.setState({ snapLocationsList: response.data.results});
-        console.log('json data', snapLocationsList);
-  }
-    render() {
+  // onSelect = () => {
+  //   const response = fetch(`${config.API_ENDPOINT}/stores`)
+  //   .then(response => {
+  //     console.log('data', response.json());
+  //     console.log('data 2',response.data.results);
+  //   });
+  //   this.setState({ snapLocationsList: response.data.results,
+  //     data: data});
+  //     console.log('json data', data);
+  //   }
+
+componentDidMount(){
+  AuthApiService.getStores()
+  .then(resJSON => {
+    this.setState({ stores: resJSON});
+          console.log('json data', resJSON);
+        })
+}
+   render() {
       return (
-        <MapContainer 
-              snapLocationsList={this.state.snapLocationsList} 
-              // data={snapLocationsList}
-              //for db fetch  
-              data={this.state.data}
-              onSelect={this.onSelect} 
-              onClick={this.handleClick}
-              markers={this.state.data.snapLocationsList}
-        />  
+        <div className="ui container" style={{ marginTop: '10px' }}>
+          {/* <SnapLocationsList stores={this.state.resJSON} /> */}
+          {/* Found: {this.state.data.length} SnapLocationsList */}
+          <MapContainer 
+            stores={this.state.data} 
+            // data={stores}
+            // onSelect={this.onSelect} 
+            markers = {this.state.stores}  
+         />  
+        </div>
+        
+         
     );
   }
 }

@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import MapContainer from '../GoogleMap/GooglePlaces'; 
 import AuthApiService from '../Services/auth-api-service';
+// import snapLocationsList from '../SnapLocationStores/SnapLocationsList';
 
 export default class MapLanding extends Component {
   constructor(props){
    super(props);
-   this.state = {stores: [] } ;
+   this.state = {stores: [], } ;
   }
 
   // onSelect = () => {
@@ -23,20 +24,22 @@ componentDidMount(){
   AuthApiService.getStores()
   .then(resJSON => {
     this.setState({ stores: resJSON});
-          console.log('json data', resJSON);
+          console.log('stores json data', resJSON);
         })
 }
    render() {
       return (
         <div className="ui container" style={{ marginTop: '10px' }}>
-          {/* <SnapLocationsList stores={this.state.resJSON} /> */}
-          {/* Found: {this.state.data.length} SnapLocationsList */}
+          {/* <snapLocationsList stores={this.state.resJSON} /> 
+          Found: {this.state.resJSON.length} SnapLocationsList */}
+        
           <MapContainer 
-            stores={this.state.data} 
+            stores={this.state.resJSON} 
             // data={stores}
             // onSelect={this.onSelect} 
-            markers = {this.state.stores}  
+            markers = {this.state.stores.resJSON}  
          />  
+         {/* <snapLocationsList /> */}
         </div>
         
          

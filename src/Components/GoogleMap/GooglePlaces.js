@@ -164,15 +164,15 @@ onMapClicked = (props) => {
   }
 };
 
-createMarker = (location) => {
-  console.log('pull all snap locations', location);
+createMarker = (Store_Name) => {
+  console.log('pull all snap locations', Store_Name);
   return (
     <Marker 
-      key={`${location.Latitude}${location.Longitude}`}
-      id={location.objectid}
+      key={`${Store_Name.latitude}${Store_Name.longitude}`}
+      id={Store_Name.ObjectId}
       google={this.props.google}
       onClick={this.onMarkerClick}
-      position={{ lat: location.Latitude, lng: location.Longitude }}
+      position={{ latitude: Store_Name.latitude, longitude: Store_Name.longitude }}
       name={'Current Location'}
       draggable={true}
       onDragEnd={this.onMarkerDragEnd} />
@@ -181,13 +181,9 @@ createMarker = (location) => {
 
   render() {
     if (!this.props.loaded) return <div>Loading...</div>;
-    console.log('data loading', this.props.snapLocationsList);
-
-    //  console.log(this.state.snapLocationsList);
-    //  console.log('SLL data', this.state.data);
-    //  console.log('SLL data props', this.state.props);
-    //  console.log('ML SLL:', this.state.snapLocationsList);
-     
+    console.log('data loading', this.props.stores);
+    console.log('markers', this.props.markers);
+    
     return (
       <Map
           key={this.state.coordinates.lat+this.state.coordinates.lng} 
@@ -201,10 +197,14 @@ createMarker = (location) => {
           }
           zoom={14}
       >
+      
+      {this.state.markers.map(marker => this.createMarker(marker))}
+
       <Marker 
           onClick={this.onMarkerClick}
           name={'Current location'}
           />
+
       <Autocomplete
            placeholder='Search'
            fields= {['']}

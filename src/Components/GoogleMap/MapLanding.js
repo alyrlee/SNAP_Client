@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import MapContainer from '../GoogleMap/GooglePlaces'; 
 import AuthApiService from '../Services/auth-api-service';
-// import snapLocationsList from '../SnapLocationStores/SnapLocationsList';
+import snapLocationsList from '../SnapLocationStores/SnapLocationsList';
 
 export default class MapLanding extends Component {
   constructor(props){
@@ -20,8 +20,6 @@ export default class MapLanding extends Component {
   //     console.log('json data', data);
   //   }
 
-  
-
 componentDidMount(){
   AuthApiService.getStores()
   .then(resJSON => {
@@ -29,9 +27,9 @@ componentDidMount(){
           console.log('stores json data', resJSON);
         })
 }
-   render() {
-    // const markers = resJSON && !error ? resJSON.slice(0, 200): [];
+// {this.markers = resJSON && !error ? resJSON.slice(0, 200): []}
 
+   render() {
       return (
         <div className="ui container" style={{ marginTop: '10px' }}>
           {/* <snapLocationsList stores={this.state.resJSON} /> 
@@ -40,10 +38,10 @@ componentDidMount(){
           <MapContainer 
             stores={this.state.resJSON} 
             data={this.state.resJSON}
-            // onSelect={this.onSelect} 
+            // onClick={this.onMarkerClustererClick} 
             markers = {this.state.resJSON}  
          />  
-         {/* <snapLocationsList /> */}
+         <snapLocationsList />
         </div>
         
          

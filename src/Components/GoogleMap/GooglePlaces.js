@@ -8,9 +8,7 @@ Geocode.setApiKey("AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU");
 Geocode.enableDebug();
 const markers= [];
 
-
 export class MapContainer extends Component {
-
   state = {
     showingInfoWindow: false,
     markers:[],
@@ -30,7 +28,6 @@ export class MapContainer extends Component {
     },  
   };
 
-  
   componentDidMount() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
@@ -183,7 +180,7 @@ onMapClicked = (props, markers) => {
   }
 };
 
-onMarkerClustererClick = (props) => {
+onMarkerClustererClick = (props, markers) => {
   this.setState({
     markers: props
   });
@@ -229,8 +226,7 @@ createMarker = (markers) => {
           name={'Current location'}
           />
   
-  {/* {this.props.markers.map(marker => this.createMarker(marker))}   */}
-      <MarkerClusterer
+      {/* <MarkerClusterer
           onClick={this.onMarkerClustererClick}
           averageCenter
           enableRetinaIcons
@@ -248,7 +244,7 @@ createMarker = (markers) => {
         />
       ))
   }
-    </MarkerClusterer>    
+    </MarkerClusterer>     */}
       
       <Autocomplete
            placeholder='Search'

@@ -6,7 +6,7 @@ import AuthApiService from '../Services/auth-api-service';
 export default class MapLanding extends Component {
   constructor(props){
    super(props);
-   this.state = {stores: [], } ;
+   this.state = {stores: [],error: null } ;
   }
 
   // onSelect = () => {
@@ -20,6 +20,8 @@ export default class MapLanding extends Component {
   //     console.log('json data', data);
   //   }
 
+  
+
 componentDidMount(){
   AuthApiService.getStores()
   .then(resJSON => {
@@ -28,6 +30,8 @@ componentDidMount(){
         })
 }
    render() {
+    // const markers = resJSON && !error ? resJSON.slice(0, 200): [];
+
       return (
         <div className="ui container" style={{ marginTop: '10px' }}>
           {/* <snapLocationsList stores={this.state.resJSON} /> 
@@ -35,9 +39,9 @@ componentDidMount(){
         
           <MapContainer 
             stores={this.state.resJSON} 
-            // data={stores}
+            data={this.state.resJSON}
             // onSelect={this.onSelect} 
-            markers = {this.state.stores.resJSON}  
+            markers = {this.state.resJSON}  
          />  
          {/* <snapLocationsList /> */}
         </div>

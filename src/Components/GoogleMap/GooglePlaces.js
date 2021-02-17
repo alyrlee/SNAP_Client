@@ -2,18 +2,24 @@ import React, {Component} from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import Autocomplete from 'react-google-autocomplete';
 import Geocode from 'react-geocode';
+// import MarkerClusterer from '@googlemaps/markerclustererplus';
+import { MarkerClusterer } from '@react-google-maps/api'
 Geocode.setApiKey("AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU");
 Geocode.enableDebug();
+const markers= [];
+
 
 export class MapContainer extends Component {
+
   state = {
     showingInfoWindow: false,
-    markers:{},
+    markers:[],
+    marker:[],
     activeMarker: {},
     selectedPlace: {},
     places: [],
-    zoom: [],
-    bounds: [],
+    zoom: (14),
+    bounds: null,
     address: '',
     city: '',
     area: '',
@@ -24,6 +30,7 @@ export class MapContainer extends Component {
     },  
   };
 
+  
   componentDidMount() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
@@ -102,6 +109,16 @@ export class MapContainer extends Component {
       }
   };
 
+  getMarker =(markers) => {
+    let state= [];
+    for(let i=0; i <markers.length; i++) {
+      if(!markers) {
+        state = markers[i];
+        return state;
+      }
+    }
+  }
+
   onMarkerDragEnd = (event) => {
         let newLat = event.latLng.lat(),
             newLng = event.latLng.lng();
@@ -156,7 +173,7 @@ onPlaceSelected = ( place ) => {
     showingInfoWindow: true
   });
 
-onMapClicked = (props) => {
+onMapClicked = (props, markers) => {
   if (this.state.showingInfoWindow) {
     this.setState({
       showingInfoWindow: false,
@@ -166,24 +183,20 @@ onMapClicked = (props) => {
   }
 };
 
+onMarkerClustererClick = (props) => {
+  this.setState({
+    markers: props
+  });
+}
+
 createMarker = (markers) => {
-  // const {geometry} = markers;
-  //   if (geometry) {
-  //     const {location} = markers.geometry;
-  //   if (location) {
-  //       this.setState({
-  //         coordinates: {
-  //           latitude: Store_Name.latitude(), longitude: Store_Name.longitude()
-  //         }
-  //       });
-  //     }
   console.log('pull all snap locations', markers);
   return (
     <Marker 
       key={`${markers.Store_Name.latitude}${markers.Store_Name.longitude}`}
       id={markers.Store_Name.ObjectId}
       google={this.props.google}
-      markers={this.props}
+      markers={this.props.markers}
       onClick={this.onMarkerClick}
       position={{ latitude: markers.Store_Name.latitude, longitude: markers.Store_Name.longitude }}
       name={'Current Location'}
@@ -208,20 +221,35 @@ createMarker = (markers) => {
               lng: this.state.coordinates.lng
             }
           }
-          zoom={14}
-          
+          zoom={14}     
       >
-      
+
       <Marker 
           onClick={this.onMarkerClick}
           name={'Current location'}
-          markers={this.props.markers.map(marker=> this.createMarker(marker))}
           />
-
-      {/* <createMarker
-            marker={this.state.markers.map(marker => this.createMarker(marker))}
-            />     */}
-
+  
+  {/* {this.props.markers.map(marker => this.createMarker(marker))}   */}
+      <MarkerClusterer
+          onClick={this.onMarkerClustererClick}
+          averageCenter
+          enableRetinaIcons
+          gridSize={60}
+          maxZoom={15}
+          options={{ imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' }}
+    >
+      {this.props.markers.map(markers =>this.createMarker(markers))}
+      {this.props.children}
+      {(clusterer) =>  markers.map((lat, lng) => (
+        <Marker
+          key={markers.ObjectId(lat, lng)}
+          position={{ lat: markers.latitude, lng: markers.longitude }}
+          clusterer={clusterer}
+        />
+      ))
+  }
+    </MarkerClusterer>    
+      
       <Autocomplete
            placeholder='Search'
            fields= {['']}

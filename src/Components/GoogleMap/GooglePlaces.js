@@ -8,11 +8,12 @@ Geocode.enableDebug();
 
 export class MapContainer extends Component {
   state = {
-    showingInfoWindow: false,
-    markers:[],
-    marker:[],
+    showingInfoWindow: true,
+    // markers:[],
+    // marker:[],
     activeMarker: {},
     selectedPlace: {},
+    stores: {},
     places: [],
     zoom: (14),
     bounds: null,
@@ -104,16 +105,6 @@ export class MapContainer extends Component {
       }
   };
 
-  // getMarker =(markers) => {
-  //   let state= [];
-  //   for(let i=0; i <markers.length; i++) {
-  //     if(!markers) {
-  //       state = markers[i];
-  //       return state;
-  //     }
-  //   }
-  // }
-
   onMarkerDragEnd = (event) => {
         let newLat = event.latLng.lat(),
             newLng = event.latLng.lng();
@@ -163,9 +154,9 @@ onPlaceSelected = ( place ) => {
 
   onMarkerClick = (props, marker, e) =>
     this.setState({
-    selectedPlace: props,
-    activeMarker: marker,
-    showingInfoWindow: true
+      selectedPlace: props,
+      activeMarker: marker,
+      showingInfoWindow: true
   });
 
 onMapClicked = (props) => {
@@ -184,7 +175,7 @@ onMapClicked = (props) => {
 // }
 
 createMarker = (marker) => {
-  console.log('pull all snap locations', marker);
+   console.log('pull all snap locations', marker);
   return (
     <Marker 
       key={`${marker.latitude}${marker.longitude}`}
@@ -201,7 +192,7 @@ createMarker = (marker) => {
 
   render() {
     // if (!this.props.loaded) return <div>Loading...</div>;
-    // console.log('data loading', this.state.stores.resJSON);
+    // console.log('data loading', this.props.stores);
     // console.log('markers', this.props.markers);
     
     return (
@@ -210,7 +201,7 @@ createMarker = (marker) => {
           google={this.props.google}
           style={{width: '100%', height: '100%', position: 'relative'}}
           className={'map'}
-          zoom={14}
+          zoom={4}
           center={
             {
               lat: this.state.coordinates.lat,
@@ -218,20 +209,23 @@ createMarker = (marker) => {
             }
           }
      >
-        {/* <Marker
-          title={'The marker`s title will appear as a tooltip.'}
-          name={'SOMA'}
-          position={{lat: 37.778519, lng: -122.405640}} />
+       {this.props.markers && this.props.markers.map(marker => this.createMarker(marker))}
+        <Marker 
+          onClick={this.onMarkerClick}
+          name={'Current location'}
+          />
         <Marker
-          name={'Dolores park'}
-          position={{lat: 37.759703, lng: -122.428093}} />
+          title={'The marker`s title will appear as a tooltip.'}
+          name={'7-eleven 32476C'}
+          position={{lat: 42.364929, lng: -71.062202}} />
+        <Marker
+          name={'Murphy Boston Inc'}
+          position={{lat:  30.79204, lng: -83.7892}} />
         <Marker />
         <Marker
           name={'Your position'}
-          position={{lat: 37.762391, lng: -122.439192}}
-        /> */}
-        {this.props.markers && this.props.markers.map(marker => this.createMarker(marker))}
-        <Marker />
+          position={{lat: 42.3600825, lng: -71.0588801}} />
+          <Marker />
       </Map>
     );
   //     <Map
@@ -247,10 +241,6 @@ createMarker = (marker) => {
   //         zoom={14}     
   //     >
 
-  //     <Marker 
-  //         onClick={this.onMarkerClick}
-  //         name={'Current location'}
-  //         />
   
   //     {/* <MarkerClusterer
   //         onClick={this.onMarkerClustererClick}

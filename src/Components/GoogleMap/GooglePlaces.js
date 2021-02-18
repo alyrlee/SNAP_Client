@@ -193,12 +193,12 @@ onMarkerDragEnd = (event) => {
     console.log('pull all snap locations', marker);
     return (
       <Marker 
-        key={`${marker.Latitude}${marker.Longitude}`}
+        key={`${marker.latitude}${marker.longitude}`}
         id={marker.objectid}
-        google={this.props.google}
         onClick={this.onMarkerClick}
-        position={{ lat: marker.Latitude, lng: marker.Longitude }}
+        position={{ lat: marker.latitude, lng: marker.longitude }}
         name={'Current Location'}
+        title={'The marker`s title will appear as a tooltip.'}
         // draggable={true}
         // onDragEnd={this.onMarkerDragEnd} 
          />
@@ -214,7 +214,7 @@ onMarkerDragEnd = (event) => {
   <Map google={this.props.google}
            style={{width: '100%', height: '100%', position: 'relative'}}
            className={'map'}
-           zoom={14}
+           zoom={12}
            center={
                   {
                     lat: this.state.coordinates.lat,
@@ -223,20 +223,24 @@ onMarkerDragEnd = (event) => {
                 }
            >
 {this.props.markers && this.props.markers.map(marker => this.createMarker(marker))}
-<Marker />
+
   {/* <Marker
           title={'The marker`s title will appear as a tooltip.'}
           name={'Store_Name'}
           position={{lat: Latitude, lng: Longitude}} 
-          />
-  <Marker
-          name={'Dolores park'}
-          position={{lat: 37.759703, lng: -122.428093}} />
+          /> */}
+  {/* <Marker
+          name={'Murphy Boston Inc'}
+          position={{lat: 30.79204, lng: -83.7892}} />
   <Marker />
   <Marker
-          name={'Your position'}
-          position={{lat: 37.762391, lng: -122.439192}}
-     /> */}
+          name={'7-eleven 32476C'}
+          position={{lat: 42.364929, lng: -71.062202}}
+     />
+  <Marker
+        name={'Your position'}
+        position={{lat: 42.3600825, lng: -71.0588801}}
+    /> */}
 </Map>
       // <Map
       //      key={this.state.coordinates.lat+this.state.coordinates.lng} 

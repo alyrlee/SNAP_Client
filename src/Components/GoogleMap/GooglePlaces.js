@@ -23,14 +23,15 @@ export class MapContainer extends Component {
     city: '',
     area: '',
     state: '',
-    markerPosition: {
-      lat: 0,
-      lng: 0
-    },
-    mapPosition: {
-        lat: 0,
-        lng: 0
-    },     
+    // markerPosition: {
+    //   lat: 0,
+    //   lng: 0
+    // },
+    // mapPosition: {
+    //     lat: 0,
+    //     lng: 0
+    // },     
+    // coords for Boston
     coordinates: {
         lat: 42.3600825,
         lng: -71.0588801
@@ -54,7 +55,7 @@ export class MapContainer extends Component {
                     Geocode.fromLatLng(position.coords.latitude, position.coords.longitude).then(
                         response => {
                             console.log(response)
-                            debugger;
+                            // debugger;
                             const address = response.results[0].formatted_address,
                                 addressArray = response.results[0].address_components,
                                 city = this.getCity(addressArray),
@@ -153,7 +154,7 @@ export class MapContainer extends Component {
   };
 
 onChange = (event) => { event.preventDefault();
-  this.props.onChange(this.state.term);
+  this.props.onChange(this.state.data);
 };
 
 
@@ -195,23 +196,12 @@ onMarkerDragEnd = (event) => {
 //pass snapLocationsList as a prop
 //make request to API to get store location data, pass via component 
 
-snapLocationsList = (stores) => (
-  <ul>{stores && stores.map(Store_Name => <li key={Store_Name.objectid}>{Store_Name.objectid}</li>)}</ul>
-);
+  snapLocationsList = (stores) => (
+    <ul>{stores && stores.map(Store_Name => <li key={Store_Name.objectid}>{Store_Name.objectid}</li>)}</ul>
+  );
+  
   onPlaceSelected = ( place ) => {
     console.log('plc', place);
-        // const address = place.formatted_address,
-        //     addressArray = place.address_components,
-        //     city = this.getCity(addressArray),
-        //     area = this.getArea(addressArray),
-        //     state = this.getState(addressArray),
-        //     latValue = place.geometry.location.lat(),
-        //     lngValue = place.geometry.location.lng();
-
-        // console.log('latvalue', latValue)
-        // console.log('lngValue', lngValue)
-    // if search returns an unknown city, the search term will be inside of place.name
-    // if search results a real city, place.geometry will contain place.geometry.location
     const {geometry} = place;
     if (geometry) {
       const {location} = place.geometry;
@@ -228,7 +218,7 @@ snapLocationsList = (stores) => (
 // ---
 // {stores.map((snapLocationsList) => (
 //   <Marker
-//     key={place.id}
+//     key={object.id}
 //     text={place.name}
 //     lat={place.geometry.location.lat}
 //     lng={place.geometry.location.lng}
@@ -299,7 +289,13 @@ snapLocationsList = (stores) => (
       >
 
        {this.props.markers.map(mark => this.createMarker(mark))}
-        {/* <Marker
+       {/* <Marker 
+          google={this.props.google}
+          markers={this.props}
+          onClick={this.onMarkerClick}
+          name={'Current Location'}>
+       </Marker> */}
+        <Marker
           title={'The marker`s title will appear as a tooltip.'}
           name={'Dollar tree'}
           position={{lat: 32.396797, lng: -82.055046}} />
@@ -307,15 +303,15 @@ snapLocationsList = (stores) => (
           name={'Meijer Gas Station'}
           position={{lat: 42.3325693, lng: -83.405739}} />
         <Marker />
-        <Marker
+        {/* <Marker
           name={'Mercados'}
           position={{lat: 39.526478, lng: -122.19395}}
           icon={{
             url: "/path/to/custom_icon.png",
             // anchor: new google.maps.Point(32,32),
             // scaledSize: new google.maps.Size(64,64)
-          }} />
-         <Marker 
+          }} /> */}
+         {/* <Marker 
             onClick={this.onMarkerClick}
             name={'Current location'}
             draggable={true}
@@ -349,7 +345,7 @@ snapLocationsList = (stores) => (
               // search: 'value'
           }}
       />    
-        <InfoWindow
+        {/* <InfoWindow
             marker={this.state.activeMarker}
             onOpen={this.windowHasOpened}
             onClose={this.windowHasClosed}
@@ -357,7 +353,7 @@ snapLocationsList = (stores) => (
               <div>
                 <h1>{this.state.selectedPlace.name}</h1>
               </div>
-        </InfoWindow>
+        </InfoWindow> */}
       </Map>
     );
   }

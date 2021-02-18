@@ -2,10 +2,9 @@ import React, {Component} from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import Autocomplete from 'react-google-autocomplete';
 import Geocode from 'react-geocode';
-import { MarkerClusterer } from '@react-google-maps/api'
+// import { MarkerClusterer } from '@react-google-maps/api'
 Geocode.setApiKey("AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU");
 Geocode.enableDebug();
-const markers= [];
 
 export class MapContainer extends Component {
   state = {
@@ -105,15 +104,15 @@ export class MapContainer extends Component {
       }
   };
 
-  getMarker =(markers) => {
-    let state= [];
-    for(let i=0; i <markers.length; i++) {
-      if(!markers) {
-        state = markers[i];
-        return state;
-      }
-    }
-  }
+  // getMarker =(markers) => {
+  //   let state= [];
+  //   for(let i=0; i <markers.length; i++) {
+  //     if(!markers) {
+  //       state = markers[i];
+  //       return state;
+  //     }
+  //   }
+  // }
 
   onMarkerDragEnd = (event) => {
         let newLat = event.latLng.lat(),
@@ -163,58 +162,62 @@ onPlaceSelected = ( place ) => {
   }
 
   onMarkerClick = (props, marker, e) =>
-  this.setState({
+    this.setState({
     selectedPlace: props,
     activeMarker: marker,
     showingInfoWindow: true
   });
 
-onMapClicked = (props, markers) => {
+onMapClicked = (props) => {
   if (this.state.showingInfoWindow) {
     this.setState({
       showingInfoWindow: false,
       activeMarker: null,
-      markers: true
     })
   }
 };
 
-onMarkerClustererClick = (props, markers) => {
-  this.setState({
-    markers: props
-  });
-}
+// onMarkerClustererClick = (props, markers) => {
+//   this.setState({
+//     markers: props
+//   });
+// }
 
-createMarker = (markerData) => {
-  console.log('one of the locations', markerData);
+createMarker = (marker) => {
+  console.log('pull all snap locations', marker);
   return (
     <Marker 
-      key={`${markerData.Store_Name.latitude}${markerData.Store_Name.longitude}`}
-      id={markerData.Store_Name.ObjectId}
-      // google={this.props.google}
-      // markers={this.props.markerData}
-      // onClick={this.onMarkerClick}
-      position={{ latitude: markerData.Store_Name.latitude, longitude: markerData.Store_Name.longitude }}
+      key={`${marker.latitude}${marker.longitude}`}
+      id={marker.objectid}
+      onClick={this.onMarkerClick}
+      position={{ lat: marker.latitude, lng: marker.longitude }}
       name={'Current Location'}
       title={'The marker`s title will appear as a tooltip.'}
       // draggable={true}
       // onDragEnd={this.onMarkerDragEnd} 
-      />
-     ) 
-  }
+       />
+  ) 
+}
 
   render() {
-    if (!this.props.loaded) return <div>Loading...</div>;
-    console.log('data loading', this.props.stores);
-    console.log('markers', this.props.markers);
+    // if (!this.props.loaded) return <div>Loading...</div>;
+    console.log('data loading', this.props.snapLocationsList);
+    // console.log('markers', this.props.markers);
     
     return (
       <Map
-          key={this.state.coordinates.lat+this.state.coordinates.lng} 
+          // key={this.state.coordinates.lat+this.state.coordinates.lng} 
           google={this.props.google}
           style={{width: '100%', height: '100%', position: 'relative'}}
           className={'map'}
-          zoom={14}>
+          zoom={14}
+          center={
+            {
+              lat: this.state.coordinates.lat,
+              lng: this.state.coordinates.lng
+            }
+          }
+     >
         {/* <Marker
           title={'The marker`s title will appear as a tooltip.'}
           name={'SOMA'}
@@ -227,7 +230,7 @@ createMarker = (markerData) => {
           name={'Your position'}
           position={{lat: 37.762391, lng: -122.439192}}
         /> */}
-        {this.props.markers && this.props.markers.map(markers => this.createMarker(markers))}
+        {/* {this.props.markers && this.props.markers.map(marker => this.createMarker(marker))} */}
       </Map>
     );
   //     <Map

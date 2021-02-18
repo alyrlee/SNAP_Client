@@ -201,7 +201,7 @@ createMarker = (marker) => {
 
   render() {
     // if (!this.props.loaded) return <div>Loading...</div>;
-    console.log('data loading', this.props.snapLocationsList);
+    // console.log('data loading', this.state.stores.resJSON);
     // console.log('markers', this.props.markers);
     
     return (
@@ -230,7 +230,8 @@ createMarker = (marker) => {
           name={'Your position'}
           position={{lat: 37.762391, lng: -122.439192}}
         /> */}
-        {/* {this.props.markers && this.props.markers.map(marker => this.createMarker(marker))} */}
+        {this.props.markers && this.props.markers.map(marker => this.createMarker(marker))}
+        <Marker />
       </Map>
     );
   //     <Map

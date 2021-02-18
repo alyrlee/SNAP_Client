@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import Autocomplete from 'react-google-autocomplete';
 import Geocode from 'react-geocode';
-// import MarkerClusterer from '@googlemaps/markerclustererplus';
 import { MarkerClusterer } from '@react-google-maps/api'
 Geocode.setApiKey("AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU");
 Geocode.enableDebug();
@@ -186,19 +185,21 @@ onMarkerClustererClick = (props, markers) => {
   });
 }
 
-createMarker = (markers) => {
-  console.log('pull all snap locations', markers);
+createMarker = (markerData) => {
+  console.log('one of the locations', markerData);
   return (
     <Marker 
-      key={`${markers.Store_Name.latitude}${markers.Store_Name.longitude}`}
-      id={markers.Store_Name.ObjectId}
-      google={this.props.google}
-      markers={this.props.markers}
-      onClick={this.onMarkerClick}
-      position={{ latitude: markers.Store_Name.latitude, longitude: markers.Store_Name.longitude }}
+      key={`${markerData.Store_Name.latitude}${markerData.Store_Name.longitude}`}
+      id={markerData.Store_Name.ObjectId}
+      // google={this.props.google}
+      // markers={this.props.markerData}
+      // onClick={this.onMarkerClick}
+      position={{ latitude: markerData.Store_Name.latitude, longitude: markerData.Store_Name.longitude }}
       name={'Current Location'}
-      draggable={true}
-      onDragEnd={this.onMarkerDragEnd} />
+      title={'The marker`s title will appear as a tooltip.'}
+      // draggable={true}
+      // onDragEnd={this.onMarkerDragEnd} 
+      />
      ) 
   }
 
@@ -211,74 +212,95 @@ createMarker = (markers) => {
       <Map
           key={this.state.coordinates.lat+this.state.coordinates.lng} 
           google={this.props.google}
-          onClick={this.onMapClicked}
-          initialCenter={
-            {
-              lat: this.state.coordinates.lat,
-              lng: this.state.coordinates.lng
-            }
-          }
-          zoom={14}     
-      >
-
-      <Marker 
-          onClick={this.onMarkerClick}
-          name={'Current location'}
-          />
-  
-      {/* <MarkerClusterer
-          onClick={this.onMarkerClustererClick}
-          averageCenter
-          enableRetinaIcons
-          gridSize={60}
-          maxZoom={15}
-          options={{ imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' }}
-    >
-      {this.props.markers.map(markers =>this.createMarker(markers))}
-      {this.props.children}
-      {(clusterer) =>  markers.map((lat, lng) => (
+          style={{width: '100%', height: '100%', position: 'relative'}}
+          className={'map'}
+          zoom={14}>
+        {/* <Marker
+          title={'The marker`s title will appear as a tooltip.'}
+          name={'SOMA'}
+          position={{lat: 37.778519, lng: -122.405640}} />
         <Marker
-          key={markers.ObjectId(lat, lng)}
-          position={{ lat: markers.latitude, lng: markers.longitude }}
-          clusterer={clusterer}
-        />
-      ))
-  }
-    </MarkerClusterer>     */}
+          name={'Dolores park'}
+          position={{lat: 37.759703, lng: -122.428093}} />
+        <Marker />
+        <Marker
+          name={'Your position'}
+          position={{lat: 37.762391, lng: -122.439192}}
+        /> */}
+        {this.props.markers && this.props.markers.map(markers => this.createMarker(markers))}
+      </Map>
+    );
+  //     <Map
+  //         key={this.state.coordinates.lat+this.state.coordinates.lng} 
+  //         google={this.props.google}
+  //         onClick={this.onMapClicked}
+  //         initialCenter={
+  //           {
+  //             lat: this.state.coordinates.lat,
+  //             lng: this.state.coordinates.lng
+  //           }
+  //         }
+  //         zoom={14}     
+  //     >
+
+  //     <Marker 
+  //         onClick={this.onMarkerClick}
+  //         name={'Current location'}
+  //         />
+  
+  //     {/* <MarkerClusterer
+  //         onClick={this.onMarkerClustererClick}
+  //         averageCenter
+  //         enableRetinaIcons
+  //         gridSize={60}
+  //         maxZoom={15}
+  //         options={{ imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' }}
+  //   >
+  //     {this.props.markers.map(markers =>this.createMarker(markers))}
+  //     {this.props.children}
+  //     {(clusterer) =>  markers.map((lat, lng) => (
+  //       <Marker
+  //         key={markers.ObjectId(lat, lng)}
+  //         position={{ lat: markers.latitude, lng: markers.longitude }}
+  //         clusterer={clusterer}
+  //       />
+  //     ))
+  // }
+  //   </MarkerClusterer>     */}
       
-      <Autocomplete
-           placeholder='Search'
-           fields= {['']}
-           ref={input => this.search = input}
-           input id="searchTextField"
-           style={{
-              width: '100%',
-              height: '25px',
-              paddingLeft: '16px',
-              // marginTop: '2px',
-              marginBottom: '100px'
-            }}
-           onPlaceSelected={ this.onPlaceSelected }
-           types={['(cities)']}
-           componentRestrictions={{country: 'us'}}
-           onChange={e => this.setState({ term: e.target.value })}
-           term={{
-              key: 'AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU',
-              language: 'en'
-              // search: 'value'
-          }}
-      />    
-    <InfoWindow
-          marker={this.state.activeMarker}
-          onOpen={this.windowHasOpened}
-          onClose={this.windowHasClosed}
-          visible={this.state.showingInfoWindow}>
-            <div>
-              <h1>{this.state.selectedPlace.name}</h1>
-            </div>
-     </InfoWindow>
-   </Map>
-  )
+  //     <Autocomplete
+  //          placeholder='Search'
+  //          fields= {['']}
+  //          ref={input => this.search = input}
+  //          input id="searchTextField"
+  //          style={{
+  //             width: '100%',
+  //             height: '25px',
+  //             paddingLeft: '16px',
+  //             // marginTop: '2px',
+  //             marginBottom: '100px'
+  //           }}
+  //          onPlaceSelected={ this.onPlaceSelected }
+  //          types={['(cities)']}
+  //          componentRestrictions={{country: 'us'}}
+  //          onChange={e => this.setState({ term: e.target.value })}
+  //          term={{
+  //             key: 'AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU',
+  //             language: 'en'
+  //             // search: 'value'
+  //         }}
+  //     />    
+  //   <InfoWindow
+  //         marker={this.state.activeMarker}
+  //         onOpen={this.windowHasOpened}
+  //         onClose={this.windowHasClosed}
+  //         visible={this.state.showingInfoWindow}>
+  //           <div>
+  //             <h1>{this.state.selectedPlace.name}</h1>
+  //           </div>
+  //    </InfoWindow>
+  //  </Map>
+  // )
 }}
 
 export default GoogleApiWrapper({

@@ -24,6 +24,21 @@ export class MapContainer extends Component {
     },  
   };
 
+  onPlaceSelected = ( place ) => {
+    console.log('plc', place);
+    const {geometry} = place;
+    if (geometry) {
+      const {location} = place.geometry;
+    if (location) {
+        this.setState({
+          coordinates: {
+            lat: location.lat(), 
+            lng: location.lng()
+          }
+        });
+      }
+    }
+  }
   onMarkerClick = (props, marker, e) =>
   this.setState({
     selectedPlace: props,
@@ -40,7 +55,7 @@ onMapClicked = (props) => {
   }
 };
     render() {
-      var points = [
+      var pos = [
           {
             "lat": 42.098961,
             "lng": -72.584084
@@ -19514,32 +19529,33 @@ onMapClicked = (props) => {
             "lng": -72.515205
           }
       ]
-      var bounds = new this.props.google.maps.LatLngBounds();
-      for (var i = 0; i < points.length; i++) {
-        bounds.extend(points[i]);
-      }
+      // var bounds = new this.props.google.maps.LatLngBounds();
+      // for (var i = 0; i < points.length; i++) {
+      //   bounds.extend(points[i]);
+      // }
+      
       return (
+
         <Map
+            key={this.state.coordinates.lat+this.state.coordinates.lng} 
             google={this.props.google}
             // style={{width: '100%', height: '100%', position: 'relative'}}
             // className={'map'}
-            initialCenter={{
-              lat: 42.3600825,
-              lng: -71.0588801
+            center={{
+              lat: this.state.coordinates.lat,
+              lng: this.state.coordinates.lng
         }}
-            // zoom={15}
+            zoom={12}
             // onClick={this.onMapClicked}
-            bounds={bounds}>
+            // bounds={bounds}
+            >
               
-          <Marker onClick={this.onMarkerClick}
-                  name={'Current location'} />
-  
-          <InfoWindow onClose={this.onInfoWindowClose}>
-              <div>
-                <h1>{this.state.selectedPlace.name}</h1>
-              </div>
-          </InfoWindow>
-        </Map>
+          {/* <Marker onClick={this.onMarkerClick}
+                  name={'Current location'} /> */}
+                  <Marker />
+                    <Marker position={pos} />
+        
+</Map>
       );
     }
   }
@@ -19550,4 +19566,33 @@ export default GoogleApiWrapper({
 })(MapContainer);
 
 
- 
+
+
+  // <Autocomplete
+  //          placeholder='Search'
+  //          fields= {['']}
+  //         //  ref={input => this.search = input}
+  //         //  input id="searchTextField"
+  //          style={{
+  //             width: '100%',
+  //             height: '25px',
+  //             paddingLeft: '16px',
+  //             // marginTop: '2px',
+  //             marginBottom: '100px'
+  //           }}
+  //          onPlaceSelected={ this.onPlaceSelected }
+  //          types={['(cities)']}
+  //          componentRestrictions={{country: 'us'}}
+  //          onChange={e => this.setState({ term: e.target.value })}
+  //          term={{
+  //             key: 'AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU',
+  //             language: 'en'
+  //             // search: 'value'
+  //         }}
+  //     />    
+  //         {/* <InfoWindow onClose={this.onInfoWindowClose}>
+  //             <div>
+  //               <h1>{this.state.selectedPlace.name}</h1>
+  //             </div>
+  //         </InfoWindow> */}
+        

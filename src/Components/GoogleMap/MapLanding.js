@@ -52,9 +52,9 @@ componentDidMount(){
         Found: {this.state.data.length} SnapLocationsList */}
         {/* {this.markerData = resJSON && !error ? resJSON.slice(0, 200): []} */}
         <MapContainer 
-          snapLocationsList={this.state.resJSON} 
+          // snapLocationsList={this.state.resJSON} 
           // onSelect={this.onSelect} 
-          markerData = {this.state.stores.resJSON}  
+          // markerData = {this.state.stores.resJSON}  
        />  
       </div>
     );

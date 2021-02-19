@@ -168,38 +168,41 @@ onMapClicked = (props) => {
   }
 };
 
-createMarker = (markerData) => {
-   console.log('pull all snap locations', markerData);
+createMarker = () => {
+   let {
+    markerData, position, mapCenter, google
+  } = this.props;
+
+  let pos = position || mapCenter;
+  position = new google.maps.LatLng(pos.markerData.lat, pos.markerData.lng);
+
+  const pref = {
+    markerData: markerData
+  };
+  this.marker = new google.maps.Marker(pref);
+  console.log('pull all snap locations', markerData);
+};
   return (
-    <Marker 
-      key={`${markerData.latitude}${markerData.longitude}`}
-      id={markerData.objectid}
-      onClick={this.onMarkerClick}
-      position={{ lat: markerData.latitude, lng: markerData.longitude }}
-      name={'Current Location'}
-      title={'The marker`s title will appear as a tooltip.'}
-      draggable={true}
-      onDragEnd={this.onMarkerDragEnd} 
-       />
-  ) 
-}
+    // markerData;
+    // <Marker 
+    //   key={`${markerData.latitude}${markerData.longitude}`}
+    //   id={markerData.objectid}
+    //   onClick={this.onMarkerClick}
+    //   position={{ lat: markerData.latitude, lng: markerData.longitude }}
+    //   name={'Current Location'}
+    //   title={'The marker`s title will appear as a tooltip.'}
+    //   draggable={true}
+    //   onDragEnd={this.onMarkerDragEnd} 
+    //    />
+  ) {}
+// }
 
   render() {
     // if (!this.props.loaded) return <div>Loading...</div>;
     // console.log('data loading', this.props.stores);
     // console.log('markers', this.props.markers);
     
-    var points = [
-      { lat: 42.02, lng: -77.01 },
-      { lat: 42.03, lng: -77.02 },
-      { lat: 41.03, lng: -77.04 },
-      { lat: 42.05, lng: -77.02 }
-  ]
-  var bounds = new this.props.google.maps.LatLngBounds();
-  for (var i = 0; i < points.length; i++) {
-    bounds.extend(points[i]);
-  }
-
+  
     return (
       <Map
           key={this.state.coordinates.lat+this.state.coordinates.lng} 
@@ -214,13 +217,13 @@ createMarker = (markerData) => {
               lng: this.state.coordinates.lng
             }
           }
-          bounds={bounds}>
-       {/* {this.props.markerData && this.props.markerData.map(markerData => this.createMarker(markerData))}
+          >
+       {this.props.markerData && this.props.markerData.map(markerData => this.createMarker(markerData))}
          <Marker 
           onClick={this.onMarkerClick}
           name={this.markerData}
-          position={{lat: this.markerData.latitude, lng: this.markerData.longitude }}
-          /> */}
+          position={{pos.markerData.lat, pos.markerData.lng}}
+          />
         {/* <Marker
           title={'The marker`s title will appear as a tooltip.'}
           name={'7-eleven 32476C'}

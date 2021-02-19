@@ -45,19 +45,16 @@ componentDidMount(){
         })
 }
 
-
-
-// {this.markers = resJSON && !error ? resJSON.slice(0, 200): []}
-
    render() {
     return (
       <div className="ui container" style={{ marginTop: '10px' }}>
         {/* <SnapLocationsList stores={this.state.data} />
         Found: {this.state.data.length} SnapLocationsList */}
+        {/* {this.markerData = resJSON && !error ? resJSON.slice(0, 200): []} */}
         <MapContainer 
           snapLocationsList={this.state.resJSON} 
           // onSelect={this.onSelect} 
-          markers = {this.state.stores.resJSON}  
+          markerData = {this.state.stores.resJSON}  
        />  
       </div>
     );

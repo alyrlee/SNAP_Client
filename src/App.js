@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import Header from './Components/Headers/Header';
 import LandingPage from './Components/LandingPage /LandingPage';
@@ -9,15 +9,6 @@ import PublicOnlyRoute from '../src/Utils/PublicOnlyRoute';
 import About from '../src/Components/About/About';
 import Profile from './Components/LoginForm/Profile';
 import MapLanding from './Components/GoogleMap/MapLanding';
-<<<<<<< HEAD
-import { Route, Router } from "react-router-dom";
-import history from './Contexts/history';
-
-function App() {
-=======
-// import MapContainer from './Components/GoogleMap/GooglePlaces'
-// import config from '../src/config';
-// import TokenService from '../src/Components/Services/token-service';
 import { Route, Switch} from "react-router-dom";
 
 class App extends Component {
@@ -68,22 +59,49 @@ class App extends Component {
 	// }
     
   render() {
->>>>>>> newGMaps
     return (
       <div className='App'>
-    <Router history={history}>
-        <header className="ui container">
+        <header className='App__header'>
           <Header />
         </header>
-            <Route path={'/'} exact component={LandingPage}/>
-            <Route path={'/about'} exact component={About} />
-            <Route path={'/find'} exact component={MapLanding}/>
-            <PublicOnlyRoute path={'/login'} component={LoginForm}/>
-            <PublicOnlyRoute path={'/register'} component={RegistrationForm}/>
-            <PrivateRoute path={'/profile'} exact component={Profile}/>
-       </Router> 
+        <main className='App__main'>
+          {this.state.hasError && <p className='red'>There was an error! Oh no!</p>}
+          <Switch>
+            <Route
+              exact
+              path={'/'}
+              component={LandingPage}
+            />
+            <Route
+              exact
+              path={'/about'}
+              component={About}
+            />
+            <Route
+              exact
+              path={'/find'}
+              component={MapLanding}
+            />
+            <PublicOnlyRoute
+              path={'/login'}
+              component={LoginForm}
+            />
+            <PublicOnlyRoute
+              path={'/register'}
+              component={RegistrationForm}
+            />
+            <PrivateRoute
+              path={'/profile'}
+              component={Profile}
+            />
+            {/* <Route
+              component={NotFoundPage}
+            /> */}
+          </Switch>
+        </main>
       </div>
-    );
+    )
   }
+}
 
-export default App;
+export default App

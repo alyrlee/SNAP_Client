@@ -1,14 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import Autocomplete from 'react-google-autocomplete';
 import Geocode from 'react-geocode';
 Geocode.setApiKey("AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU");
 Geocode.enableDebug();
 
-<<<<<<< HEAD
-export class MapContainer extends Component {
-  state = {
-=======
 // const mapStyles = {
 //   width: "100%",
 //   height: "100%",
@@ -19,23 +15,14 @@ export class MapContainer extends Component {
     term: '',
     SnapLocationsList: {},
     places: [],
->>>>>>> newGMaps
     showingInfoWindow: true,
-    markerData: [],
-    // markers:[],
-    // marker:[],
     activeMarker: {},
     selectedPlace: {},
     stores: {},
-    places: [],
-    zoom: (14),
-    bounds: null,
     address: '',
     city: '',
     area: '',
     state: '',
-<<<<<<< HEAD
-=======
     // markerPosition: {
     //   lat: 0,
     //   lng: 0
@@ -45,13 +32,12 @@ export class MapContainer extends Component {
     //     lng: 0
     // },     
     // coords for Boston
->>>>>>> newGMaps
     coordinates: {
-              lat: 42.3600825,
-              lng: -71.0588801
-    },  
+        lat: 42.3600825,
+        lng: -71.0588801
+    }  
   };
-
+ 
   componentDidMount() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
@@ -68,12 +54,8 @@ export class MapContainer extends Component {
                 () => {
                     Geocode.fromLatLng(position.coords.latitude, position.coords.longitude).then(
                         response => {
-<<<<<<< HEAD
-                            console.log(response);
-=======
                             console.log(response)
                             // debugger;
->>>>>>> newGMaps
                             const address = response.results[0].formatted_address,
                                 addressArray = response.results[0].address_components,
                                 city = this.getCity(addressArray),
@@ -132,16 +114,9 @@ export class MapContainer extends Component {
                 return state;
             }
         }
-      }
+    }
   };
 
-<<<<<<< HEAD
-  onMarkerDragEnd = (event) => {
-        let newLat = event.latLng.lat(),
-            newLng = event.latLng.lng();
-  Geocode.fromLatLng(newLat, newLng).then(
-          response => {
-=======
 onChange = (event) => { event.preventDefault();
   this.props.onChange(this.state.data);
 };
@@ -154,7 +129,6 @@ onMarkerDragEnd = (event) => {
 
     Geocode.fromLatLng(newLat, newLng).then(
         response => {
->>>>>>> newGMaps
             const address = response.results[0].formatted_address,
                 addressArray = response.results[0].address_components,
                 city = this.getCity(addressArray),
@@ -180,19 +154,14 @@ onMarkerDragEnd = (event) => {
         }
     );
   };
-<<<<<<< HEAD
-  
-onPlaceSelected = ( place ) => {
-=======
 
   
   onPlaceSelected = ( place ) => {
->>>>>>> newGMaps
     console.log('plc', place);
     const {geometry} = place;
     if (geometry) {
       const {location} = place.geometry;
-    if (location) {
+      if (location) {
         this.setState({
           coordinates: {
             lat: location.lat(), 
@@ -203,21 +172,13 @@ onPlaceSelected = ( place ) => {
     }
   }
 
-  onMarkerClick = (props, marker, e) =>
+  onMarkerClick = (props, marker, e) => {
     this.setState({
       selectedPlace: props,
       activeMarker: marker,
       showingInfoWindow: true
-  });
-
-onMapClicked = (props) => {
-  if (this.state.showingInfoWindow) {
-    this.setState({
-      showingInfoWindow: false,
-      activeMarker: null,
-    })
+    });
   }
-};
 
   onMapClicked = (props) => {
     if (this.state.showingInfoWindow) {
@@ -362,47 +323,10 @@ onMapClicked = (props) => {
       //   </InfoWindow>
       // </Map>
     );
-  
-    
-  //     <Autocomplete
-  //          placeholder='Search'
-  //          fields= {['']}
-  //          ref={input => this.search = input}
-  //          input id="searchTextField"
-  //          style={{
-  //             width: '100%',
-  //             height: '25px',
-  //             paddingLeft: '16px',
-  //             // marginTop: '2px',
-  //             marginBottom: '100px'
-  //           }}
-  //          onPlaceSelected={ this.onPlaceSelected }
-  //          types={['(cities)']}
-  //          componentRestrictions={{country: 'us'}}
-  //          onChange={e => this.setState({ term: e.target.value })}
-  //          term={{
-  //             key: 'AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU',
-  //             language: 'en'
-  //             // search: 'value'
-  //         }}
-  //     />    
-  //   <InfoWindow
-  //         marker={this.state.activeMarker}
-  //         onOpen={this.windowHasOpened}
-  //         onClose={this.windowHasClosed}
-  //         visible={this.state.showingInfoWindow}>
-  //           <div>
-  //             <h1>{this.state.selectedPlace.name}</h1>
-  //           </div>
-  //    </InfoWindow>
-  //  </Map>
-  // )
-}}
+  }
+}
 
 export default GoogleApiWrapper({
   apiKey: "AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU"
   // `${process.env.API_KEY}`
 })(MapContainer);
-
-
- 

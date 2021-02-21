@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import config from '../../config';
+// import config from '../../config';
+import AuthApiService from '../Services/auth-api-service'
 import data from './SnapDataShort';
 import MapContainer from '../GoogleMap/GooglePlaces';
 
@@ -7,17 +8,16 @@ export default class MapLanding extends Component {
   state = {
      snapLocationsList: [],
      data: data,
+     stores: []
     };
 
-    onSelect = () => {
-      const response =  fetch(`${config.API_ENDPOINT}/stores`)
-      .then(response => {
-        console.log('data', response.json());
-        console.log('data 2',response.data.results);
-      });
-      this.setState({ snapLocationsList: response.data.results,
-      data: data});
-      console.log('json data', data);
+    // 
+    componentDidMount(){
+      AuthApiService.getStores()
+      .then(resJSON => {
+        this.setState({ stores: resJSON});
+        console.log('stores json data', resJSON);
+            })
     }
     render() {
       return (
@@ -28,6 +28,7 @@ export default class MapLanding extends Component {
             snapLocationsList={this.state.data} 
             // onSelect={this.onSelect} 
             markers = {this.state.data}
+            stores = {this.state.stores}
             
          />  
         </div>

@@ -5,10 +5,10 @@ import Geocode from 'react-geocode';
 Geocode.setApiKey("AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU");
 Geocode.enableDebug();
 
-const mapStyles = {
-  width: "100%",
-  height: "100%",
-};
+// const mapStyles = {
+//   width: "100%",
+//   height: "100%",
+// };
 
 export class MapContainer extends Component {
   state = {
@@ -189,6 +189,11 @@ onMarkerDragEnd = (event) => {
     }
   };
 
+
+  createStores = (stores) => {
+    console.log('pull all stores', stores);
+  }
+
   createMarker = (marker) => {
     console.log('pull all snap locations', marker);
     return (
@@ -208,7 +213,7 @@ onMarkerDragEnd = (event) => {
   render() {
     // if (!this.props.loaded) return <div>Loading...</div>;
     console.log('data loading', this.props.snapLocationsList);
-    // console.log('ML SLL:', this.state.snapLocationsList);
+    console.log('ML SLL:', this.props.stores);
     return (
 
   <Map google={this.props.google}
@@ -223,6 +228,8 @@ onMarkerDragEnd = (event) => {
                 }
            >
 {this.props.markers && this.props.markers.map(marker => this.createMarker(marker))}
+{this.props.stores && this.props.stores.map(store => this.createStores(store))}
+
 
   {/* <Marker
           title={'The marker`s title will appear as a tooltip.'}

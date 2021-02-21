@@ -219,7 +219,7 @@ onMarkerDragEnd = (event) => {
   <Map google={this.props.google}
            style={{width: '100%', height: '100%', position: 'relative'}}
            className={'map'}
-           zoom={12}
+           zoom={14}
            center={
                   {
                     lat: this.state.coordinates.lat,

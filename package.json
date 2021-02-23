@@ -31,7 +31,7 @@
     "react-dom": "^16.14.0",
     "react-geocode": "^0.2.2",
     "react-google-autocomplete": "^1.2.6",
-    "react-google-maps": "^9.4.5",
+    "react-google-maps": "^7.3.0",
     "react-papaparse": "^3.8.0",
     "react-places-autocomplete": "^7.3.0",
     "react-router": "^5.2.0",
@@ -67,7 +67,6 @@
     "json-loader": "^0.5.7",
     "json5-loader": "^4.0.1",
     "style-loader": "^2.0.0",
-    "terser-webpack-plugin": "^5.0.3",
-    "webpack-cli": "^4.5.0"
+    "webpack": "^4.28.3"
   }
 }

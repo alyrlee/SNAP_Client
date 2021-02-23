@@ -184,13 +184,12 @@ onMarkerDragEnd = (event) => {
     }
   };
 
-
   createStores = (stores) => {
-    console.log('pull all stores', stores);
+    console.log('pull all stores by city and state', stores);
   }
 
   createMarker = (marker) => {
-    console.log('pull all snap locations', marker);
+    console.log('pull all snap data short locations', marker);
     return (
       <Marker 
         key={`${marker.latitude}${marker.longitude}`}
@@ -275,31 +274,6 @@ onMarkerDragEnd = (event) => {
         position={{lat: 42.3600825, lng: -71.0588801}}
     /> */}
 </Map>
-    
-      //  {this.props.markers && this.props.markers.map(markData => this.createMarker(markData))}
-      //  <Marker 
-      //     google={this.props.google}
-      //     // markers={this.props}
-      //     onClick={this.onMarkerClick}
-      //     name={'Current Location'}>
-      //     onDragEnd={this.onMarkerDragEnd}
-      //     position={{ lat: this.state.markerPosition.lat, lng: this.state.markerPosition.lng }}
-      //  </Marker>
-      //    <Marker
-      //     title={'The marker`s title will appear as a tooltip.'}
-      //     name={'Dollar tree'}
-      //     position={{lat: 32.396797, lng: -82.055046}} />
-      //   <Marker
-      //     title={'The marker`s title will appear as a tooltip.'}
-      //     name={'Meijer Gas Station'}
-      //     position={{lat: 42.3325693, lng: -83.405739}} />
-      //   <Marker /> 
-      //   <Marker
-      //     title={'The marker`s title will appear as a tooltip.'}
-      //     name={'Mercados'}
-      //     position={{lat: 39.526478, lng: -122.19395}}
-      //      /> 
-
     );
   }
 }

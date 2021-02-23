@@ -63,6 +63,23 @@ const AuthApiService = {
         });
     },
 
+    getcityState(city, state, user_name, password) {
+        return fetch(`${config.API_ENDPOINT}/cityState`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Schema ${user_name}:${password}`,
+                'authorization': `basic ${TokenService.getAuthToken()}`,
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(city, state),
+        })
+        .then(res => {
+            return (!res.ok)
+            ? res.json().then(e => Promise.reject(e))
+            : res.json()
+        });
+    },
+
     postStores(stores, user_name, password) {
         return fetch(`${config.API_ENDPOINT}/stores`, {
             method: 'POST',

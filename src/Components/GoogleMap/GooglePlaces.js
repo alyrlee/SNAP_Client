@@ -5,11 +5,6 @@ import Geocode from 'react-geocode';
 Geocode.setApiKey("AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU");
 Geocode.enableDebug();
 
-// const mapStyles = {
-//   width: "100%",
-//   height: "100%",
-// };
-
 export class MapContainer extends Component {
   state = {
     term: '',
@@ -217,7 +212,7 @@ onMarkerDragEnd = (event) => {
     return (
 
   <Map google={this.props.google}
-           style={{width: '100%', height: '100%', position: 'relative'}}
+          //  style={{width: '100%', height: '100%', position: 'relative'}}
            className={'map'}
            zoom={14}
            center={
@@ -252,7 +247,16 @@ onMarkerDragEnd = (event) => {
               language: 'en'
               // search: 'value'
           }}
-      />    
+          />
+          <InfoWindow
+            marker={this.state.activeMarker}
+            onOpen={this.windowHasOpened}
+            onClose={this.windowHasClosed}
+            visible={this.state.showingInfoWindow}>
+              <div>
+                <h1>{this.state.selectedPlace.name}</h1>
+              </div>
+        </InfoWindow>   
   {/* <Marker
           title={'The marker`s title will appear as a tooltip.'}
           name={'Store_Name'}
@@ -271,23 +275,7 @@ onMarkerDragEnd = (event) => {
         position={{lat: 42.3600825, lng: -71.0588801}}
     /> */}
 </Map>
-      // <Map
-      //      key={this.state.coordinates.lat+this.state.coordinates.lng} 
-      //      google={this.props.google}
-      //      zoom={12}
-      //      style={mapStyles}
-      //      center={
-      //       {
-      //         lat: this.state.coordinates.lat,
-      //         lng: this.state.coordinates.lng
-      //       }
-      //     }
-      //       onClick={this.onMapClicked}
-      //       onReady={this.onMapReady} 
-      //       stores ={this.state.stores} 
-      //       // visible={false}
-      // >
-
+    
       //  {this.props.markers && this.props.markers.map(markData => this.createMarker(markData))}
       //  <Marker 
       //     google={this.props.google}
@@ -311,17 +299,7 @@ onMarkerDragEnd = (event) => {
       //     name={'Mercados'}
       //     position={{lat: 39.526478, lng: -122.19395}}
       //      /> 
-      
-      //   <InfoWindow
-      //       marker={this.state.activeMarker}
-      //       onOpen={this.windowHasOpened}
-      //       onClose={this.windowHasClosed}
-      //       visible={this.state.showingInfoWindow}>
-      //         <div>
-      //           <h1>{this.state.selectedPlace.name}</h1>
-      //         </div>
-      //   </InfoWindow>
-      // </Map>
+
     );
   }
 }

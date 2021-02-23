@@ -230,7 +230,29 @@ onMarkerDragEnd = (event) => {
 {this.props.markers && this.props.markers.map(marker => this.createMarker(marker))}
 {this.props.stores && this.props.stores.map(store => this.createStores(store))}
 
-
+ <Autocomplete
+           placeholder='Search'
+           fields= {['']}
+           style={{
+              width: '100%',
+              height: '25px',
+              paddingLeft: '16px',
+              // marginTop: '2px',
+              marginBottom: '100px'
+            }}
+           onPlaceSelected={ this.onPlaceSelected }
+           types={['(cities)']}
+           componentRestrictions={{country: 'us'}}
+           onChange={e => this.setState({ term: e.target.value })}
+           onClick={(stores, places, snapLocationsList, details = null) => {
+            console.log('stores and details!!', stores, places, snapLocationsList, details);
+          }}
+           term={{
+              key: 'AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU',
+              language: 'en'
+              // search: 'value'
+          }}
+      />    
   {/* <Marker
           title={'The marker`s title will appear as a tooltip.'}
           name={'Store_Name'}
@@ -289,29 +311,7 @@ onMarkerDragEnd = (event) => {
       //     name={'Mercados'}
       //     position={{lat: 39.526478, lng: -122.19395}}
       //      /> 
-      // <Autocomplete
-      //      placeholder='Search'
-      //      fields= {['']}
-      //      style={{
-      //         width: '100%',
-      //         height: '25px',
-      //         paddingLeft: '16px',
-      //         // marginTop: '2px',
-      //         marginBottom: '100px'
-      //       }}
-      //      onPlaceSelected={ this.onPlaceSelected }
-      //      types={['(cities)']}
-      //      componentRestrictions={{country: 'us'}}
-      //      onChange={e => this.setState({ term: e.target.value })}
-      //      onClick={(stores, places, snapLocationsList, details = null) => {
-      //       console.log('stores and details!!', stores, places, snapLocationsList, details);
-      //     }}
-      //      term={{
-      //         key: 'AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU',
-      //         language: 'en'
-      //         // search: 'value'
-      //     }}
-      // />    
+      
       //   <InfoWindow
       //       marker={this.state.activeMarker}
       //       onOpen={this.windowHasOpened}
@@ -330,3 +330,179 @@ export default GoogleApiWrapper({
   apiKey: "AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU"
   // `${process.env.API_KEY}`
 })(MapContainer);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

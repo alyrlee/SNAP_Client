@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-// import config from '../../config';
 import AuthApiService from '../Services/auth-api-service'
 import data from './SnapDataShort';
 import MapContainer from '../GoogleMap/GooglePlaces';

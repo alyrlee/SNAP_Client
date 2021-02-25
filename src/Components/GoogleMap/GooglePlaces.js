@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import Autocomplete from 'react-google-autocomplete';
+import AuthApiService from '../Services/auth-api-service'
 import Geocode from 'react-geocode';
 Geocode.setApiKey("AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU");
 Geocode.enableDebug();
@@ -50,13 +51,14 @@ export class MapContainer extends Component {
                     Geocode.fromLatLng(position.coords.latitude, position.coords.longitude).then(
                         response => {
                             console.log(response)
-                            // debugger;
                             const address = response.results[0].formatted_address,
                                 addressArray = response.results[0].address_components,
                                 city = this.getCity(addressArray),
                                 area = this.getArea(addressArray),
                                 state = this.getState(addressArray);
                             console.log('city', city, area, state);
+                            console.log('we are about to call getStoresByCityState, working? can see this?', city, state)
+                            this.getStoresByCityFromAPI(city, state);
                             this.setState({
                                 address: (address) ? address : '',
                                 area: (area) ? area : '',
@@ -75,6 +77,20 @@ export class MapContainer extends Component {
         console.error("Geolocation is not supported by this browser!");
     }
   };
+
+  getStoresByCityFromAPI = (city, state) => {
+    console.log('we are now passing the city/state data to the backend!', city, state)
+    AuthApiService.getcityState(city, state)
+    .then(resJSON => {
+      this.setState({ cityStores: resJSON});
+      console.log('we got some city/state stores json data', resJSON);
+    })
+    .catch(error => {
+      if(error.resJSON)    
+     console.log(error.resJSON);
+      console.error({error: error})    
+  })
+  }
 
   getCity = (addressArray) => {
     let city = '';
@@ -152,7 +168,10 @@ onMarkerDragEnd = (event) => {
 
   
   onPlaceSelected = ( place ) => {
-    console.log('plc', place);
+    console.log('plc -> on selected', place);
+    // check compDidMount is working first before you fix this! 
+    // const city = place.address_components[0];
+    // const state = place.address_components[2];
     const {geometry} = place;
     if (geometry) {
       const {location} = place.geometry;

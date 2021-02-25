@@ -63,15 +63,15 @@ const AuthApiService = {
         });
     },
 
-    getcityState(state, city, user_name, password) {
+    getcityState(city, state) {
         return fetch(`${config.API_ENDPOINT}/cityState`, {
             method: 'GET',
             headers: {
-                Authorization: `Schema ${user_name}:${password}`,
+                // Authorization: `Schema ${user_name}:${password}`,
                 'authorization': `basic ${TokenService.getAuthToken()}`,
                 'content-type': 'application/json',
             },
-            body: JSON.stringify(state, city),
+            body: JSON.stringify({city, state}),
         })
         .then(res => {
             return (!res.ok)

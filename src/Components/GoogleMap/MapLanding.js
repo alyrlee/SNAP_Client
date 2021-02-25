@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import AuthApiService from '../Services/auth-api-service'
+// import AuthApiService from '../Services/auth-api-service'
 import data from './SnapDataShort';
 import MapContainer from '../GoogleMap/GooglePlaces';
 
@@ -10,24 +10,25 @@ export default class MapLanding extends Component {
      stores: []
     };
 
-    componentDidMount(){
-      AuthApiService.getcityState()
-      .then(resJSON => {
-        this.setState({ stores: resJSON});
-        console.log('stores json data', resJSON);
-      })
-      .catch(error => {
-        if(error.resJSON)    
-       console.log(error.resJSON);
-        console.error({error: error})    
-    })
+  //   componentDidMount(){
+  //     AuthApiService.getcityState(state, city)
+  //     .then(resJSON => {
+  //       this.setState({ stores: resJSON});
+  //       console.log('stores json data', resJSON);
+  //     })
+  //     .catch(error => {
+  //       if(error.resJSON)    
+  //      console.log(error.resJSON);
+  //       console.error({error: error})    
+  //   })
+  // };
 
-  onStoresData = () => {
-    let resJSON = [...this.state.resJSON];
-    let sliceresJSON = resJSON.slice(0,50);
-    return sliceresJSON;
-  };
-}
+//   onStoresData = () => {
+//     let resJSON = [...this.state.resJSON];
+//     let sliceresJSON = resJSON.slice(0,50);
+//     return sliceresJSON;
+  // };
+// }
     render() {    
       return (
         <div className="ui container" style={{ marginTop: '10px' }}>

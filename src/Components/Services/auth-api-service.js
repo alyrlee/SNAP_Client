@@ -71,7 +71,9 @@ const AuthApiService = {
                 'authorization': `basic ${TokenService.getAuthToken()}`,
                 'content-type': 'application/json',
             },
-            // body: JSON.stringify({city, state}),
+            body: JSON.stringify({
+                city: city, 
+                state: state}),
         })
         .then(res => {
             return (!res.ok)

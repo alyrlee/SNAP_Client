@@ -19,15 +19,14 @@ export class MapContainer extends Component {
     city: '',
     area: '',
     state: '',
-    // markerPosition: {
-    //   lat: 0,
-    //   lng: 0
-    // },
-    // mapPosition: {
-    //     lat: 0,
-    //     lng: 0
-    // },     
-    // coords for Boston
+    markerPosition: {
+      lat: 0,
+      lng: 0
+    },
+    mapPosition: {
+        lat: 0,
+        lng: 0
+    },     
     coordinates: {
         lat: 42.3600825,
         lng: -71.0588801
@@ -56,15 +55,15 @@ export class MapContainer extends Component {
                                 city = this.getCity(addressArray),
                                 area = this.getArea(addressArray),
                                 state = this.getState(addressArray);
-                            console.log('city', city, area, state);
-                            console.log('we are about to call getStoresByCityState, working? can see this?', city, state)
-                            this.getStoresByCityFromAPI(city, state);
                             this.setState({
                                 address: (address) ? address : '',
                                 area: (area) ? area : '',
                                 city: (city) ? city : '',
                                 state: (state) ? state : '',
                             })
+                            console.log('city', city, area, state);
+                            console.log('call getStoresByCityState?', city, state)
+                            this.getStoresByCityFromAPI('this.API - is this necessary here?', city, state);    
                         },
                         error => {
                             console.error(error);
@@ -77,13 +76,13 @@ export class MapContainer extends Component {
         console.error("Geolocation is not supported by this browser!");
     }
   };
-
+//places updates with current locations
   getStoresByCityFromAPI = (city, state) => {
-    console.log('we are now passing the city/state data to the backend!', city, state)
+    console.log('passing the city/state data to the backend!', city, state)
     AuthApiService.getcityState(city, state)
     .then(resJSON => {
       this.setState({ cityStores: resJSON});
-      console.log('we got some city/state stores json data', resJSON);
+      console.log('city/state stores json data', resJSON);
     })
     .catch(error => {
       if(error.resJSON)    
@@ -166,7 +165,18 @@ onMarkerDragEnd = (event) => {
     );
   };
 
-  
+/*  
+  0:
+  address: "215 Arsenal Rd"
+  city: "York"
+  latitude: "39.9839360"
+  longitude: "-76.7277760"
+  state: "PA"
+  store_name: ""
+  zip5: 17402
+*/   
+
+
   onPlaceSelected = ( place ) => {
     console.log('plc -> on selected', place);
     // check compDidMount is working first before you fix this! 
@@ -179,7 +189,7 @@ onMarkerDragEnd = (event) => {
         this.setState({
           coordinates: {
             lat: location.lat(), 
-            lng: location.lng()
+            lng: location.lng(),
           }
         });
       }
@@ -203,96 +213,83 @@ onMarkerDragEnd = (event) => {
     }
   };
 
-  createStores = (stores) => {
-    console.log('pull all stores by city and state', stores);
-  }
-
-  createMarker = (marker) => {
-    console.log('pull all snap data short locations', marker);
+  createMarker = (cityStores) => {
+    console.log('pull all snap data locations', cityStores);
     return (
       <Marker 
-        key={`${marker.latitude}${marker.longitude}`}
-        id={marker.objectid}
+        key={`${cityStores.latitude}${cityStores.longitude}`}
+        id={cityStores.objectid}
         onClick={this.onMarkerClick}
-        position={{ lat: marker.latitude, lng: marker.longitude }}
+        position={{ lat: cityStores.latitude, lng: cityStores.longitude }}
         name={'Current Location'}
         title={'The marker`s title will appear as a tooltip.'}
-        // draggable={true}
-        // onDragEnd={this.onMarkerDragEnd} 
          />
     ) 
   }
-    
+
   render() {
     // if (!this.props.loaded) return <div>Loading...</div>;
-    console.log('data loading', this.props.snapLocationsList);
-    console.log('ML SLL:', this.props.stores);
+    // console.log('data loading', this.props.snapLocationsList);
+    console.log('ML SLL:', this.state.cityStores);
+
     return (
 
   <Map google={this.props.google}
-          //  style={{width: '100%', height: '100%', position: 'relative'}}
-           className={'map'}
-           zoom={14}
-           center={
-                  {
-                    lat: this.state.coordinates.lat,
-                    lng: this.state.coordinates.lng
-                  }
+        //  style={{width: '100%', height: '100%', position: 'relative'}}
+        className={'map'}
+        zoom={14}
+        center={
+                {
+                  lat: this.state.coordinates.lat,
+                  lng: this.state.coordinates.lng
                 }
+              }
            >
-{this.props.markers && this.props.markers.map(marker => this.createMarker(marker))}
-{this.props.stores && this.props.stores.map(store => this.createStores(store))}
 
- <Autocomplete
-           placeholder='Search'
-           fields= {['']}
-           style={{
-              width: '100%',
-              height: '25px',
-              paddingLeft: '16px',
-              // marginTop: '2px',
-              marginBottom: '100px'
-            }}
-           onPlaceSelected={ this.onPlaceSelected }
-           types={['(cities)']}
-           componentRestrictions={{country: 'us'}}
-           onChange={e => this.setState({ term: e.target.value })}
-           onClick={(stores, places, snapLocationsList, details = null) => {
-            console.log('stores and details!!', stores, places, snapLocationsList, details);
-          }}
-           term={{
-              key: 'AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU',
-              language: 'en'
-              // search: 'value'
-          }}
+  <Autocomplete
+        placeholder='Search'
+        fields= {['']}
+        style={{
+            width: '100%',
+            height: '25px',
+            paddingLeft: '16px',
+            // marginTop: '2px',
+            marginBottom: '100px'
+        }}
+        onPlaceSelected={ this.onPlaceSelected }
+        types={['(cities)']}
+        componentRestrictions={{country: 'us'}}
+        onChange={e => this.setState({ term: e.target.value })}
+        onClick={(stores, places, snapLocationsList, details = null) => {
+          console.log('stores and details!!', stores, places, snapLocationsList, details);
+        }}
+        term={{
+            key: 'AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU',
+            language: 'en'
+            // search: 'value'
+        }}
           />
-          <InfoWindow
-            marker={this.state.activeMarker}
-            onOpen={this.windowHasOpened}
-            onClose={this.windowHasClosed}
-            visible={this.state.showingInfoWindow}>
-              <div>
-                <h1>{this.state.selectedPlace.name}</h1>
-              </div>
-        </InfoWindow>   
-  {/* <Marker
-          title={'The marker`s title will appear as a tooltip.'}
-          name={'Store_Name'}
-          position={{lat: Latitude, lng: Longitude}} 
-          /> */}
-  {/* <Marker
-          name={'Murphy Boston Inc'}
-          position={{lat: 30.79204, lng: -83.7892}} />
-  <Marker />
+  {this.props.markers && this.props.markers.map(cityStores => this.createMarker(cityStores))}
   <Marker
-          name={'7-eleven 32476C'}
-          position={{lat: 42.364929, lng: -71.062202}}
-     />
+        cityStores={this.state.cityStores}
+        title={'The marker`s title will appear as a tooltip.'}
+        name={'Store_Name'}
+        position={{lat: this.cityStores.latitude, lng: this.cityStores.longitude}} 
+          />
   <Marker
         name={'Your position'}
         position={{lat: 42.3600825, lng: -71.0588801}}
-    /> */}
-</Map>
+    /> 
+     <InfoWindow
+        marker={this.state.activeMarker}
+        onOpen={this.windowHasOpened}
+        onClose={this.windowHasClosed}
+        visible={this.state.showingInfoWindow}>
+       <div>
+            <h1>{this.state.selectedPlace.name}</h1>
+        </div>
+      </InfoWindow>   
+  </Map>
     );
   }
 }
@@ -301,179 +298,3 @@ export default GoogleApiWrapper({
   apiKey: "AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU"
   // `${process.env.API_KEY}`
 })(MapContainer);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

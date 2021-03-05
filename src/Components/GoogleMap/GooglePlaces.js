@@ -228,7 +228,7 @@ onMarkerDragEnd = (event) => {
   }
 
   render() {
-    // if (!this.props.loaded) return <div>Loading...</div>;
+    if (!this.props.loaded) return <div>Loading...</div>;
     // console.log('data loading', this.props.snapLocationsList);
     console.log('ML SLL:', this.state.cityStores);
 
@@ -265,16 +265,17 @@ onMarkerDragEnd = (event) => {
         }}
         term={{
             key: 'AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU',
-            language: 'en'
-            // search: 'value'
+            language: 'en',
+            search: 'value'
         }}
-          />
+          />        
   {this.props.markers && this.props.markers.map(cityStores => this.createMarker(cityStores))}
   <Marker
-        cityStores={this.state.cityStores}
+        cityStores={this.props.cityStores}
         title={'The marker`s title will appear as a tooltip.'}
         name={'Store_Name'}
-        position={{lat: this.cityStores.latitude, lng: this.cityStores.longitude}} 
+        // position={{lat: this.cityStores.latitude, lng: this.cityStores.longitude}} 
+        //Geocode.fromLatLng(newLat, newLng)
           />
   <Marker
         name={'Your position'}

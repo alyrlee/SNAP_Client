@@ -190,7 +190,7 @@ onMarkerDragEnd = (event) => {
     // const city = place.address_components[0].long_name;
     // const state = place.address_components[2].long_name;
 
-    const addressObject = this.autocomplete.getPlace();
+    const addressObject = this.autocomplete.onPlaceSelected();
     const address = addressObject.address_components;
 
     // Check if address is valid

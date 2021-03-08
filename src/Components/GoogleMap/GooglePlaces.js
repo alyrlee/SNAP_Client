@@ -8,7 +8,7 @@ Geocode.enableDebug();
 
 export class MapContainer extends Component {
   state = {
-    term: '',
+    terms: '',
     SnapLocationsList: {},
     places: [],
     showingInfoWindow: true,
@@ -132,8 +132,8 @@ onChange = (event) => { event.preventDefault();
 };
 
 // handleTermChange = (event) => { event.preventDefault();
-//   this.props.handleTermChange(this.state.term);
-// console.log('term', term);
+//   this.props.handleTermChange(this.state.terms);
+// console.log('terms', terms);
 // };
 
 
@@ -186,8 +186,8 @@ onMarkerDragEnd = (event) => {
   onPlaceSelected = ( place ) => {
     console.log('plc -> on selected', place);
     // check compDidMount is working first before you fix this! 
-    // const city = place.address_components[0];
-    // const state = place.address_components[2];
+    // const city = place.address_components[0].long_name;
+    // const state = place.address_components[2].long_name;
     const {geometry} = place;
     if (geometry) {
       const {location} = place.geometry;
@@ -202,9 +202,9 @@ onMarkerDragEnd = (event) => {
     }
   }
 
-  // handleTermChange(event) {
+  // handleTermsChange(event) {
   //   this.setState({
-  //     term: event.target.value
+  //     terms: event.target.value
   //   })
   // }
 
@@ -257,7 +257,7 @@ onMarkerDragEnd = (event) => {
                 }
               }
            >
-{/* {this.state.term} */}
+{/* {this.state.terms} */}
   <Autocomplete
         placeholder='Search'
         fields= {['']}
@@ -271,15 +271,14 @@ onMarkerDragEnd = (event) => {
         onPlaceSelected={ this.onPlaceSelected }
         types={['(cities)']}
         componentRestrictions={{country: 'us'}}
-        onChange={e => this.setState({ term: e.target.value })}
+        onChange={e => this.setState({ terms: e.target.value })}
         onClick={(stores, places, snapLocationsList, details = null) => {
           console.log('stores and details!!', stores, places, snapLocationsList, details);
         }}
-        term={{
+        terms={{
             key: 'AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU',
             language: 'en',
-            search: 'value',
-            term: ''
+            input: 'value',
         }}
           />        
   {this.props.markers && this.props.markers.map(cityStores => this.createMarker(cityStores))}

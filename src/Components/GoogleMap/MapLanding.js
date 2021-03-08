@@ -14,9 +14,9 @@ export default class MapLanding extends Component {
           <SnapLocationsList stores={this.state.snapLocationsList} />
           {/* Found: {this.state.snapLocationsList.length} SnapLocationsList */}
           <MapContainer 
-            snapLocationsList={this.state.snapLocationsList} 
+            // snapLocationsList={this.state.snapLocationsList} 
             onSelect={this.onSelect} 
-            markers = {this.state.snapLocationsList}
+            // markers = {this.state.snapLocationsList}
          />  
         </div>
       );

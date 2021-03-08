@@ -76,7 +76,7 @@ export class MapContainer extends Component {
         console.error("Geolocation is not supported by this browser!");
     }
   };
-//places updates with current locations
+
   getStoresByCityFromAPI = (city, state) => {
     console.log('passing the city/state data to the backend!', city, state)
     AuthApiService.getcityState(city, state)
@@ -130,6 +130,12 @@ export class MapContainer extends Component {
 onChange = (event) => { event.preventDefault();
   this.props.onChange(this.state.data);
 };
+
+// handleTermChange = (event) => { event.preventDefault();
+//   this.props.handleTermChange(this.state.term);
+// console.log('term', term);
+// };
+
 
 onInfoWindowClose = (event) => { };
 
@@ -196,6 +202,12 @@ onMarkerDragEnd = (event) => {
     }
   }
 
+  // handleTermChange(event) {
+  //   this.setState({
+  //     term: event.target.value
+  //   })
+  // }
+
   onMarkerClick = (props, marker, e) => {
     this.setState({
       selectedPlace: props,
@@ -228,7 +240,7 @@ onMarkerDragEnd = (event) => {
   }
 
   render() {
-    if (!this.props.loaded) return <div>Loading...</div>;
+    // if (!this.props.loaded) return <div>Loading...</div>;
     // console.log('data loading', this.props.snapLocationsList);
     console.log('ML SLL:', this.state.cityStores);
 
@@ -245,7 +257,7 @@ onMarkerDragEnd = (event) => {
                 }
               }
            >
-
+{/* {this.state.term} */}
   <Autocomplete
         placeholder='Search'
         fields= {['']}
@@ -266,7 +278,8 @@ onMarkerDragEnd = (event) => {
         term={{
             key: 'AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU',
             language: 'en',
-            search: 'value'
+            search: 'value',
+            term: ''
         }}
           />        
   {this.props.markers && this.props.markers.map(cityStores => this.createMarker(cityStores))}
@@ -297,5 +310,5 @@ onMarkerDragEnd = (event) => {
 
 export default GoogleApiWrapper({
   apiKey: "AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU"
-  // `${process.env.API_KEY}`
+  // `${API_KEY}`
 })(MapContainer);

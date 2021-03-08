@@ -8,6 +8,7 @@ Geocode.enableDebug();
 
 export class MapContainer extends Component {
   state = {
+    query: '',
     terms: '',
     SnapLocationsList: {},
     places: [],
@@ -188,6 +189,22 @@ onMarkerDragEnd = (event) => {
     // check compDidMount is working first before you fix this! 
     // const city = place.address_components[0].long_name;
     // const state = place.address_components[2].long_name;
+
+    const addressObject = this.autocomplete.getPlace();
+    const address = addressObject.address_components;
+
+    // Check if address is valid
+    if (address) {
+      // Set State
+      this.setState(
+        {
+          city: address[0].long_name,
+          query: addressObject.formatted_address,
+        }
+      );
+    }
+
+
     const {geometry} = place;
     if (geometry) {
       const {location} = place.geometry;
@@ -260,7 +277,7 @@ onMarkerDragEnd = (event) => {
 {/* {this.state.terms} */}
   <Autocomplete
         placeholder='Search'
-        fields= {['']}
+        fields= {['address_components', 'formatted_address']}
         style={{
             width: '100%',
             height: '25px',

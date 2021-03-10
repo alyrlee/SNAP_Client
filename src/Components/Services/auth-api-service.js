@@ -54,11 +54,10 @@ const AuthApiService = {
                 : res.json()
         )
       },
-    getStores(stores, user_name, password) {
+    getStores(stores) {
         return fetch(`${config.API_ENDPOINT}/stores`, {
             method: 'GET',
             headers: {
-                Authorization: `Schema ${user_name}:${password}`,
                 'authorization': `basic ${TokenService.getAuthToken()}`,
                 'content-type': 'application/json',
             },
@@ -70,19 +69,20 @@ const AuthApiService = {
             : res.json()
         });
     },
-
-    getcityState(city, state) {
-        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
-        return fetch(`${config.API_ENDPOINT}/cityState`,  {
-            method: 'GET',
+    getCityState(user_name, password, city, state, locations) {
+        // Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+        return fetch(`${config.API_ENDPOINT}/stores/cityState`,  {
+            method: 'POST',
             headers: {
-                // Authorization: `Schema ${user_name}:${password}`,
+                'Authorization': `Schema ${user_name}:${password}`,
                 'authorization': `basic ${TokenService.getAuthToken()}`,
                 'content-type': 'application/json',
             },
-             // body: JSON.stringify({
-            //     city: city, 
-            //     state: state}),
+             body: JSON.stringify({
+                city: city, 
+                state: state,
+                locations: locations
+            }),
         })       
         .then(res => {
             return (!res.ok)
@@ -90,12 +90,11 @@ const AuthApiService = {
             : res.json()
         });
     },
-
-    postStores(stores, user_name, password) {
+    postStores(stores) {
         return fetch(`${config.API_ENDPOINT}/stores`, {
             method: 'POST',
             headers: {
-                Authorization: `Schema ${user_name}:${password}`,
+                // Authorization: `Schema ${user_name}:${password}`,
                 'authorization': `basic ${TokenService.getAuthToken()}`,
                 'content-type': 'application/json',
             },
@@ -107,7 +106,6 @@ const AuthApiService = {
             : res.json()
         });
     },
-
     getSavedLocations(ObjectId, Store_Name, user_name, password) {
         return fetch(`${config.API_ENDPOINT}/SavedLocations`, {
             method: 'GET',
@@ -127,7 +125,6 @@ const AuthApiService = {
             : res.json()
         });
     },
-    
     postSavedLocations(ObjectId, Store_Name, user_name, password) {
         return fetch(`${config.API_ENDPOINT}/SavedLocations`, {
             method: 'POST',

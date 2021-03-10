@@ -80,7 +80,7 @@ export class MapContainer extends Component {
 
   getStoresByCityFromAPI = (city, state) => {
     console.log('passing the city/state data to the backend!', city, state)
-    AuthApiService.getcityState(city, state)
+    AuthApiService.getCityState(city, state)
     .then(resJSON => {
       this.setState({ cityStores: resJSON});
       console.log('city/state stores json data', resJSON);
@@ -232,7 +232,7 @@ onMarkerDragEnd = (event) => {
     return (
       <Marker 
         key={`${cityStores.latitude}${cityStores.longitude}`}
-        id={cityStores.objectid}
+        id={cityStores.ObjectId}
         onClick={this.onMarkerClick}
         position={{ lat: cityStores.latitude, lng: cityStores.longitude }}
         name={'Current Location'}

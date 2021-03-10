@@ -64,7 +64,7 @@ export class MapContainer extends Component {
                             })
                             console.log('city', city, area, state);
                             console.log('call getStoresByCityState?', city, state)
-                            this.getStoresByCityFromAPI('this.API - is this necessary here?', city, state);    
+                            this.getStoresByCityFromAPI(city, state);    
                         },
                         error => {
                             console.error(error);
@@ -78,11 +78,11 @@ export class MapContainer extends Component {
     }
   };
 
-  getStoresByCityFromAPI = (cityState) => {
-    console.log('passing the city/state data to the backend!', cityState)
-    AuthApiService.getCityState(cityState)
+  getStoresByCityFromAPI = (city, state) => {
+    console.log('passing the city/state data to the backend!', city, state)
+    AuthApiService.getCityState(city, state)
     .then(resJSON => {
-      this.setState({ cityState: resJSON});
+      this.setState({ cityStores: resJSON});
       console.log('city/state stores json data', resJSON);
     })
     .catch(error => {
@@ -227,14 +227,19 @@ onMarkerDragEnd = (event) => {
     }
   };
 
-  createMarker = (cityState) => {
-    console.log('pull all snap data locations', cityState);
+
+  //"https://maps.google.com/?q=Chicago,+IL,+USA&
+  //formatted_address: "Chicago, IL, USA"
+//marker = plc --> on selected
+
+  createMarker = (cityStores) => {
+    console.log('pull all snap data locations', cityStores);
     return (
       <Marker 
-        key={`${cityState.latitude}${cityState.longitude}`}
-        id={cityState.ObjectId}
+        key={`${cityStores.latitude}${cityStores.longitude}`}
+        id={cityStores.ObjectId}
         onClick={this.onMarkerClick}
-        position={{ lat: cityState.latitude, lng: cityState.longitude }}
+        position={{ lat: cityStores.latitude, lng: cityStores.longitude }}
         name={'Current Location'}
         title={'The marker`s title will appear as a tooltip.'}
          />
@@ -244,7 +249,7 @@ onMarkerDragEnd = (event) => {
   render() {
     // if (!this.props.loaded) return <div>Loading...</div>;
     // console.log('data loading', this.props.snapLocationsList);
-    console.log('ML SLL:', this.state.cityState);
+    console.log('ML SLL:', this.state.cityStores);
 
     return (
 
@@ -275,8 +280,8 @@ onMarkerDragEnd = (event) => {
         types={['(cities)']}
         componentRestrictions={{country: 'us'}}
         onChange={e => this.setState({ terms: e.target.value })}
-        onClick={(stores, places, snapLocationsList, details = null) => {
-          console.log('stores and details!!', stores, places, snapLocationsList, details);
+        onClick={(places, snapLocationsList, details = null) => {
+          console.log('stores and details!!', places, snapLocationsList, details);
         }}
         terms={{
             key: 'AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU',
@@ -284,13 +289,12 @@ onMarkerDragEnd = (event) => {
             input: 'value',
         }}
           />        
-  {this.props.markers && this.props.markers.map(cityState => this.createMarker(cityState))}
+  {this.props.markers && this.props.markers.map(cityStores => this.createMarker(cityStores))}
   <Marker
-        cityStores={this.props.cityState}
+        cityStores={this.props.cityStores}
         title={'The marker`s title will appear as a tooltip.'}
         name={'Store_Name'}
-        // position={{lat: this.cityStores.latitude, lng: this.cityStores.longitude}} 
-        //Geocode.fromLatLng(newLat, newLng)
+        // position={this.onPlaceSelected}
           />
   <Marker
         name={'Your position'}

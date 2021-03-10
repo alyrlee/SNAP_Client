@@ -69,16 +69,35 @@ const AuthApiService = {
             : res.json()
         });
     },
-    getCityState(cityState) {
-        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+    getCityState(city, state) {
+        // Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
         return fetch(`${config.API_ENDPOINT}/stores/cityState`,  {
             method: 'GET',
             headers: {
                 'authorization': `basic ${TokenService.getAuthToken()}`,
                 'content-type': 'application/json',
             },
-            //  body: JSON.stringify(cityState),
+            // body: JSON.stringify({ city: city,state: state}),
         })       
+        .then(res => {
+            return (!res.ok)
+            ? res.json().then(e => Promise.reject(e))
+            : res.json()
+        });
+    },
+    postCityState(city, state) {
+        return fetch(`${config.API_ENDPOINT}/stores/cityState`, {
+            method: 'POST',
+            headers: {
+                // Authorization: `Schema ${user_name}:${password}`,
+                'authorization': `basic ${TokenService.getAuthToken()}`,
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify({
+                city: city,
+                state: state
+            }),
+        })
         .then(res => {
             return (!res.ok)
             ? res.json().then(e => Promise.reject(e))

@@ -69,7 +69,7 @@ const AuthApiService = {
             : res.json()
         });
     },
-    getCityState(user_name, password, city, state, locations) {
+    postCityState(user_name, password, city, state, locations) {
         // Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
         return fetch(`${config.API_ENDPOINT}/stores/cityState`,  {
             method: 'POST',

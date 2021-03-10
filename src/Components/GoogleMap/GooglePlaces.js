@@ -64,7 +64,7 @@ export class MapContainer extends Component {
                             })
                             console.log('city', city, area, state);
                             console.log('call getStoresByCityState?', city, state)
-                            this.getStoresByCityFromAPI('this.API - is this necessary here?', city, state);    
+                            this.postStoresByCityFromAPI('this.API - is this necessary here?', city, state);    
                         },
                         error => {
                             console.error(error);
@@ -78,9 +78,9 @@ export class MapContainer extends Component {
     }
   };
 
-  getStoresByCityFromAPI = (city, state) => {
-    console.log('passing the city/state data to the backend!', city, state)
-    AuthApiService.getCityState(city, state)
+  postStoresByCityFromAPI = (city, state, locations) => {
+    console.log('passing the city/state data to the backend!', city, state, locations)
+    AuthApiService.postCityState(city, state, locations)
     .then(resJSON => {
       this.setState({ cityStores: resJSON});
       console.log('city/state stores json data', resJSON);

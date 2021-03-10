@@ -64,7 +64,7 @@ export class MapContainer extends Component {
                             })
                             console.log('city', city, area, state);
                             console.log('call getStoresByCityState?', city, state)
-                            this.postStoresByCityFromAPI('this.API - is this necessary here?', city, state);    
+                            this.getStoresByCityFromAPI('this.API - is this necessary here?', city, state);    
                         },
                         error => {
                             console.error(error);
@@ -78,11 +78,11 @@ export class MapContainer extends Component {
     }
   };
 
-  postStoresByCityFromAPI = (city, state, locations) => {
-    console.log('passing the city/state data to the backend!', city, state, locations)
-    AuthApiService.postCityState(city, state, locations)
+  getStoresByCityFromAPI = (cityState) => {
+    console.log('passing the city/state data to the backend!', cityState)
+    AuthApiService.getCityState(cityState)
     .then(resJSON => {
-      this.setState({ cityStores: resJSON});
+      this.setState({ cityState: resJSON});
       console.log('city/state stores json data', resJSON);
     })
     .catch(error => {
@@ -227,14 +227,14 @@ onMarkerDragEnd = (event) => {
     }
   };
 
-  createMarker = (cityStores) => {
-    console.log('pull all snap data locations', cityStores);
+  createMarker = (cityState) => {
+    console.log('pull all snap data locations', cityState);
     return (
       <Marker 
-        key={`${cityStores.latitude}${cityStores.longitude}`}
-        id={cityStores.ObjectId}
+        key={`${cityState.latitude}${cityState.longitude}`}
+        id={cityState.ObjectId}
         onClick={this.onMarkerClick}
-        position={{ lat: cityStores.latitude, lng: cityStores.longitude }}
+        position={{ lat: cityState.latitude, lng: cityState.longitude }}
         name={'Current Location'}
         title={'The marker`s title will appear as a tooltip.'}
          />
@@ -244,7 +244,7 @@ onMarkerDragEnd = (event) => {
   render() {
     // if (!this.props.loaded) return <div>Loading...</div>;
     // console.log('data loading', this.props.snapLocationsList);
-    console.log('ML SLL:', this.state.cityStores);
+    console.log('ML SLL:', this.state.cityState);
 
     return (
 
@@ -284,9 +284,9 @@ onMarkerDragEnd = (event) => {
             input: 'value',
         }}
           />        
-  {this.props.markers && this.props.markers.map(cityStores => this.createMarker(cityStores))}
+  {this.props.markers && this.props.markers.map(cityState => this.createMarker(cityState))}
   <Marker
-        cityStores={this.props.cityStores}
+        cityStores={this.props.cityState}
         title={'The marker`s title will appear as a tooltip.'}
         name={'Store_Name'}
         // position={{lat: this.cityStores.latitude, lng: this.cityStores.longitude}} 

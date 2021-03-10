@@ -69,20 +69,15 @@ const AuthApiService = {
             : res.json()
         });
     },
-    postCityState(user_name, password, city, state, locations) {
-        // Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+    getCityState(cityState) {
+        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
         return fetch(`${config.API_ENDPOINT}/stores/cityState`,  {
-            method: 'POST',
+            method: 'GET',
             headers: {
-                'Authorization': `Schema ${user_name}:${password}`,
                 'authorization': `basic ${TokenService.getAuthToken()}`,
                 'content-type': 'application/json',
             },
-             body: JSON.stringify({
-                city: city, 
-                state: state,
-                locations: locations
-            }),
+            //  body: JSON.stringify(cityState),
         })       
         .then(res => {
             return (!res.ok)

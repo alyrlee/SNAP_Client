@@ -80,7 +80,7 @@ export class MapContainer extends Component {
 
   getStoresByCityFromAPI = (city, state) => {
     console.log('passing the city/state data to the backend!', city, state)
-    AuthApiService.getCityState(city, state)
+    AuthApiService.postCityState(city, state)
     .then(resJSON => {
       this.setState({ cityStores: resJSON});
       console.log('city/state stores json data', resJSON);

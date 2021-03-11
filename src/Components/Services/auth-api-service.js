@@ -70,6 +70,7 @@ const AuthApiService = {
         });
     },
     getCityState(city, state) {
+        // need to implement iun order to have the GET working :)
         // Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
         return fetch(`${config.API_ENDPOINT}/stores/cityState`,  {
             method: 'GET',
@@ -78,6 +79,7 @@ const AuthApiService = {
                 'content-type': 'application/json',
             },
             // body: JSON.stringify({ city: city,state: state}),
+            // body will not work with a GET request!!
         })       
         .then(res => {
             return (!res.ok)

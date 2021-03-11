@@ -70,7 +70,7 @@ const AuthApiService = {
         });
     },
     getCityState(city, state) {
-        // need to implement iun order to have the GET working :)
+        // need to implement in order to have the GET working :)
         // Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
         return fetch(`${config.API_ENDPOINT}/stores/cityState`,  {
             method: 'GET',
@@ -78,8 +78,6 @@ const AuthApiService = {
                 'authorization': `basic ${TokenService.getAuthToken()}`,
                 'content-type': 'application/json',
             },
-            // body: JSON.stringify({ city: city,state: state}),
-            // body will not work with a GET request!!
         })       
         .then(res => {
             return (!res.ok)
@@ -91,7 +89,6 @@ const AuthApiService = {
         return fetch(`${config.API_ENDPOINT}/stores/cityState`, {
             method: 'POST',
             headers: {
-                // Authorization: `Schema ${user_name}:${password}`,
                 'authorization': `basic ${TokenService.getAuthToken()}`,
                 'content-type': 'application/json',
             },
@@ -110,7 +107,6 @@ const AuthApiService = {
         return fetch(`${config.API_ENDPOINT}/stores`, {
             method: 'POST',
             headers: {
-                // Authorization: `Schema ${user_name}:${password}`,
                 'authorization': `basic ${TokenService.getAuthToken()}`,
                 'content-type': 'application/json',
             },

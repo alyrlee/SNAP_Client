@@ -62,7 +62,8 @@ export class MapContainer extends Component {
                                 city: (city) ? city : '',
                                 state: (state) ? state : '',
                             })
-                            console.log('city', city, area, state);
+                            console.log('city', city);
+                            console.log('state', state);
                             console.log('call getStoresByCityState?', city, state)
                             this.getStoresByCityFromAPI(city, state);    
                         },
@@ -95,7 +96,7 @@ export class MapContainer extends Component {
   getCity = (addressArray) => {
     let city = '';
     for (let i = 0; i < addressArray.length; i++) {
-        if (addressArray[i].types[0] && 'administrative_area_level_2' === addressArray[i].types[0]) {
+        if (addressArray[i].types[0] && 'locality' === addressArray[i].types[0]) {
             city = addressArray[i].long_name;
             return city;
         }
@@ -121,7 +122,7 @@ export class MapContainer extends Component {
     for (let i = 0; i < addressArray.length; i++) {
         for (let i = 0; i < addressArray.length; i++) {
             if (addressArray[i].types[0] && 'administrative_area_level_1' === addressArray[i].types[0]) {
-                state = addressArray[i].long_name;
+                state = addressArray[i].short_name;
                 return state;
             }
         }

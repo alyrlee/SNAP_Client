@@ -94,9 +94,6 @@ class App extends Component {
               path={'/profile'}
               component={Profile}
             />
-            {/* <Route
-              component={NotFoundPage}
-            /> */}
           </Switch>
         </main>
       </div>

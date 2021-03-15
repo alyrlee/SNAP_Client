@@ -9,7 +9,7 @@ Geocode.enableDebug();
 export class MapContainer extends Component {
   state = {
     query: '',
-    terms: '',
+    input: '',
     SnapLocationsList: {},
     places: [],
     showingInfoWindow: true,
@@ -50,7 +50,7 @@ export class MapContainer extends Component {
                 () => {
                     Geocode.fromLatLng(position.coords.latitude, position.coords.longitude).then(
                         response => {
-                            console.log(response)
+                            console.log('geocode response', response)
                             const address = response.results[0].formatted_address,
                                 addressArray = response.results[0].address_components,
                                 city = this.getCity(addressArray),
@@ -133,9 +133,11 @@ onChange = (event) => { event.preventDefault();
   this.props.onChange(this.state.data);
 };
 
-// handleTermChange = (event) => { event.preventDefault();
-//   this.props.handleTermChange(this.state.terms);
-// console.log('terms', terms);
+//check if should be terms
+
+// handleInputChange = (event) => { event.preventDefault();
+//   this.props.handleInputChange(this.state.input);
+// console.log('input', input);
 // };
 
 
@@ -165,6 +167,10 @@ onMarkerDragEnd = (event) => {
                     lat: newLat,
                     lng: newLng
                 },
+                cityStores: {
+                city: city,
+                state: state 
+                },    
             })
         },
         error => {
@@ -172,42 +178,32 @@ onMarkerDragEnd = (event) => {
         }
     );
   };
-
-/*  
-  0:
-  address: "215 Arsenal Rd"
-  city: "York"
-  latitude: "39.9839360"
-  longitude: "-76.7277760"
-  state: "PA"
-  store_name: ""
-  zip5: 17402
-*/   
-
-
-  onPlaceSelected = ( place ) => {
+  
+  onPlaceSelected = ( place, markers ) => {
     console.log('plc -> on selected', place);
     // check compDidMount is working first before you fix this! 
     // const city = place.address_components[0].long_name;
     // const state = place.address_components[2].long_name;
     
     const {geometry} = place;
-    if (geometry) {
-      const {location} = place.geometry;
+      if (geometry) {
+        const {location} = place.geometry;
       if (location) {
         this.setState({
           coordinates: {
             lat: location.lat(), 
             lng: location.lng(),
-          }
+            // city: city,
+            // state: state
+          },
         });
       }
     }
   }
 
-  // handleTermsChange(event) {
+  // handleInputChange(event) {
   //   this.setState({
-  //     terms: event.target.value
+  //     input: event.target.value
   //   })
   // }
 
@@ -228,11 +224,6 @@ onMarkerDragEnd = (event) => {
     }
   };
 
-
-  //"https://maps.google.com/?q=Chicago,+IL,+USA&
-  //formatted_address: "Chicago, IL, USA"
-//marker = plc --> on selected
-
   createMarker = (cityStores) => {
     console.log('pull all snap data locations', cityStores);
     return (
@@ -242,7 +233,7 @@ onMarkerDragEnd = (event) => {
         onClick={this.onMarkerClick}
         position={{ lat: cityStores.latitude, lng: cityStores.longitude }}
         name={'Current Location'}
-        title={'The marker`s title will appear as a tooltip.'}
+        title={cityStores.Store_Name}
          />
     ) 
   }
@@ -251,9 +242,9 @@ onMarkerDragEnd = (event) => {
     // if (!this.props.loaded) return <div>Loading...</div>;
     // console.log('data loading', this.props.snapLocationsList);
     console.log('ML SLL:', this.state.cityStores);
+    console.log('ML SLL UPDATE:', this.state.places.PlaceResult);
 
     return (
-
   <Map google={this.props.google}
         //  style={{width: '100%', height: '100%', position: 'relative'}}
         className={'map'}
@@ -265,11 +256,12 @@ onMarkerDragEnd = (event) => {
                 }
               }
            >
-{/* {this.state.terms} */}
   <Autocomplete
+        input id='autocomplete'
+        type='text'
         placeholder='Search'
-        // fields= {['address_components', 'formatted_address']}
-        fields={['']}
+        fields= {['address_components', 'formatted_address', 'place_id', 'geometry']}
+        // fields={['']}
         style={{
             width: '100%',
             height: '25px',
@@ -279,10 +271,11 @@ onMarkerDragEnd = (event) => {
         }}
         onPlaceSelected={ this.onPlaceSelected }
         types={['(cities)']}
+        value={this.state.input}
         componentRestrictions={{country: 'us'}}
-        onChange={e => this.setState({ terms: e.target.value })}
-        onClick={(places, snapLocationsList, details = null) => {
-          console.log('stores and details!!', places, snapLocationsList, details);
+        onChange={e => this.setState({ input: e.target.value })}
+        onClick={(places, cityStores, details = null) => {
+          console.log('stores and details!!', places, cityStores, details);
         }}
         terms={{
             key: 'AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU',
@@ -293,7 +286,7 @@ onMarkerDragEnd = (event) => {
   {this.props.markers && this.props.markers.map(cityStores => this.createMarker(cityStores))}
   <Marker
         cityStores={this.props.cityStores}
-        title={'The marker`s title will appear as a tooltip.'}
+        // title={this.place.name}
         name={'Store_Name'}
         // position={this.onPlaceSelected}
           />

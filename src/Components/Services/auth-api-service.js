@@ -4,6 +4,14 @@ import config from '../../config';
 const user_name = 'DemoUser2020';
 const password = 'DemoUser*';
 
+const url = new URL(`${config.API_ENDPOINT}/cityState`);
+const params = {
+    lat: 42.3600825, 
+    lng: -71.0588801,
+    query: 'string',
+}
+url.search = new URLSearchParams(params).toString();
+
 const AuthApiService = {
     postLogin({user_name, password}) {
         return fetch(`${config.API_ENDPOINT}/auth/login`, {
@@ -46,11 +54,10 @@ const AuthApiService = {
                 : res.json()
         )
       },
-    getStores(stores, user_name, password) {
+    getStores(stores) {
         return fetch(`${config.API_ENDPOINT}/stores`, {
             method: 'GET',
             headers: {
-                Authorization: `Schema ${user_name}:${password}`,
                 'authorization': `basic ${TokenService.getAuthToken()}`,
                 'content-type': 'application/json',
             },
@@ -62,12 +69,44 @@ const AuthApiService = {
             : res.json()
         });
     },
-
-    postStores(stores, user_name, password) {
+    getCityState(city, state) {
+        // need to implement in order to have the GET working :)
+        // Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+        return fetch(`${config.API_ENDPOINT}/stores/cityState`,  {
+            method: 'GET',
+            headers: {
+                'authorization': `basic ${TokenService.getAuthToken()}`,
+                'content-type': 'application/json',
+            },
+        })       
+        .then(res => {
+            return (!res.ok)
+            ? res.json().then(e => Promise.reject(e))
+            : res.json()
+        });
+    },
+    postCityState(city, state) {
+        return fetch(`${config.API_ENDPOINT}/stores/cityState`, {
+            method: 'POST',
+            headers: {
+                'authorization': `basic ${TokenService.getAuthToken()}`,
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify({
+                city: city,
+                state: state
+            }),
+        })
+        .then(res => {
+            return (!res.ok)
+            ? res.json().then(e => Promise.reject(e))
+            : res.json()
+        });
+    },
+    postStores(stores) {
         return fetch(`${config.API_ENDPOINT}/stores`, {
             method: 'POST',
             headers: {
-                Authorization: `Schema ${user_name}:${password}`,
                 'authorization': `basic ${TokenService.getAuthToken()}`,
                 'content-type': 'application/json',
             },
@@ -79,7 +118,6 @@ const AuthApiService = {
             : res.json()
         });
     },
-
     getSavedLocations(ObjectId, Store_Name, user_name, password) {
         return fetch(`${config.API_ENDPOINT}/SavedLocations`, {
             method: 'GET',
@@ -99,7 +137,6 @@ const AuthApiService = {
             : res.json()
         });
     },
-    
     postSavedLocations(ObjectId, Store_Name, user_name, password) {
         return fetch(`${config.API_ENDPOINT}/SavedLocations`, {
             method: 'POST',

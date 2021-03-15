@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import MapContainer from '../GoogleMap/GooglePlaces'; 
+import PlacesAutocomplete from '../GoogleMap/GooglePlaces'; 
 // import config from'../../config';
 import AuthApiService from '../Services/auth-api-service';
 // import snapLocationsList from '../SnapLocationStores/SnapLocationsList';
@@ -10,15 +10,17 @@ export default class MapLanding extends Component {
   this.state = {stores: [] } ;
   }
 
-componentDidMount(){
-  AuthApiService.getStores()
-  .then(res => res.json())
-  .then(data => {
-    this.setState({ stores: data.stores});
-    console.log('stores json data', data);
-  })
-  .catch(console.error)
-}
+componentDidMount(city, state){
+AuthApiService.postCityState(city, state)
+    .then(resJSON => {
+      this.setState({ stores: resJSON});
+      console.log('city/state stores json data', resJSON);
+    })
+    .catch(error => {
+      if(error.resJSON)    
+     console.log(error.resJSON);
+      console.error({error: error})    
+  })}
 
   render() {
     return (
@@ -26,7 +28,7 @@ componentDidMount(){
          {/* <SnapLocationsList stores={this.state.data} />
         Found: {this.state.data.length} SnapLocationsList */} 
         {/* {this.markerData = resJSON && !error ? resJSON.slice(0, 200): []} */}
-        <MapContainer 
+        <PlacesAutocomplete
           // snapLocationsList={this.state.stores} 
           onSelect={this.onSelect} 
           store = {this.state.data}  

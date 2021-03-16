@@ -4,6 +4,8 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
+import AuthApiService from '../Services/auth-api-service'
+
 
 export class MapContainer extends Component {
   constructor(props) {
@@ -17,8 +19,8 @@ export class MapContainer extends Component {
       selectedPlace: {},
   
       mapCenter: {
-        lat: 49.2827291,
-        lng: -123.1207375
+        lat: 42.3600825,
+        lng: -71.0588801
       }
     };
   }
@@ -26,31 +28,39 @@ export class MapContainer extends Component {
   handleChange = address => {
     this.setState({ address });
   };
+
+  getStoresByCityFromAPI = (city, state) => {
+    console.log('passing the city/state data to the backend!', city, state)
+    AuthApiService.postCityState(city, state)
+    .then(resJSON => {
+      this.setState({ address: resJSON});
+      console.log('city/state stores json data', resJSON);
+    })
+    .catch(error => {
+      if(error.resJSON)    
+     console.log(error.resJSON);
+      console.error({error: error})    
+   })
+  }
  
   handleSelect = address => {
     this.setState({ address });
+    console.log('address: ',address)
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(latLng => {
         console.log('Success', latLng);
-
         // update center state
         this.setState({ mapCenter: latLng });
+        this.getStoresByCityFromAPI({address})
       })
       .catch(error => console.error('Error', error));
   };
- 
+
   render() {
     return (
       <div id='googleMaps'>
         <PlacesAutocomplete
-        style={{
-          width: '100%',
-          height: '25px',
-          paddingLeft: '16px',
-          // marginTop: '2px',
-          marginBottom: '100px'
-      }}
           value={this.state.address}
           onChange={this.handleChange}
           onSelect={this.handleSelect}

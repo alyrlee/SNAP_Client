@@ -28,7 +28,11 @@ export class MapContainer extends Component {
     mapPosition: {
         lat: 0,
         lng: 0
-    },     
+    }, 
+    mapCenter: {
+      lat: 42.3600825,
+      lng: -71.0588801
+    },    
     coordinates: {
         lat: 42.3600825,
         lng: -71.0588801
@@ -252,12 +256,14 @@ onMarkerDragEnd = (event) => {
         //  style={{width: '100%', height: '100%', position: 'relative'}}
         className={'map'}
         zoom={14}
-        center={
-                {
-                  lat: this.state.coordinates.lat,
-                  lng: this.state.coordinates.lng
-                }
-              }
+        initialCenter={{
+          lat: this.state.mapCenter.lat,
+          lng: this.state.mapCenter.lng
+        }}
+        center={{
+          lat: this.state.mapCenter.lat,
+          lng: this.state.mapCenter.lng
+        }}
            >
   <Autocomplete
         input id='autocomplete'
@@ -274,7 +280,7 @@ onMarkerDragEnd = (event) => {
         }}
         onPlaceSelected={ this.onPlaceSelected }
         types={['(cities)']}
-        input={value.toString()}
+        // input={value.toString()}
         value={this.state.input}
         componentRestrictions={{country: 'us'}}
         onChange={e => this.setState({ input: e.target.value })}
@@ -296,8 +302,10 @@ onMarkerDragEnd = (event) => {
           />
   <Marker
         name={'Your position'}
-        position={{lat: 42.3600825, lng: -71.0588801}}
-    /> 
+        position={{
+          lat: this.state.mapCenter.lat,
+          lng: this.state.mapCenter.lng
+        }} />
      <InfoWindow
         marker={this.state.activeMarker}
         onOpen={this.windowHasOpened}

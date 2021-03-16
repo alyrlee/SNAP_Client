@@ -43,6 +43,10 @@ export class MapContainer extends Component {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
             this.setState({
+              // mapCenter: {
+              //   lat: position.mapCenter.latitude,
+              //   lng: position.mapCenter.longitude
+              // },   
                 mapPosition: {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude,
@@ -196,7 +200,7 @@ onMarkerDragEnd = (event) => {
         const {location} = place.geometry;
       if (location) {
         this.setState({
-          coordinates: {
+          mapCenter: {
             lat: location.lat(), 
             lng: location.lng(),
             // cityStores: {

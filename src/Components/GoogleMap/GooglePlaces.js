@@ -44,6 +44,13 @@ export class MapContainer extends Component {
     return (
       <div id='googleMaps'>
         <PlacesAutocomplete
+        style={{
+          width: '100%',
+          height: '25px',
+          paddingLeft: '16px',
+          // marginTop: '2px',
+          marginBottom: '100px'
+      }}
           value={this.state.address}
           onChange={this.handleChange}
           onSelect={this.handleSelect}

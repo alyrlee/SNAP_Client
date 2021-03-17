@@ -188,7 +188,7 @@ onMarkerDragEnd = (event) => {
     );
   };
   
-  onPlaceSelected = ( place, markers ) => {
+  onPlaceSelected = ( place ) => {
     console.log('plc -> on selected', place);
     // check compDidMount is working first before you fix this! 
     const city = place.address_components[0].long_name;
@@ -203,9 +203,10 @@ onMarkerDragEnd = (event) => {
           mapCenter: {
             lat: location.lat(), 
             lng: location.lng(),
-            // cityStores: {
-            //   city: city,
-            //   state: state 
+          },
+            cityStores: {
+              city: city,
+              state: state 
           },
         });
       }
@@ -253,7 +254,7 @@ onMarkerDragEnd = (event) => {
     // if (!this.props.loaded) return <div>Loading...</div>;
     // console.log('data loading', this.props.snapLocationsList);
     console.log('ML SLL:', this.state.cityStores);
-    console.log('ML SLL UPDATE:', this.state.places.PlaceResult);
+    // console.log('ML SLL UPDATE:', );
 
     return (
   <Map google={this.props.google}

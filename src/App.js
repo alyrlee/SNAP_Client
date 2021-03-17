@@ -10,6 +10,7 @@ import About from '../src/Components/About/About';
 import Profile from './Components/LoginForm/Profile';
 import MapLanding from './Components/GoogleMap/MapLanding';
 import { Route, Switch} from "react-router-dom";
+import config from './config';
 
 class App extends Component {
   state = {
@@ -23,40 +24,40 @@ class App extends Component {
     return { hasError: true }
   }
 
-  // componentDidMount() {
-	// 	Promise.all([
-	// 		fetch(`${config.API_ENDPOINT}/auth`),
-  //     fetch(`${config.API_ENDPOINT}/stores`),
-  //     fetch(`${config.API_ENDPOINT}/profile`),
-	// 		fetch(`${config.API_ENDPOINT}/savedLocations`)
-	// 	])
-	// 		.then(([userRes, snapLocationsListRes]) => {
-	// 			if (!userRes.ok)
-	// 				return snapLocationsListRes.json().then(e => Promise.reject(e));
-	// 			if (!snapLocationsListRes.ok)
-	// 				return snapLocationsListRes.json().then(e => Promise.reject(e));
+  componentDidMount() {
+		Promise.all([
+			fetch(`${config.API_ENDPOINT}/auth`),
+      fetch(`${config.API_ENDPOINT}/stores`),
+      fetch(`${config.API_ENDPOINT}/profile`),
+			fetch(`${config.API_ENDPOINT}/savedLocations`)
+		])
+			.then(([userRes, snapLocationsListRes]) => {
+				if (!userRes.ok)
+					return snapLocationsListRes.json().then(e => Promise.reject(e));
+				if (!snapLocationsListRes.ok)
+					return snapLocationsListRes.json().then(e => Promise.reject(e));
 
-	// 			return Promise.all([userRes.json(), snapLocationsListRes.json()]);
-	// 		})
-	// 		.then(([user, snapLocationsList]) => {
-	// 			this.setState({user, snapLocationsList});
-	// 		})
-	// 		.catch(error => {
-	// 			console.error({error});
-	// 		});
-	// }
+				return Promise.all([userRes.json(), snapLocationsListRes.json()]);
+			})
+			.then(([user, snapLocationsList]) => {
+				this.setState({user, snapLocationsList});
+			})
+			.catch(error => {
+				console.error({error});
+			});
+	}
 
-	// handleGetSnapLocations = ObjectId => {
-	// 		this.setState({
-	// 				snapLocationsList: this.state.snapLocationsList.filter(snapLocationsList => Object.Id !== ObjectId)
-	// 		});
-	// };
+	handleGetSnapLocations = ObjectId => {
+			this.setState({
+					snapLocationsList: this.state.snapLocationsList.filter(snapLocationsList => Object.Id !== ObjectId)
+			});
+	};
 
-	// handleGetAllUserProfiles = (user) => {
-	// this.setState({
-	// 	user: [...this.state.user, user]
-	// });
-	// }
+	handleGetAllUserProfiles = (user) => {
+	this.setState({
+		user: [...this.state.user, user]
+	});
+	}
     
   render() {
     return (

@@ -282,6 +282,7 @@ onMarkerDragEnd = (event) => {
           />
   <Marker
         name={'Your position'}
+        icon={{ url:'https://cdn2.iconfinder.com/data/icons/IconsLandVistaMapMarkersIconsDemo/256/MapMarker_Marker_Outside_Chartreuse.png', scaledSize: new window.google.maps.Size(50, 50) }}
         position={{
           lat: this.state.mapCenter.lat,
           lng: this.state.mapCenter.lng

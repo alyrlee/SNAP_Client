@@ -8,10 +8,9 @@ Geocode.enableDebug();
 
 export class MapContainer extends Component {
   state = {
-    query: '',
-    input: '',
- 
-    SnapLocationsList: {},
+    // query: '',
+    // input: '',
+    // SnapLocationsList: {},
     places: [],
     showingInfoWindow: true,
     activeMarker: {},
@@ -43,10 +42,6 @@ export class MapContainer extends Component {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
             this.setState({
-              // mapCenter: {
-              //   lat: position.mapCenter.latitude,
-              //   lng: position.mapCenter.longitude
-              // },   
                 mapPosition: {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude,
@@ -71,8 +66,6 @@ export class MapContainer extends Component {
                                 city: (city) ? city : '',
                                 state: (state) ? state : '',
                             })
-                            console.log('city', city);
-                            console.log('state', state);
                             console.log('call getStoresByCityState?', city, state)
                             this.getStoresByCityFromAPI(city, state);    
                         },
@@ -93,13 +86,13 @@ export class MapContainer extends Component {
     AuthApiService.postCityState(city, state)
     .then(resJSON => {
       this.setState({ cityStores: resJSON});
-      console.log('city/state stores json data', resJSON);
+      console.log('  ~~~  --> city/state stores json data', resJSON);
     })
     .catch(error => {
       if(error.resJSON)    
-     console.log(error.resJSON);
+      console.log(error.resJSON);
       console.error({error: error})    
-  })
+    })
   }
 
   getCity = (addressArray) => {
@@ -142,14 +135,6 @@ onChange = (event) => { event.preventDefault();
   this.props.onChange(this.state.data);
 };
 
-//check if should be terms
-
-// handleInputChange = (event) => { event.preventDefault();
-//   this.props.handleInputChange(this.state.input);
-// console.log('input', input);
-// };
-
-
 onInfoWindowClose = (event) => { };
 
 onMarkerDragEnd = (event) => {
@@ -177,8 +162,8 @@ onMarkerDragEnd = (event) => {
                     lng: newLng
                 },
                 cityStores: {
-                city: city,
-                state: state 
+                    city: city,
+                    state: state 
                 },    
             })
         },
@@ -190,7 +175,6 @@ onMarkerDragEnd = (event) => {
   
   onPlaceSelected = ( place ) => {
     console.log('plc -> on selected', place);
-    // check compDidMount is working first before you fix this! 
     const city = place.address_components[0].long_name;
     const state = place.address_components[2].short_name;
     this.getStoresByCityFromAPI(city, state);
@@ -212,12 +196,6 @@ onMarkerDragEnd = (event) => {
       }
     }
   }
-
-  // handleInputChange(event) {
-  //   this.setState({
-  //     input: event.target.value
-  //   })
-  // }
 
   onMarkerClick = (props, marker, e) => {
     this.setState({
@@ -254,11 +232,10 @@ onMarkerDragEnd = (event) => {
     // if (!this.props.loaded) return <div>Loading...</div>;
     // console.log('data loading', this.props.snapLocationsList);
     console.log('ML SLL:', this.state.cityStores);
-    // console.log('ML SLL UPDATE:', );
 
-    return (
+    return ( 
   <Map google={this.props.google}
-        //  style={{width: '100%', height: '100%', position: 'relative'}}
+        // style={{width: '100%', height: '100%', position: 'relative'}}
         className={'map'}
         zoom={14}
         initialCenter={{
@@ -275,12 +252,10 @@ onMarkerDragEnd = (event) => {
         type='text'
         placeholder='Search'
         fields= {['address_components', 'formatted_address', 'place_id', 'geometry']}
-        // fields={['']}
         style={{
             width: '100%',
             height: '25px',
             paddingLeft: '16px',
-            // marginTop: '2px',
             marginBottom: '100px'
         }}
         onPlaceSelected={ this.onPlaceSelected }
@@ -289,21 +264,21 @@ onMarkerDragEnd = (event) => {
         value={this.state.input}
         componentRestrictions={{country: 'us'}}
         onChange={e => this.setState({ input: e.target.value })}
-        onClick={(places, cityStores, details = null) => {
-          console.log('stores and details!!', places, cityStores, details);
+        onClick={(places, details = null) => {
+          console.log('stores and details!!', places, details);
         }}
         terms={{
             key: 'AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU',
             language: 'en',
             input: 'value',
         }}
-          />        
+          /> 
   {this.props.markers && this.props.markers.map(cityStores => this.createMarker(cityStores))}
   <Marker
-        cityStores={this.props.cityStores}
+        markers={this.props.cityStores}
         // title={this.place.name}
         name={'Store_Name'}
-        // position={this.onPlaceSelected}
+        // position={this.place.city&&state}
           />
   <Marker
         name={'Your position'}

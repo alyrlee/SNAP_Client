@@ -212,20 +212,17 @@ onMarkerDragEnd = (event) => {
     }
   };
 
-  createMarker = (cityStores) => {
+  createMarker = () => {
+    return this.state.cityStores.map((cityStores) => {
     console.log('pull all snap data locations', cityStores);
-    return (
-      <Marker 
-        key={`${cityStores.latitude}${cityStores.longitude}`}
-        id={cityStores.ObjectId}
-        onClick={this.onMarkerClick}
-        position={{ lat: cityStores.latitude, lng: cityStores.longitude }}
-        name={cityStores.Store_Name}
-        title={cityStores.Store_Name}
-         />
-    ) 
-  }
-
+       return <Marker key={`${cityStores.latitude}${cityStores.longitude}`} id={cityStores.ObjectId} name={cityStores.Store_Name} title={cityStores.Store_Name} position={{ 
+        lat: cityStores.latitude, 
+        lng: cityStores.longitude 
+        }}
+        onClick={() => console.log("You clicked me!")} />
+      })
+    }
+  
   render() {
     // if (!this.props.loaded) return <div>Loading...</div>;
     // console.log('data loading', this.props.snapLocationsList);
@@ -271,16 +268,15 @@ onMarkerDragEnd = (event) => {
             input: 'value',
         }}
           /> 
-  {this.createMarker}      
   {this.props.markers && this.props.markers.map(cityStores => this.createMarker(cityStores))}
   <Marker
         markers={this.state.cityStores.city}
         // title={this.place.name}
         name={'Store_Name'}
-        //  position={{ 
-        //   lat: this.props.markers.city.latitude,
-        //   lng: this.props.markers.city.longitude
-        //  }}
+         position={{ 
+          lat: this.state.cityStores.latitude,
+          lng: this.state.cityStores.longitude
+         }}
           />
   <Marker
         name={'Your position'}

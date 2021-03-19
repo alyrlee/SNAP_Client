@@ -212,7 +212,7 @@ onMarkerDragEnd = (event) => {
     }
   };
 
-  createMarker = () => {
+  createMarkers = () => {
     return this.state.cityStores.map((cityStores) => {
     console.log('pull city, state snap data locations', cityStores);
        return <Marker key={`${cityStores.latitude}${cityStores.longitude}`} id={cityStores.ObjectId} name={cityStores.Store_Name} title={cityStores.Store_Name} position={{ 
@@ -268,7 +268,7 @@ onMarkerDragEnd = (event) => {
             input: 'value',
         }}
           /> 
-  {this.props.markers && this.props.markers.map(cityStores => this.createMarker(cityStores))}
+  {this.state.markers && this.state.markers.map(cityStores => this.createMarkers(cityStores))}
   <Marker
         markers={this.state.cityStores.city}
         // title={this.place.name}

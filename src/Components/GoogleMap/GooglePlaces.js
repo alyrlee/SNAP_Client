@@ -8,14 +8,12 @@ Geocode.enableDebug();
 
 export class MapContainer extends Component {
   state = {
-    // query: '',
-    // input: '',
-    // SnapLocationsList: {},
     places: [],
     showingInfoWindow: true,
     activeMarker: {},
     selectedPlace: {},
     stores: {},
+    cityStores:[{}],
     address: '',
     city: '',
     area: '',
@@ -222,7 +220,7 @@ onMarkerDragEnd = (event) => {
         id={cityStores.ObjectId}
         onClick={this.onMarkerClick}
         position={{ lat: cityStores.latitude, lng: cityStores.longitude }}
-        name={'Current Location'}
+        name={cityStores.Store_Name}
         title={cityStores.Store_Name}
          />
     ) 
@@ -231,7 +229,7 @@ onMarkerDragEnd = (event) => {
   render() {
     // if (!this.props.loaded) return <div>Loading...</div>;
     // console.log('data loading', this.props.snapLocationsList);
-    console.log('ML SLL:', this.state.cityStores);
+    console.log('ML SLL state cityStores:', this.state.cityStores);
 
     return ( 
   <Map google={this.props.google}
@@ -273,12 +271,16 @@ onMarkerDragEnd = (event) => {
             input: 'value',
         }}
           /> 
+  {this.createMarker}      
   {this.props.markers && this.props.markers.map(cityStores => this.createMarker(cityStores))}
   <Marker
-        markers={this.props.cityStores}
+        markers={this.state.cityStores.city}
         // title={this.place.name}
         name={'Store_Name'}
-        // position={this.place.city&&state}
+        //  position={{ 
+        //   lat: this.props.markers.city.latitude,
+        //   lng: this.props.markers.city.longitude
+        //  }}
           />
   <Marker
         name={'Your position'}

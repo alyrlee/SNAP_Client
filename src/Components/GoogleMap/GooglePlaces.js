@@ -268,8 +268,9 @@ onMarkerDragEnd = (event) => {
             input: 'value',
         }}
           /> 
-  {this.state.markers && this.state.markers.map(cityStores => this.createMarkers(cityStores))}
+  {/* {this.state.markers && this.state.markers.map(cityStores => this.createMarkers(cityStores))} */}
   <Marker
+    {...this.createMarkers}
         markers={this.state.cityStores.city}
         // title={this.place.name}
         // name={cityStores.Store_Name}

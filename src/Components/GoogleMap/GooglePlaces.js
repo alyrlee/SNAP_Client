@@ -214,15 +214,19 @@ onMarkerDragEnd = (event) => {
 
   createMarkers = () => {
     return this.state.cityStores.map((cityStores) => {
-    console.log('pull city, state snap data locations', cityStores);
-       return <Marker key={`${cityStores.latitude}${cityStores.longitude}`} id={cityStores.ObjectId} name={cityStores.Store_Name} title={cityStores.Store_Name} position={{ 
+      console.log('pull city, state snap data locations', cityStores);
+       return <Marker key={`${cityStores.latitude}${cityStores.longitude}`} id={cityStores.ObjectId} name={cityStores.Store_Name} title={cityStores.Store_Name} markers={cityStores.state} position={{ 
         lat: cityStores.latitude, 
         lng: cityStores.longitude 
         }}
         onClick={() => console.log("You clicked me!")} />
       })
-    }
-  
+    // let's see if we are getting an array of Markers
+    // console.log(markers);
+    // return markers;
+   }
+
+    
   render() {
     // if (!this.props.loaded) return <div>Loading...</div>;
     // console.log('data loading', this.props.snapLocationsList);
@@ -232,7 +236,7 @@ onMarkerDragEnd = (event) => {
   <Map google={this.props.google}
         // style={{width: '100%', height: '100%', position: 'relative'}}
         className={'map'}
-        zoom={14}
+        zoom={13}
         initialCenter={{
           lat: this.state.mapCenter.lat,
           lng: this.state.mapCenter.lng
@@ -268,25 +272,21 @@ onMarkerDragEnd = (event) => {
             input: 'value',
         }}
           /> 
-  {/* {this.state.markers && this.state.markers.map(cityStores => this.createMarkers(cityStores))} */}
-  <Marker
-    {...this.createMarkers}
-        markers={this.state.cityStores.city}
-        // title={this.place.name}
-        // name={cityStores.Store_Name}
-        position={{ 
-          lat: this.state.cityStores.latitude,
-          lng: this.state.cityStores.longitude
-         }}
-          />
-  <Marker
+  {/* <Marker/> */}
+<Marker position={{ lat: this.state.cityStores[0].latitude, lng: this.state.cityStores[0].longitude}} 
+/>
+ {/* <Marker
+          name={'Murphy Boston Inc'}
+          position={{lat: 30.79204, lng: -83.7892}} /> */}
+  <Marker />
+  {/* <Marker
         name={'Your position'}
         icon={{ url:'https://cdn2.iconfinder.com/data/icons/IconsLandVistaMapMarkersIconsDemo/256/MapMarker_Marker_Outside_Chartreuse.png', scaledSize: new window.google.maps.Size(50, 50) }}
         position={{
           lat: this.state.mapCenter.lat,
           lng: this.state.mapCenter.lng
-        }} />
-     <InfoWindow
+        }} /> */}
+     {/* <InfoWindow
         marker={this.state.activeMarker}
         onOpen={this.windowHasOpened}
         onClose={this.windowHasClosed}
@@ -294,7 +294,8 @@ onMarkerDragEnd = (event) => {
        <div>
             <h1>{this.state.selectedPlace.name}</h1>
         </div>
-      </InfoWindow>   
+      </InfoWindow>   */}
+      {this.createMarkers()} 
   </Map>
     );
   }

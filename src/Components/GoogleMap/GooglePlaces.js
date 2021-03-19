@@ -213,17 +213,17 @@ onMarkerDragEnd = (event) => {
   };
 
   createMarkers = () => {
-    return this.state.cityStores.map((cityStores) => {
-      console.log('pull city, state snap data locations', cityStores);
-       return <Marker key={`${cityStores.latitude}${cityStores.longitude}`} id={cityStores.ObjectId} name={cityStores.Store_Name} title={cityStores.Store_Name} markers={cityStores.state} position={{ 
-        lat: cityStores.latitude, 
-        lng: cityStores.longitude 
-        }}
-        onClick={() => console.log("You clicked me!")} />
-      })
+    const markers = this.state.cityStores.city.map((store) => {
+      return <Marker key={`${store.latitude}${store.longitude}`} id={store.ObjectId} name={store.Store_Name} title={store.Store_Name} position={{ 
+       lat: store.latitude, 
+       lng: store.longitude 
+       }}
+       onClick={() => console.log("You clicked me!")} />
+     })
+     
     // let's see if we are getting an array of Markers
-    // console.log(markers);
-    // return markers;
+    console.log(markers);
+    return markers;
    }
 
     

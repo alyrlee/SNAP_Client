@@ -214,7 +214,7 @@ onMarkerDragEnd = (event) => {
 
   createMarker = () => {
     return this.state.cityStores.map((cityStores) => {
-    console.log('pull all snap data locations', cityStores);
+    console.log('pull city, state snap data locations', cityStores);
        return <Marker key={`${cityStores.latitude}${cityStores.longitude}`} id={cityStores.ObjectId} name={cityStores.Store_Name} title={cityStores.Store_Name} position={{ 
         lat: cityStores.latitude, 
         lng: cityStores.longitude 
@@ -272,8 +272,8 @@ onMarkerDragEnd = (event) => {
   <Marker
         markers={this.state.cityStores.city}
         // title={this.place.name}
-        name={'Store_Name'}
-         position={{ 
+        // name={cityStores.Store_Name}
+        position={{ 
           lat: this.state.cityStores.latitude,
           lng: this.state.cityStores.longitude
          }}

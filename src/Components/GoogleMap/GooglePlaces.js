@@ -273,7 +273,7 @@ onMarkerDragEnd = (event) => {
         }}
           /> 
   {/* <Marker/> */}
-<Marker position={{ lat: this.state.cityStores[0].latitude, lng: this.state.cityStores[0].longitude}} 
+<Marker position={{ lat: this.state.cityStores.city[0].latitude, lng: this.state.cityStores.city[0].longitude}} 
 />
  {/* <Marker
           name={'Murphy Boston Inc'}

@@ -13,11 +13,14 @@ export class MapContainer extends Component {
     activeMarker: {},
     selectedPlace: {},
     stores: {},
-    cityStores:[{}],
     address: '',
     city: '',
     area: '',
     state: '',
+    markers: {},
+    cityStores: {
+      city: [{}],
+    },
     markerPosition: {
       lat: 0,
       lng: 0
@@ -212,20 +215,27 @@ onMarkerDragEnd = (event) => {
     }
   };
 
-  createMarkers = () => {
-    const markers = this.state.cityStores.city.map((store) => {
-      return <Marker key={`${store.latitude}${store.longitude}`} id={store.ObjectId} name={store.Store_Name} title={store.Store_Name} position={{ 
-       lat: store.latitude, 
-       lng: store.longitude 
-       }}
-       onClick={() => console.log("You clicked me!")} />
-     })
-     
-    // let's see if we are getting an array of Markers
-    console.log(markers);
-    return markers;
-   }
-
+  createMarkers = (cityStores) => {
+    this.setState({})
+    if(cityStores){
+      for(let i = 0; i < cityStores.city.length; i++){
+        if(cityStores[i].city[0] && cityStores[i].city.map[0]) {
+          cityStores = cityStores[i].city;
+          return cityStores.city;
+        }
+      }
+    const markers = this.props.cityStores.map((cityStores) => {
+    console.log('pull all snap data locations', cityStores.city);
+       return <Marker key={`${cityStores.latitude}${cityStores.longitude}`} id={cityStores.ObjectId} name={cityStores.Store_Name} title={cityStores.Store_Name} position={{ 
+        lat: cityStores.latitude, 
+        lng: cityStores.longitude 
+        }}
+        onClick={() => console.log("Click submitted!")} />
+      })
+     console.log(markers);
+     return markers;
+    };
+  }
     
   render() {
     // if (!this.props.loaded) return <div>Loading...</div>;
@@ -272,21 +282,16 @@ onMarkerDragEnd = (event) => {
             input: 'value',
         }}
           /> 
-  {/* <Marker/> */}
-<Marker position={{ lat: this.state.cityStores.city[0].latitude, lng: this.state.cityStores.city[0].longitude}} 
-/>
- {/* <Marker
-          name={'Murphy Boston Inc'}
-          position={{lat: 30.79204, lng: -83.7892}} /> */}
-  <Marker />
-  {/* <Marker
+  {this.createMarkers()}
+  <Marker position={{ lat: this.state.cityStores.city.latitude, lng: this.state.cityStores.city.longitude}} />
+  <Marker
         name={'Your position'}
         icon={{ url:'https://cdn2.iconfinder.com/data/icons/IconsLandVistaMapMarkersIconsDemo/256/MapMarker_Marker_Outside_Chartreuse.png', scaledSize: new window.google.maps.Size(50, 50) }}
         position={{
           lat: this.state.mapCenter.lat,
           lng: this.state.mapCenter.lng
-        }} /> */}
-     {/* <InfoWindow
+        }} />
+     <InfoWindow
         marker={this.state.activeMarker}
         onOpen={this.windowHasOpened}
         onClose={this.windowHasClosed}
@@ -294,8 +299,7 @@ onMarkerDragEnd = (event) => {
        <div>
             <h1>{this.state.selectedPlace.name}</h1>
         </div>
-      </InfoWindow>   */}
-      {this.createMarkers()} 
+      </InfoWindow>  
   </Map>
     );
   }
@@ -305,3 +309,4 @@ export default GoogleApiWrapper({
   apiKey: "AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU"
   // `${API_KEY}`
 })(MapContainer);
+

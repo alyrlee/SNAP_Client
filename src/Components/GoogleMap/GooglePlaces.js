@@ -19,11 +19,12 @@ export class MapContainer extends Component {
     state: '',
     markers: {},
     cityStores: {
-      city: [{}],
     },
     markerPosition: {
       lat: 0,
-      lng: 0
+      lng: 0,
+      city: '',
+      state: ''
     },
     mapPosition: {
         lat: 0,
@@ -156,16 +157,14 @@ onMarkerDragEnd = (event) => {
                 state: (state) ? state : '',
                 markerPosition: {
                     lat: newLat,
-                    lng: newLng
+                    lng: newLng,
+                    city: city,
+                    state: state 
                 },
                 mapPosition: {
                     lat: newLat,
                     lng: newLng
                 },
-                cityStores: {
-                    city: city,
-                    state: state 
-                },    
             })
         },
         error => {
@@ -184,12 +183,13 @@ onMarkerDragEnd = (event) => {
       if (geometry) {
         const {location} = place.geometry;
       if (location) {
+        console.log('~~~~~ hi!', city);
         this.setState({
           mapCenter: {
             lat: location.lat(), 
             lng: location.lng(),
           },
-            cityStores: {
+            markerPosition: {
               city: city,
               state: state 
           },
@@ -215,28 +215,25 @@ onMarkerDragEnd = (event) => {
     }
   };
 
-  createMarkers = (cityStores) => {
-    this.setState({})
-    if(cityStores){
-      for(let i = 0; i < cityStores.city.length; i++){
-        if(cityStores[i].city[0] && cityStores[i].city.map[0]) {
-          cityStores = cityStores[i].city;
-          return cityStores.city;
-        }
-      }
-    const markers = this.props.cityStores.map((cityStores) => {
-    console.log('pull all snap data locations', cityStores.city);
-       return <Marker key={`${cityStores.latitude}${cityStores.longitude}`} id={cityStores.ObjectId} name={cityStores.Store_Name} title={cityStores.Store_Name} position={{ 
-        lat: cityStores.latitude, 
-        lng: cityStores.longitude 
-        }}
-        onClick={() => console.log("Click submitted!")} />
-      })
-     console.log(markers);
-     return markers;
+  createMarkers = () => {
+    const {cityStores} = this.state
+    const isEmpty = Object.entries(cityStores).length === 0;
+    if(!isEmpty){
+      console.log('what is this', cityStores);
+  
+      const markers = cityStores.city.map((cs) => {
+      console.log('pull all snap data locations', cs);
+        return <Marker key={`${cs.latitude}${cs.longitude}`} id={cs.ObjectId} name={cs.Store_Name} title={cs.Store_Name} position={{ 
+          lat: cs.latitude, 
+          lng: cs.longitude 
+          }}
+          onClick={() => console.log("Click submitted!")} />
+        })
+      console.log(markers);
+      return markers;
     };
   }
-    
+ 
   render() {
     // if (!this.props.loaded) return <div>Loading...</div>;
     // console.log('data loading', this.props.snapLocationsList);
@@ -283,7 +280,7 @@ onMarkerDragEnd = (event) => {
         }}
           /> 
   {this.createMarkers()}
-  <Marker position={{ lat: this.state.cityStores.city.latitude, lng: this.state.cityStores.city.longitude}} />
+  {/* <Marker position={{ lat: this.state.cityStores.city.latitude, lng: this.state.cityStores.city.longitude}} /> */}
   <Marker
         name={'Your position'}
         icon={{ url:'https://cdn2.iconfinder.com/data/icons/IconsLandVistaMapMarkersIconsDemo/256/MapMarker_Marker_Outside_Chartreuse.png', scaledSize: new window.google.maps.Size(50, 50) }}

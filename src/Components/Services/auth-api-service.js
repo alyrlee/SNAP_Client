@@ -14,7 +14,7 @@ url.search = new URLSearchParams(params).toString();
 
 const AuthApiService = {
     postLogin({user_name, password}) {
-        return fetch(`${config.API_ENDPOINT}/auth/login`, {
+        return fetch(`${config.API_ENDPOINT}auth/login`, {
             method: 'POST',
             headers: {
                 Authorization: `Schema ${user_name}:${password}`,

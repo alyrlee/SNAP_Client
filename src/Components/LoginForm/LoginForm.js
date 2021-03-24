@@ -35,7 +35,6 @@ export default class LoginForm extends Component {
       })
       .catch(res => {
         console.log('error has occurred',res.error);
-        // this.setState({ error: res.error })
         this.setState({ error:'an error has occurred' })
       })
   }

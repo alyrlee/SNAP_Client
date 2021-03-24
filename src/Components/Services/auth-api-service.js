@@ -14,7 +14,7 @@ url.search = new URLSearchParams(params).toString();
 
 const AuthApiService = {
     getLogin({user_name, password}) {
-        return fetch(`${config.API_ENDPOINT}auth/login`, {
+        return fetch(`${config.API_ENDPOINT}/auth/login`, {
             method: 'GET',
             headers: {
                 Authorization: `Schema ${user_name}:${password}`,
@@ -30,7 +30,7 @@ const AuthApiService = {
             });
     },
     postLogin({user_name, password}) {
-        return fetch(`${config.API_ENDPOINT}auth/login`, {
+        return fetch(`${config.API_ENDPOINT}/auth/login`, {
             method: 'POST',
             headers: {
                 Authorization: `Schema ${user_name}:${password}`,
@@ -46,7 +46,7 @@ const AuthApiService = {
             });
     },
     postUser(user) {
-        return fetch(`${config.API_ENDPOINT}users`, {
+        return fetch(`${config.API_ENDPOINT}/users`, {
             method: 'POST',
             headers: {
                 Authorization: `Schema ${user_name}:${password}`,
@@ -62,7 +62,7 @@ const AuthApiService = {
         });
     },  
     getProfile(){
-        return fetch(`${config.API_ENDPOINT}profile/${TokenService.getUserName()}`, {
+        return fetch(`${config.API_ENDPOINT}/profile/${TokenService.getUserName()}`, {
           headers: {'authorization': `bearer ${TokenService.getAuthToken()}`},})
         .then(res =>
             (!res.ok)
@@ -71,7 +71,7 @@ const AuthApiService = {
         )
       },
     getStores(stores) {
-        return fetch(`${config.API_ENDPOINT}stores`, {
+        return fetch(`${config.API_ENDPOINT}/stores`, {
             method: 'GET',
             headers: {
                 'authorization': `basic ${TokenService.getAuthToken()}`,
@@ -88,7 +88,7 @@ const AuthApiService = {
     getCityState(city, state) {
         // need to implement in order to have the GET working :)
         // Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
-        return fetch(`${config.API_ENDPOINT}stores/cityState`,  {
+        return fetch(`${config.API_ENDPOINT}/stores/cityState`,  {
             method: 'GET',
             headers: {
                 'authorization': `basic ${TokenService.getAuthToken()}`,
@@ -102,7 +102,7 @@ const AuthApiService = {
         });
     },
     postCityState(city, state) {
-        return fetch(`${config.API_ENDPOINT}stores/cityState`, {
+        return fetch(`${config.API_ENDPOINT}/stores/cityState`, {
             method: 'POST',
             headers: {
                 'authorization': `basic ${TokenService.getAuthToken()}`,
@@ -120,7 +120,7 @@ const AuthApiService = {
         });
     },
     postStores(stores) {
-        return fetch(`${config.API_ENDPOINT}stores`, {
+        return fetch(`${config.API_ENDPOINT}/stores`, {
             method: 'POST',
             headers: {
                 'authorization': `basic ${TokenService.getAuthToken()}`,
@@ -135,7 +135,7 @@ const AuthApiService = {
         });
     },
     getSavedLocations(ObjectId, Store_Name, user_name, password) {
-        return fetch(`${config.API_ENDPOINT}SavedLocations`, {
+        return fetch(`${config.API_ENDPOINT}/SavedLocations`, {
             method: 'GET',
             headers: {
                 Authorization: `Schema ${user_name}:${password}`,
@@ -154,7 +154,7 @@ const AuthApiService = {
         });
     },
     postSavedLocations(ObjectId, Store_Name, user_name, password) {
-        return fetch(`${config.API_ENDPOINT}SavedLocations`, {
+        return fetch(`${config.API_ENDPOINT}/SavedLocations`, {
             method: 'POST',
             headers: {
                 Authorization: `Schema ${user_name}:${password}`,

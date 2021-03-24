@@ -13,22 +13,22 @@ const params = {
 url.search = new URLSearchParams(params).toString();
 
 const AuthApiService = {
-    getLogin({user_name, password}) {
-        return fetch(`${config.API_ENDPOINT}/auth/login`, {
-            method: 'GET',
-            headers: {
-                Authorization: `Schema ${user_name}:${password}`,
-                'authorization': `basic ${TokenService.getAuthToken()}`,
-                'content-type': 'application/json',
-            },
-            body: JSON.stringify({user_name, password})
-        })
-            .then(res => {
-                return (!res.ok)
-                    ? res.json().then(e => Promise.reject(e))
-                    : res.json()
-            });
-    },
+    // getLogin({user_name, password}) {
+    //     return fetch(`${config.API_ENDPOINT}/auth/login`, {
+    //         method: 'GET',
+    //         headers: {
+    //             Authorization: `Schema ${user_name}:${password}`,
+    //             'authorization': `basic ${TokenService.getAuthToken()}`,
+    //             'content-type': 'application/json',
+    //         },
+    //         body: JSON.stringify({user_name, password})
+    //     })
+    //         .then(res => {
+    //             return (!res.ok)
+    //                 ? res.json().then(e => Promise.reject(e))
+    //                 : res.json()
+    //         });
+    // },
     postLogin({user_name, password}) {
         return fetch(`${config.API_ENDPOINT}/auth/login`, {
             method: 'POST',

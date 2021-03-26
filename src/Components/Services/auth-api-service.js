@@ -45,15 +45,12 @@ const AuthApiService = {
                     : res.json()
             });
     },
-    postUser(user) {
-        return fetch(`${config.API_ENDPOINT}/users`, {
+    postUser({user_name, password}) {
+        return fetch(`${config.API_ENDPOINT}/register`, {
             method: 'POST',
-            headers: {
-                Authorization: `Schema ${user_name}:${password}`,
-                'authorization': `basic ${TokenService.getAuthToken()}`,
-                'content-type': 'application/json',
+            headers: { 'authorization': `basic ${TokenService.getAuthToken()}`,
             },
-            body: JSON.stringify(user),
+            body: JSON.stringify(user_name, password),
         })
         .then(res => {
             return (!res.ok)

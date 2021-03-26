@@ -30,7 +30,6 @@ export default class RegistrationForm extends Component {
   handleSubmit = ev => {
     ev.preventDefault()
     const { full_name, user_name, email, password } = ev.target
-
     console.log('registration form submitted')
     console.log({full_name, user_name, email, password })
   };
@@ -157,22 +156,19 @@ validateConfirmedPassword() {
 
 submitRegistration = e => {
   e.preventDefault();
-  const {full_name, user_name, email, password} = e.target; 
+  const {user_name, password} = e.target; 
 
   this.setState({
       error: null,
-      full_name:'', user_name:'', email:'', password:''
+     user_name:'', password:''
   });
 
   AuthApiService.postUser({
-      full_name: full_name.value,
       user_name: user_name.value,
       password: password.value
   })
-      .then(user => {
-          full_name.value = '';
+      .then(user_name, password => {
           user_name.value = '';
-          email.value = '';
           password.value = '';
           this.props.onFormValid();
       })

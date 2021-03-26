@@ -203,44 +203,34 @@ onMarkerDragEnd = (event) => {
     this.setState({
       selectedPlace: props,
       activeMarker: marker,
-      showingInfoWindow: true
+      showingInfoWindow: true,
+      visibleInfoWindowId: true,
+      markers: true,
     });
   }
-
-  onCSClick = (props, markers) => {
-      this.setState({
-        visibleInfoWindowId: true,
-        activeMarker: markers
-      })
-  };
  
   onClose = props => {
     if (this.state.showingInfoWindow) {
       this.setState({
+        visibleInfoWindowId: false,
         showingInfoWindow: false,
-        activeMarker: null
+        activeMarker: null,
+        markers: null,
       });
     }
   };
 
-  // onMapClicked = (props) => {
-  //   if (this.state.showingInfoWindow&&this.state.visibleInfoWindowId) {
-  //     this.setState({
-  //       showingInfoWindow: false,
-  //       visibleInfoWindowId: false,
-  //       activeMarker: null
-  //     })
-  //   }
-  // };
-
   onMapClicked = (props) => {
-    if (this.state.showingInfoWindow) {
+    if (this.state.showingInfoWindow&&this.state.visibleInfoWindowId) {
       this.setState({
         showingInfoWindow: false,
-        activeMarker: null
+        visibleInfoWindowId: false,
+        activeMarker: null,
+        markers: null
       })
     }
   };
+
   createMarkers = () => {
     const {cityStores} = this.state
     const isEmpty = Object.entries(cityStores).length === 0;
@@ -252,22 +242,35 @@ onMarkerDragEnd = (event) => {
         <Marker 
           key={`${cs.latitude}${cs.longitude}`} 
           id={cs.ObjectId} 
-          name={cs.Store_Name} 
+          name="SNAP store location"
           title={cs.Store_Name} 
+          onClick={this.onMarkerClick} 
           position={{ 
             lat: cs.latitude, 
             lng: cs.longitude 
           }}
-          onCSClick={() => this.setState({
-            visibleInfoWindowId: cs.ObjectId}
-          )}
+          // onClick={() => this.setState({
+          //   visibleInfoWindowId: cs.ObjectId},
+          //   // {selectedStore: (cs)},
+          // )}
           >
-          <InfoWindow
-            onOpen={this.windowHasOpened}
-            id={cs.ObjectId}
-            onClose={this.onClose}
-            visible={this.state.visibleInfoWindowId===cs.ObjectId}>
-          </InfoWindow>  
+        <InfoWindow
+          marker={this.state.activeMarker}
+          onClose={this.onInfoWindowClose}
+          visible={this.state.visibleInfoWindowId}>
+          <div>
+            <h1>{this.state.selectedPlace.name}</h1>
+          </div>
+        </InfoWindow>
+
+        <InfoWindow position={{
+              lat: this.state.mapCenter.lat,
+              lng: this.state.mapCenter.lng
+            }}  visible>
+          <small>
+            Click on the marker to display info.
+          </small>
+        </InfoWindow>
        </Marker>
         )
        })
@@ -286,7 +289,7 @@ onMarkerDragEnd = (event) => {
           onReady={this.state.place}
             // style={{width: '100%', height: '100%', position: 'relative'}}
             className={'map'}
-            zoom={13}
+            zoom={12}
             initialCenter={{
               lat: this.state.mapCenter.lat,
               lng: this.state.mapCenter.lng
@@ -321,26 +324,36 @@ onMarkerDragEnd = (event) => {
                 language: 'en',
                 input: 'value',
             }}/> 
-      <Marker
-            // onClick={this.onMarkerClick}
-            name={'Current Location'}
+     {this.createMarkers()}   
+     <Marker 
+            name="Current location" 
             icon={{ 
               url:'https://cdn2.iconfinder.com/data/icons/IconsLandVistaMapMarkersIconsDemo/256/MapMarker_Marker_Outside_Chartreuse.png', 
               scaledSize: new window.google.maps.Size(50, 50) }}
+            onClick={this.onMarkerClick} 
             position={{
-              lat: this.state.mapCenter.lat,
-              lng: this.state.mapCenter.lng
-            }} />
-        <InfoWindow
-            onOpen={this.windowHasOpened}
-            onClose={this.onClose}
+                  lat: this.state.mapCenter.lat,
+                  lng: this.state.mapCenter.lng
+            }} 
+      />
+      <InfoWindow
+            marker={this.state.activeMarker}
+            onClose={this.onInfoWindowClose}
             visible={this.state.showingInfoWindow}>
-            </InfoWindow>  
-        {this.createMarkers()}   
           <div>
-                <h1>{this.state.selectedPlace.name}</h1>
-                {/* <h1>{this.state.cityStores.name}</h1> */}
-            </div> 
+            <h1>{this.state.selectedPlace.name}</h1>
+          </div>
+        </InfoWindow>
+
+      <InfoWindow 
+            position={{
+                    lat: this.state.mapCenter.lat,
+                    lng: this.state.mapCenter.lng
+            }}  visible>
+              <small>
+                Click on any of the markers to display an additional info.
+              </small>
+        </InfoWindow>            
       </Map>
     );
   }

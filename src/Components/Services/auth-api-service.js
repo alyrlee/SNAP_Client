@@ -1,8 +1,8 @@
 import TokenService from '../Services/token-service';
 import config from '../../config';
 
-const user_name = 'DemoUser2020';
-const password = 'DemoUser*';
+// const user_name = 'DemoUser2020';
+// const password = 'DemoUser*';
 
 const url = new URL(`${config.API_ENDPOINT}cityState`);
 const params = {
@@ -45,12 +45,13 @@ const AuthApiService = {
                     : res.json()
             });
     },
-    postUser({user_name, password}) {
+    postUser({user}) {
         return fetch(`${config.API_ENDPOINT}/register`, {
             method: 'POST',
             headers: { 'authorization': `basic ${TokenService.getAuthToken()}`,
+            'content-type': 'application/json',
             },
-            body: JSON.stringify(user_name, password),
+            body: JSON.stringify(user),
         })
         .then(res => {
             return (!res.ok)

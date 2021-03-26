@@ -154,20 +154,19 @@ validateConfirmedPassword() {
   );
 }
 
-submitRegistration = e => {
-  e.preventDefault();
-  const {user_name, password} = e.target; 
+submitRegistration() {
+  const { user_name, password } = this.state;
 
   this.setState({
       error: null,
-     user_name:'', password:''
-  });
-
+      user_name:'', 
+      password:''
+  })
   AuthApiService.postUser({
       user_name: user_name.value,
       password: password.value
   })
-      .then(user_name, password => {
+      .then(user => {
           user_name.value = '';
           password.value = '';
           this.props.onFormValid();

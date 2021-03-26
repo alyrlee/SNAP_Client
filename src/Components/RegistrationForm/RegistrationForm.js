@@ -90,8 +90,8 @@ validateUsername() {
   let errorType = {...this.state.errorType};
 
   if (user_name.length < 3) {
-      validUserName = false;
-      errorType.user_name = "Please create a username that is longer than 3 characters.";
+      validUserName = true;
+  //     errorType.user_name = "Please create a username that is longer than 3 characters.";
   }
 
   this.setState({
@@ -160,7 +160,8 @@ submitRegistration = e => {
   const {full_name, user_name, email, password} = e.target; 
 
   this.setState({
-      error: null
+      error: null,
+      full_name:'', user_name:'', email:'', password:''
   });
 
   AuthApiService.postUser({

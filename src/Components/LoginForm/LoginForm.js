@@ -4,7 +4,6 @@ import TokenService from '../Services/token-service';
 import AuthApiService from '../Services/auth-api-service';
 import {Link} from 'react-router-dom';
 import history from '../../Contexts/history';
-// import { Button, Input } from '../../Utils/Utils'
 
 export default class LoginForm extends Component {
   state = { error: null }

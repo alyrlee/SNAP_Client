@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import ErrorValidation from '../../ErrorHandlers/ErrorValidation'
 import AuthApiService from '../Services/auth-api-service';
+import TokenService from '../Services/token-service';
 import "./RegistrationForm.css";
 
 
@@ -171,7 +172,12 @@ submitRegistration() {
           password.value = '';
           this.props.onFormValid();
       })
-      .onSubmit(() => {
+      .then(res => {
+        TokenService.saveUserName(user_name.value)
+        user_name.value = ''
+        password.value = ''
+      })
+      .onFormValid(() => {
           window.location=`/login`;
           window.alert('Registered successfully. Please log in with your new credentials.');
       })
@@ -186,7 +192,7 @@ submitRegistration() {
       <div className="wrapper">
         <div className="form-wrapper">
           <h1>Create Account</h1>
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.submitRegistration}>
              <div className="fullName">
               <label htmlFor="fullName">Full Name</label>
               <input
@@ -257,7 +263,7 @@ submitRegistration() {
             </label>     
             </div>                                     
             <div className="createAccount">
-              <button type="submit" id="register-user"> Submit{this.submitRegistration}</button>
+              <button type="submit" id="register-user"> Submit</button>
               <Link to="/login">
               <small>Already Have an Account?</small>
                 </Link>

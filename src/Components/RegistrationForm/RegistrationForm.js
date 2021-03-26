@@ -29,7 +29,7 @@ export default class RegistrationForm extends Component {
 
   handleSubmit = ev => {
     ev.preventDefault()
-    const { full_name, user_name, email, password } = ev.target
+    const { full_name, user_name, email, password } = this.state;
     console.log('registration form submitted')
     console.log({full_name, user_name, email, password })
   };
@@ -171,7 +171,7 @@ submitRegistration() {
           password.value = '';
           this.props.onFormValid();
       })
-      .then(() => {
+      .onSubmit(() => {
           window.location=`/login`;
           window.alert('Registered successfully. Please log in with your new credentials.');
       })
@@ -186,7 +186,7 @@ submitRegistration() {
       <div className="wrapper">
         <div className="form-wrapper">
           <h1>Create Account</h1>
-          <form onSubmit={this.submitRegistration}>
+          <form onSubmit={this.handleSubmit}>
              <div className="fullName">
               <label htmlFor="fullName">Full Name</label>
               <input
@@ -257,7 +257,7 @@ submitRegistration() {
             </label>     
             </div>                                     
             <div className="createAccount">
-              <button type="submit" id="register-user"> Submit</button>
+              <button type="submit" id="register-user"> Submit{this.submitRegistration}</button>
               <Link to="/login">
               <small>Already Have an Account?</small>
                 </Link>

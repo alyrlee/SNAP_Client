@@ -5,18 +5,14 @@ import { Hyph } from '../../Utils/Utils';
 import TokenService from '../Services/token-service';
 
 export default class NavBar extends Component {
-  state={
-    clicked: false
-  }
+ 
 
 handleLogoutClick = () => {
 TokenService.clearAuthToken()
-TokenService.clearUserName()
 }
 
 renderLogoutLink() {
 return (
-    // <div className="ui container">
     <div>
         <Link onClick={this.handleLogoutClick} to='/'> Logout</Link>
    </div> 
@@ -25,12 +21,11 @@ return (
 
 renderLoginLink() {
     return (
-    // <div className="ui container">
 
         <div>
             <Link to='/login'> Log in</Link>
             <Hyph />
-            <Link to='/register'> Register</Link>
+            {/* <Link to='/register'> Register</Link> */}
         </div> 
      )
 }
@@ -42,7 +37,6 @@ onClick = () => {
 }
 
 render () {
-    // const{clicked} = this.state
     return (
         <div>
             <ul className="navbar">

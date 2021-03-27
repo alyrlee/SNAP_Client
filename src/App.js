@@ -20,8 +20,6 @@ class App extends Component {
 
    componentDidMount() {
 		Promise.all([
-			fetch(`${config.API_ENDPOINT}/auth`),
-      fetch(`${config.API_ENDPOINT}/stores`),
       fetch(`${config.API_ENDPOINT}/profile`),
 			fetch(`${config.API_ENDPOINT}/savedLocations`)
 		])

@@ -48,7 +48,7 @@ label {
   font-weight: lighter;
 }
 
-input {
+/* input {
   padding: 10px 10px;
   display: block;
   font-size: 18px;
@@ -57,7 +57,7 @@ input {
   border-bottom: 2px solid #EF5252;
   transition: 0.4s ease all;
   text-align: left;
-}
+} */
 
 input::placeholder {
   font-size: 1.2em;

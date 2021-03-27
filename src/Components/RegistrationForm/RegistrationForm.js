@@ -1,20 +1,22 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import ErrorValidation from '../../ErrorHandlers/ErrorValidation'
 import AuthApiService from '../Services/auth-api-service';
 import TokenService from '../Services/token-service';
 import "./RegistrationForm.css";
+import history from '../../Contexts/history';
 
 
 export default class RegistrationForm extends Component {
   static defaultProps = {
-    onFormValid: () => {}
+    onRegistrationSuccess: () => {}
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
+      error: null, 
       full_name: '',
       user_name: '',
       email: '',
@@ -30,7 +32,7 @@ export default class RegistrationForm extends Component {
 
   handleSubmit = ev => {
     ev.preventDefault()
-    const { full_name, user_name, email, password } = this.state;
+    const { full_name, user_name, email, password } = ev.target
     console.log('registration form submitted')
     console.log({full_name, user_name, email, password })
   };
@@ -156,34 +158,35 @@ validateConfirmedPassword() {
 }
 
 submitRegistration() {
-  const { user_name, password } = this.state;
+  const { user_name, password, full_name, email } = this.state;
 
   this.setState({
       error: null,
-      user_name:'', 
-      password:''
   })
   AuthApiService.postUser({
       user_name: user_name.value,
-      password: password.value
+      password: password.value,
+      full_name: full_name.value,
+      email: email.value
   })
       .then(user => {
           user_name.value = '';
           password.value = '';
-          this.props.onFormValid();
+          full_name.value = '';
+          email.value='';
+          this.props.onRegistrationSuccess();
       })
       .then(res => {
         TokenService.saveUserName(user_name.value)
-        user_name.value = ''
-        password.value = ''
-      })
-      .onFormValid(() => {
-          window.location=`/login`;
-          window.alert('Registered successfully. Please log in with your new credentials.');
-      })
+          user_name.value = '';
+          password.value = '';
+          full_name.value = '';
+          email.value='';
+      history.push('/login')
+        })
       .catch(res => {
           this.setState({
-              error: window.alert('An unexpected error occurred. Please try again later.')
+              error: res.error('An unexpected error occurred. Please try again later.')
           });
       });
 }    
@@ -216,7 +219,8 @@ submitRegistration() {
                <ErrorValidation 
                 className="Username_Error"
                 valid={this.state.validName}
-                message={this.state.errorType.user_name}/>
+                message={this.state.errorType.user_name}
+                />
             </div>
             <div className="email">
               <label htmlFor="email">Email</label>

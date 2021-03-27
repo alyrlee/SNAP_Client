@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import ErrorValidation from '../../ErrorHandlers/ErrorValidation'
 import AuthApiService from '../Services/auth-api-service';
-import TokenService from '../Services/token-service';
 import "./RegistrationForm.css";
 import history from '../../Contexts/history';
 
@@ -17,15 +16,15 @@ export default class RegistrationForm extends Component {
 
     this.state = {
       error: null, 
-      full_name: '',
-      user_name: '',
-      email: '',
-      password: '',
-      validateFullname: false,
-      validUserName: false,
-      validPass: false,
-      validConfirm: false,
-      validRegistration: false,
+      // full_name: '',
+      // user_name: '',
+      // email: '',
+      // password: '',
+      // validateFullname: false,
+      // validUserName: false,
+      // validPass: false,
+      // validConfirm: false,
+      // validRegistration: false,
       errorType: {}
     };
   };
@@ -176,14 +175,9 @@ submitRegistration() {
           email.value='';
           // this.props.onRegistrationSuccess();
       })
-      .then(() => {
-        TokenService.saveUserName(user_name.value)
-          user_name.value = '';
-          password.value = '';
-          full_name.value = '';
-          email.value='';
-      history.push('/login')
-        })
+      .then(() => 
+          history.push('/login')
+      )
       .catch(res => {
           this.setState({
               error: res.error('An unexpected error occurred. Please try again later.')

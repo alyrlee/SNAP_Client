@@ -174,9 +174,9 @@ submitRegistration() {
           password.value = '';
           full_name.value = '';
           email.value='';
-          this.props.onRegistrationSuccess();
+          // this.props.onRegistrationSuccess();
       })
-      .then(res => {
+      .then(() => {
         TokenService.saveUserName(user_name.value)
           user_name.value = '';
           password.value = '';
@@ -195,7 +195,7 @@ submitRegistration() {
       <div className="wrapper">
         <div className="form-wrapper">
           <h1>Create Account</h1>
-          <form onSubmit={this.submitRegistration}>
+          <form onSubmit={this.handleSubmit}>
              <div className="fullName">
               <label htmlFor="fullName">Full Name</label>
               <input

@@ -3,8 +3,6 @@ import './Header.css';
 import { Link } from 'react-router-dom';
 import { Hyph } from '../../Utils/Utils';
 import TokenService from '../Services/token-service';
-import {Router} from 'react-router-dom';
-
 export default class NavBar extends Component {
  
 handleLogoutClick = () => {

@@ -9,6 +9,20 @@ food items that are sold.
 
 API: snap_locator_api: https://github.com/alyrlee/snap_locator_api
 
+How to get started?
+
+You can start by clicking on the "Get Started" button and you will be taken to the map.
+
+For User experience:
+
+Demo Account:
+
+User_Name: Demo User
+
+Password: DemoUser2020*
+
+
+
 <hr>
 See below for instructions on how to run and modify this application locally after cloning the repository.
 

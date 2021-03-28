@@ -13,7 +13,7 @@ How to get started?
 You can start by clicking on the "Get Started" button and you will be taken to the map.
 
 
-![Image](src/images/snap_login.png)
+![Image](src/Components/images/snap_login.pgg)
 ```
 
 For User experience:

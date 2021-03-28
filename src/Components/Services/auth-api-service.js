@@ -68,8 +68,6 @@ const AuthApiService = {
         });
     },
     getCityState(city, state) {
-        // need to implement in order to have the GET working :)
-        // Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
         return fetch(`${config.API_ENDPOINT}/stores/cityState`,  {
             method: 'GET',
             headers: {

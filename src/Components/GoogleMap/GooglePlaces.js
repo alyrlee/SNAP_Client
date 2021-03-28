@@ -69,7 +69,6 @@ export class MapContainer extends Component {
                                 city: (city) ? city : '',
                                 state: (state) ? state : '',
                             })
-                            console.log('call getStoresByCityState?', city, state)
                             this.getStoresByCityFromAPI(city, state);    
                         },
                         error => {
@@ -85,7 +84,6 @@ export class MapContainer extends Component {
   };
 
   getStoresByCityFromAPI = (city, state) => {
-    console.log('passing the city/state data to the backend!', city, state)
     AuthApiService.postCityState(city, state)
     .then(resJSON => {
       this.setState({ cityStores: resJSON});
@@ -137,8 +135,6 @@ export class MapContainer extends Component {
 onChange = (event) => { event.preventDefault();
   this.props.onChange(this.state.data);
 };
-
-// onInfoWindowOpen = (event) => { };
 
 onMarkerDragEnd = (event) => {
     let newLat = event.latLng.lat(),
@@ -235,9 +231,7 @@ onMarkerDragEnd = (event) => {
     const {cityStores} = this.state
     const isEmpty = Object.entries(cityStores).length === 0;
     if(!isEmpty){
-      console.log('what is this', cityStores);
       const markers = cityStores.city.map((cs) => {
-      console.log('pull city and state snap data locations', cs);
         return (
         <Marker 
           key={`${cs.latitude}${cs.longitude}`} 
@@ -249,10 +243,6 @@ onMarkerDragEnd = (event) => {
             lat: cs.latitude, 
             lng: cs.longitude 
           }}
-          // onClick={() => this.setState({
-          //   visibleInfoWindowId: cs.ObjectId},
-          //   // {selectedStore: (cs)},
-          // )}
           >
         <InfoWindow
           marker={this.state.activeMarker}
@@ -312,7 +302,6 @@ onMarkerDragEnd = (event) => {
             }}
             onPlaceSelected={ this.onPlaceSelected }
             types={['(cities)']}
-            // input={value.toString()}
             value={this.state.input}
             componentRestrictions={{country: 'us'}}
             onChange={e => this.setState({ input: e.target.value })}

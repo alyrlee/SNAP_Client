@@ -6,7 +6,6 @@ import TokenService from '../Services/token-service';
 
 export default class NavBar extends Component {
  
-
 handleLogoutClick = () => {
 TokenService.clearAuthToken()
 }
@@ -21,11 +20,9 @@ return (
 
 renderLoginLink() {
     return (
-
         <div>
             <Link to='/login'> Log in</Link>
             <Hyph />
-            {/* <Link to='/register'> Register</Link> */}
         </div> 
      )
 }

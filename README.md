@@ -1,6 +1,5 @@
 # 🚀 Welcome to SNAP App Locator!
 
-
 SNAP stands for the Supplemental Nutrition Assistance Program mandated by the Federal Government and supervised by states to help millions of individuals and families who need financial assistance to buy food. Formerly known as the Food Stamp Program, SNAP provides an economic benefit as well as serving to eliminate hunger. 
 
 SNAP Store locator is an application that helps users find access to SNAP retailers and grocers.
@@ -11,10 +10,12 @@ food items that are sold.
 API: snap_locator_api: https://github.com/alyrlee/snap_locator_api
 
 <hr>
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-
 See below for instructions on how to run and modify this application locally after cloning the repository.
+
+## Considerataions for app development:
+
+Future implementation of registered user savedLocations route to render dashboard in the user profile that displays store information and user saved information in regard to snap retailer locations.
+
 
 ## Available Scripts
 

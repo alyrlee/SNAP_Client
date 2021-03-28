@@ -7,7 +7,8 @@ import PublicOnlyRoute from "../Utils/PublicOnlyRoute";
 import About from "../Components/About/About";
 import Profile from "../Components/LoginForm/Profile";
 import MapLanding from "../Components/GoogleMap/MapLanding";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
+import history from "../Contexts/history.js"
 
 class App extends Component {
   state = {
@@ -17,7 +18,7 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
+      <Router history={history}>
         <div className="App">
           <header className="App__header"></header>
           <main className="App__main">

@@ -317,10 +317,10 @@ export class MapContainer extends Component {
             "geometry",
           ]}
           style={{
-            width: "100%",
-            height: "25px",
-            paddingLeft: "16px",
-            marginBottom: "100px",
+            // width: "100%",
+            // height: "25px",
+            // paddingLeft: "16px",
+            // marginBottom: "100px",
           }}
           onPlaceSelected={this.onPlaceSelected}
           types={["(cities)"]}

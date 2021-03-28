@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./App.css";
 import Header from "./Components/Headers/Header";
 import LandingPage from "./Components/LandingPage /LandingPage";
-import RegistrationForm from "./Components/RegistrationForm/RegistrationForm";
 import LoginForm from "../src/Components/LoginForm/LoginForm";
 import PrivateRoute from "../src/Utils/PrivateRoute";
 import PublicOnlyRoute from "../src/Utils/PublicOnlyRoute";

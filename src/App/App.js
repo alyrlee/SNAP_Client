@@ -9,6 +9,9 @@ import About from "../Components/About/About";
 import Profile from "../Components/LoginForm/Profile";
 import MapLanding from "../Components/GoogleMap/MapLanding";
 import { Route, Router, Switch } from "react-router-dom";
+import { createBrowserHistory } from "history";
+const history = createBrowserHistory();
+
 
 class App extends Component {
   state = {
@@ -18,6 +21,7 @@ class App extends Component {
 
   render() {
     return (
+      <Router history={history}>
       <div className="App">
         <header className="App__header">
           <NavBar />
@@ -26,7 +30,7 @@ class App extends Component {
           {this.state.hasError && (
             <p className="red">There was an error! Oh no!</p>
           )}
-          <Router>
+          {/* <Router history={history}> */}
           <Switch>
             <Route exact path={"/"} component={LandingPage} />
             <Route exact path={"/about"} component={About} />
@@ -34,9 +38,9 @@ class App extends Component {
             <PublicOnlyRoute path={"/login"} component={LoginForm} />
             <PrivateRoute path={"/profile"} component={Profile} />
           </Switch>
-         </Router> 
-        </main>
+          </main>>
       </div>
+     </Router> 
     );
   }
 }

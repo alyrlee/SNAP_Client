@@ -304,18 +304,17 @@ export class MapContainer extends Component {
             "geometry",
           ]}
           style={{
-            // width: "100%",
-            // height: "25px",
-            // paddingLeft: "16px",
-            // marginBottom: "100px",
+            width: "100%",
+            height: "25px",
+            paddingLeft: "16px",
+            marginBottom: "100px",
           }}
           onPlaceSelected={this.onPlaceSelected}
           types={["(cities)"]}
           value={this.state.input}
           componentRestrictions={{ country: "us" }}
           onChange={(e) => this.setState({ input: e.target.value })}
-          onClick={(place, details = null) => {
-            console.log("stores and details!!", place, details);
+          onClick={() => {
           }}
           terms={{
             key: "AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU",

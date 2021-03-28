@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 const snapLocationsListContext = React.createContext({
   snapLocationsList: [],
@@ -6,8 +6,8 @@ const snapLocationsListContext = React.createContext({
   setError: () => {},
   clearError: () => {},
   setsnapLocationsList: () => {},
-})
-export default snapLocationsListContext
+});
+export default snapLocationsListContext;
 
 export class snapLocationsListProvider extends Component {
   state = {
@@ -15,18 +15,18 @@ export class snapLocationsListProvider extends Component {
     error: null,
   };
 
-  setsnapLocationsList = snapLocationsList => {
-    this.setState({ snapLocationsList })
-  }
+  setsnapLocationsList = (snapLocationsList) => {
+    this.setState({ snapLocationsList });
+  };
 
-  setError = error => {
-    console.error(error)
-    this.setState({ error })
-  }
+  setError = (error) => {
+    console.error(error);
+    this.setState({ error });
+  };
 
   clearError = () => {
-    this.setState({ error: null })
-  }
+    this.setState({ error: null });
+  };
 
   render() {
     const value = {
@@ -35,11 +35,11 @@ export class snapLocationsListProvider extends Component {
       setError: this.setError,
       clearError: this.clearError,
       setsnapLocationsList: this.setsnapLocationsList,
-    }
+    };
     return (
       <snapLocationsListContext.Provider value={value}>
         {this.props.children}
       </snapLocationsListContext.Provider>
-    )
+    );
   }
 }

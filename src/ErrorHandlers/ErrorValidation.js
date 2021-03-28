@@ -1,18 +1,9 @@
-import React from 'react';
+import React from "react";
 
 export default function ErrorValidation(props) {
-    if (!props.valid) {
-        return (
-            <div className="error">
+  if (!props.valid) {
+    return <div className="error">{props.message}</div>;
+  }
 
-                {props.message}
-
-            </div>
-        );
-    }
-
-    return (
-        <>
-        </>
-    );
+  return <></>;
 }

@@ -1,30 +1,23 @@
-import React, { Component } from 'react';
-import snapLocatorContext from '../../Contexts/snapLocatorContext';
-import AuthApiService from '../Services/auth-api-service';
-import USLCForm from './UserSavedLocationsCategoryForm';
-
+import React, { Component } from "react";
+import snapLocatorContext from "../../Contexts/snapLocatorContext";
+import AuthApiService from "../Services/auth-api-service";
 
 export default class UserSavedLocationsForm extends Component {
-  static contextType = snapLocatorContext
+  static contextType = snapLocatorContext;
 
-  handleSubmit = ev => {
-    ev.preventDefault()
-    const { stores } = this.context
-    const { text } = ev.target
+  handleSubmit = (ev) => {
+    ev.preventDefault();
+    const { stores } = this.context;
+    const { text } = ev.target;
     AuthApiService.postStores(stores, text.value)
       .then(this.context.addStores)
       .then(() => {
-        text.value = ''
+        text.value = "";
       })
-      .catch(this.context.setError)
-  }
+      .catch(this.context.setError);
+  };
 
   render() {
-    return (
-            <div>
-              <USLCForm />
-              </div>
-
-    )
+    return <div></div>;
   }
 }

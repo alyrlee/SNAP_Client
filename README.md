@@ -26,6 +26,7 @@ Password: DemoUser2020*
 ![Image](src/images/snap.png)
 
 **snap-locator-app**
+<br>
 **Technologies used:**
 <br>
 Client: Javascript - CSS - React - React-Router-Dom - History - Testing with: - Enzyme

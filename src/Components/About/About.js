@@ -6,7 +6,7 @@ export default class About extends Component {
     render(){
         return (
             <div>
-             {/* <NavBar /> */}
+             <NavBar />
             <section className="banner"> 
                 <div className="Cover">
             <h2>SNAP Locator</h2>

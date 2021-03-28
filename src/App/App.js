@@ -8,9 +8,8 @@ import PublicOnlyRoute from "../Utils/PublicOnlyRoute";
 import About from "../Components/About/About";
 import Profile from "../Components/LoginForm/Profile";
 import MapLanding from "../Components/GoogleMap/MapLanding";
-import { Route, Router, Switch } from "react-router-dom";
-import { createBrowserHistory } from "history";
-const history = createBrowserHistory();
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 
 
 class App extends Component {
@@ -21,7 +20,7 @@ class App extends Component {
 
   render() {
     return (
-      <Router history={history}>
+      <Router>
       <div className="App">
         <header className="App__header">
           <NavBar />
@@ -30,7 +29,6 @@ class App extends Component {
           {this.state.hasError && (
             <p className="red">There was an error! Oh no!</p>
           )}
-          {/* <Router history={history}> */}
           <Switch>
             <Route exact path={"/"} component={LandingPage} />
             <Route exact path={"/about"} component={About} />
@@ -38,7 +36,7 @@ class App extends Component {
             <PublicOnlyRoute path={"/login"} component={LoginForm} />
             <PrivateRoute path={"/profile"} component={Profile} />
           </Switch>
-          </main>>
+          </main>
       </div>
      </Router> 
     );

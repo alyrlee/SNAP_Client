@@ -3,6 +3,8 @@ import './Header.css';
 import { Link } from 'react-router-dom';
 import { Hyph } from '../../Utils/Utils';
 import TokenService from '../Services/token-service';
+import { BrowserRouter as Router } from "react-router-dom";
+
 export default class NavBar extends Component {
  
 handleLogoutClick = () => {
@@ -11,6 +13,7 @@ TokenService.clearAuthToken()
 
 renderLogoutLink() {
 return (
+    
     <div>
         <Link onClick={this.handleLogoutClick} to='/'> Logout</Link>
    </div> 

@@ -1,8 +1,5 @@
 {
   "name": "snap-app",
-  "jest": {
-    "verbose": true
-  },
   "version": "1.0.0",
   "private": true,
   "dependencies": {

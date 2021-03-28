@@ -17,6 +17,7 @@ See below for instructions on how to run and modify this application locally aft
 Future implementation of registered user savedLocations route to render dashboard in the user profile that displays store information and user saved information in regard to snap retailer locations.
 
 ![Image](src/images/snap.png)
+
 ## Available Scripts
 
 In the project directory, you can run:

@@ -5,7 +5,6 @@ import { Hyph } from '../../Utils/Utils';
 import TokenService from '../Services/token-service';
 import {Router} from 'react-router-dom';
 
-
 export default class NavBar extends Component {
  
 handleLogoutClick = () => {
@@ -39,7 +38,6 @@ render () {
     return (
         <div>
             <ul className="navbar">
-                <Router>
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/about">About</Link></li>
                 <li><Link to="/find">Find SNAP retailer</Link></li>
@@ -49,7 +47,6 @@ render () {
                     ? this.renderLogoutLink()
                     : this.renderLoginLink()}</li>
                 <Link to='/'></Link>
-                </Router>
             </ul>
         </div>
     )}

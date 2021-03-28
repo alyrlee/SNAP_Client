@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import Header from "../Components/Headers/Header";
+import NavBar from "../Components/Headers/Header";
 import LandingPage from "../Components/LandingPage /LandingPage";
 import LoginForm from "../Components/LoginForm/LoginForm";
 import PrivateRoute from "../Utils/PrivateRoute";
@@ -20,7 +20,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App__header">
-          <Header />
+          <NavBar />
         </header>
         <main className="App__main">
           {this.state.hasError && (

@@ -21,7 +21,7 @@ body {
 /* index */
 .jumbotron {
   background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-    url(./Components/images/fruit.png) center top/cover no-repeat;
+    url(/Users/ashley/Desktop/1st Capstone/snap-locator-client/src/fruit.png) center top/cover no-repeat;
 }
 
 /* items */

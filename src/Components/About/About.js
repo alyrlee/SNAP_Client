@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import '../About/About.css'
-import Header from '../Headers/Header';
+import NavBar from '../Headers/Header';
 
 export default class About extends Component {
     render(){
         return (
             <div>
-             <Header />
+             {/* <NavBar /> */}
             <section className="banner"> 
                 <div className="Cover">
             <h2>SNAP Locator</h2>

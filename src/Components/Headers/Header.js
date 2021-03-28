@@ -1,32 +1,33 @@
 import React, { Component } from "react";
 import "./Header.css";
-import { Link } from "react-router-dom";
-import { Hyph } from "../../Utils/Utils";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 import TokenService from "../Services/token-service";
-// import { BrowserRouter as Router } from "react-router-dom";
 
-export default class NavBar extends Component {
+export default class Header extends Component {
   handleLogoutClick = () => {
     TokenService.clearAuthToken();
   };
 
   renderLogoutLink() {
     return (
-      <div>
-        <Link onClick={this.handleLogoutClick} to="/">
-          {" "}
-          Logout
-        </Link>
-      </div>
+      <Router>
+        <div>
+          <Link onClick={this.handleLogoutClick} to="/">
+            {" "}
+            Logout
+          </Link>
+        </div>
+      </Router>
     );
   }
 
   renderLoginLink() {
     return (
-      <div>
-        <Link to="/login"> Log in</Link>
-        <Hyph />
-      </div>
+      <Router>
+        <div>
+          <Link to="/login"> Log in</Link>
+        </div>
+      </Router>
     );
   }
 
@@ -38,35 +39,37 @@ export default class NavBar extends Component {
 
   render() {
     return (
-      <div>
-        <ul className="navbar">
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/find">Find SNAP retailer</Link>
-          </li>
-          {TokenService.hasAuthToken() ? (
+      <Router>
+        <div>
+          <ul className="headerbar">
             <li>
-              <Link to="/profile">My Account</Link>
+              <Link to="/">Home</Link>
             </li>
-          ) : null}
-          {TokenService.hasAuthToken() ? (
             <li>
-              <Link to="/">SNAP Locator</Link>
+              <Link to="/about">About</Link>
             </li>
-          ) : null}
-          <li>
-            {TokenService.hasAuthToken()
-              ? this.renderLogoutLink()
-              : this.renderLoginLink()}
-          </li>
-          <Link to="/"></Link>
-        </ul>
-      </div>
+            <li>
+              <Link to="/find">Find SNAP retailer</Link>
+            </li>
+            {TokenService.hasAuthToken() ? (
+              <li>
+                <Link to="/profile">My Account</Link>
+              </li>
+            ) : null}
+            {TokenService.hasAuthToken() ? (
+              <li>
+                <Link to="/">SNAP Locator</Link>
+              </li>
+            ) : null}
+            <li>
+              {TokenService.hasAuthToken()
+                ? this.renderLogoutLink()
+                : this.renderLoginLink()}
+            </li>
+            <Link to="/"></Link>
+          </ul>
+        </div>
+      </Router>
     );
   }
 }

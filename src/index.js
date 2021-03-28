@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App/App';
 import {BrowserRouter, Route} from 'react-router-dom';
-import NavBar from "./Components/Headers/Header";
+import Header from "./Components/Headers/Header";
 
 
 ReactDOM.render(
   <BrowserRouter>
           <Route path="/" component={App}/>
-          <NavBar />
+          <Header />
     </BrowserRouter>,
   document.getElementById('root')
 );

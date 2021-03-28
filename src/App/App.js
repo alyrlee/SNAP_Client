@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import "./App.css";
-import Header from "./Components/Headers/Header";
-import LandingPage from "./Components/LandingPage /LandingPage";
-import LoginForm from "../src/Components/LoginForm/LoginForm";
-import PrivateRoute from "../src/Utils/PrivateRoute";
-import PublicOnlyRoute from "../src/Utils/PublicOnlyRoute";
-import About from "../src/Components/About/About";
-import Profile from "./Components/LoginForm/Profile";
-import MapLanding from "./Components/GoogleMap/MapLanding";
-import { Route, Switch } from "react-router-dom";
+import Header from "../Components/Headers/Header";
+import LandingPage from "../Components/LandingPage /LandingPage";
+import LoginForm from "../Components/LoginForm/LoginForm";
+import PrivateRoute from "../Utils/PrivateRoute";
+import PublicOnlyRoute from "../Utils/PublicOnlyRoute";
+import About from "../Components/About/About";
+import Profile from "../Components/LoginForm/Profile";
+import MapLanding from "../Components/GoogleMap/MapLanding";
+import { Route, Router, Switch } from "react-router-dom";
 
 class App extends Component {
   state = {
@@ -26,6 +26,7 @@ class App extends Component {
           {this.state.hasError && (
             <p className="red">There was an error! Oh no!</p>
           )}
+          <Router>
           <Switch>
             <Route exact path={"/"} component={LandingPage} />
             <Route exact path={"/about"} component={About} />
@@ -33,6 +34,7 @@ class App extends Component {
             <PublicOnlyRoute path={"/login"} component={LoginForm} />
             <PrivateRoute path={"/profile"} component={Profile} />
           </Switch>
+         </Router> 
         </main>
       </div>
     );

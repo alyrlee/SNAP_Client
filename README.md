@@ -22,12 +22,11 @@ User_Name: Demo User
 Password: DemoUser2020*
 
 <hr>
-See below for instructions on how to run and modify this application locally after cloning the repository.
 
 ![Image](src/images/snap.png)
 
 **snap-locator-app**
-Technologies used: 
+**Technologies used:**
 Client: Javascript - CSS - React - React-Router-Dom - History - Testing with: - Enzyme
 Server: Node.js - Express.js  - Morgan - Cors - Helmet - bcryptjs - jsonwebtoken -  XSS - Nodemon - Knex - dotenv - Testing with: - Chai - Mocha - Supertest - pg
 APIs: google-maps-react, react-google-autocomplete, react-geocode
@@ -39,6 +38,9 @@ APIs: google-maps-react, react-google-autocomplete, react-geocode
 ## Considerataions for app development:
 
 Future implementation of registered user savedLocations route to render dashboard in the user profile that displays store information and user saved information in regard to snap retailer locations.
+
+See below for instructions on how to run and modify this application locally after cloning the repository.
+
 
 ## Available Scripts
 

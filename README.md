@@ -26,11 +26,11 @@ Password: DemoUser2020*
 <hr>
 See below for instructions on how to run and modify this application locally after cloning the repository.
 
+![Image](src/images/snap.png)
+
 ## Considerataions for app development:
 
 Future implementation of registered user savedLocations route to render dashboard in the user profile that displays store information and user saved information in regard to snap retailer locations.
-
-![Image](src/images/snap.png)
 
 ## Available Scripts
 

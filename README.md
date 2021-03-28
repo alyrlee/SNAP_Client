@@ -27,6 +27,7 @@ Password: DemoUser2020*
 
 **snap-locator-app**
 **Technologies used:**
+<br>
 Client: Javascript - CSS - React - React-Router-Dom - History - Testing with: - Enzyme
 <br>
 Server: Node.js - Express.js  - Morgan - Cors - Helmet - bcryptjs - jsonwebtoken -  XSS - Nodemon - Knex - dotenv - Testing with: - Chai - Mocha - Supertest - pg

@@ -109,6 +109,11 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 [react]: https://reactjs.org/
 
 **snap-locator-app**
+Technologies used: 
+Client: Javascript - CSS - React - React-Router-Dom - History - Testing with: - Enzyme
+Server: Node.js - Express.js  - Morgan - Cors - Helmet - bcryptjs - jsonwebtoken -  XSS - Nodemon - Knex - dotenv - Testing with: - Chai - Mocha - Supertest - pg
+APIs: google-maps-react, react-google-autocomplete, react-geocode
+
 <br>
 
 **snap-client**

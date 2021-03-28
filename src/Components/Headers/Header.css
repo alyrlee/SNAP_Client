@@ -1,8 +1,8 @@
-.headerbar {
+.header-bar {
     display: none;
 }
 
-.headerbar {
+.header-bar {
     background-color: black;
     width: 100%;
     font-family: 'Roboto Mono', monospace;
@@ -28,23 +28,23 @@
     z-index: 1030;
 }
 
-.navbar li {
+.header-bar li {
     padding: 6px 20px 6px 6px;
     font-size: 1rem;
     margin-top: 0px;
 }
 
-.headerbar a {
+.header-bar a {
     text-decoration: none;
     color: white;
 }
 
-.headerbar a:visited {
+.header-bar a:visited {
     text-decoration: none;
     color: white;
 }
 
-.headerbar img {
+.header-bar img {
     position: absolute;
     width: 40px;
     height: 40px;

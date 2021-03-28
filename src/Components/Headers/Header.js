@@ -41,7 +41,7 @@ export default class Header extends Component {
     return (
       <Router>
         <div>
-          <ul className="headerbar">
+          <ul className="header-bar">
             <li>
               <Link to="/">Home</Link>
             </li>

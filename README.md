@@ -13,6 +13,7 @@ How to get started?
 
 You can start by clicking on the "Get Started" button and you will be taken to the map.
 
+```
 For User experience:
 
 Demo Account:
@@ -20,6 +21,8 @@ Demo Account:
 User_Name: Demo User
 
 Password: DemoUser2020*
+
+```
 
 <hr>
 

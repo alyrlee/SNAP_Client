@@ -14,14 +14,12 @@ export default class Header extends Component {
 
   renderLogoutLink() {
     return (
-      <Router>
         <div>
           <Link onClick={this.handleLogoutClick} to="/">
             {" "}
             Logout
           </Link>
         </div>
-      </Router>
     );
   }
 

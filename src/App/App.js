@@ -21,10 +21,7 @@ class App extends Component {
     return (
       <Router history={history}>
         <div className="App">
-          <header className="App__header">
-            {" "}
             <Header />
-          </header>
           <main className="App__main">
             {this.state.hasError && (
               <p className="red">There was an error! Oh no!</p>

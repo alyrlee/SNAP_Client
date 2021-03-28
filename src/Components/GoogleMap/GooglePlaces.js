@@ -60,7 +60,6 @@ export class MapContainer extends Component {
               position.coords.longitude
             ).then(
               (response) => {
-                console.log("geocode response", response);
                 const address = response.results[0].formatted_address,
                   addressArray = response.results[0].address_components,
                   city = this.getCity(addressArray),
@@ -90,7 +89,6 @@ export class MapContainer extends Component {
     AuthApiService.postCityState(city, state)
       .then((resJSON) => {
         this.setState({ cityStores: resJSON });
-        console.log("  ~~~  --> city/state stores json data", resJSON);
       })
       .catch((error) => {
         if (error.resJSON) console.log(error.resJSON);
@@ -184,16 +182,10 @@ export class MapContainer extends Component {
     const city = place.address_components[0].long_name;
     const state = place.address_components[2].short_name;
     this.getStoresByCityFromAPI(city, state);
-    console.log(
-      "updated city, state by current user search submission",
-      city,
-      state
-    );
     const { geometry } = place;
     if (geometry) {
       const { location } = place.geometry;
       if (location) {
-        console.log("~~~~~ hi!", city);
         this.setState({
           mapCenter: {
             lat: location.lat(),
@@ -279,16 +271,11 @@ export class MapContainer extends Component {
           </Marker>
         );
       });
-      console.log("markers", markers);
       return markers;
     }
   };
 
   render() {
-    // if (!this.props.loaded) return <div>Loading...</div>;
-    // console.log('data loading', this.props.snapLocationsList);
-    console.log("ML SLL state cityStores:", this.state.cityStores);
-
     return (
       <Map
         google={this.props.google}

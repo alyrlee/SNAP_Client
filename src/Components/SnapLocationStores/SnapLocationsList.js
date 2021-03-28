@@ -12,7 +12,6 @@ class SnapLocationsList extends Component {
         <div className="snap_locations_list">
           {" "}
           {this.props.snapLocationsList.map((SLL) => {
-            console.log("store info", SLL);
             return <div key={SLL.Store_Name} className="placename"></div>;
           })}
         </div>

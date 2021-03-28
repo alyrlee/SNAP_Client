@@ -21,12 +21,20 @@ User_Name: Demo User
 
 Password: DemoUser2020*
 
-
-
 <hr>
 See below for instructions on how to run and modify this application locally after cloning the repository.
 
 ![Image](src/images/snap.png)
+
+**snap-locator-app**
+Technologies used: 
+Client: Javascript - CSS - React - React-Router-Dom - History - Testing with: - Enzyme
+Server: Node.js - Express.js  - Morgan - Cors - Helmet - bcryptjs - jsonwebtoken -  XSS - Nodemon - Knex - dotenv - Testing with: - Chai - Mocha - Supertest - pg
+APIs: google-maps-react, react-google-autocomplete, react-geocode
+
+<br>
+
+**snap-client**
 
 ## Considerataions for app development:
 
@@ -107,13 +115,3 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 [create-react-app]: https://facebook.github.io/create-react-app/
 [react]: https://reactjs.org/
-
-**snap-locator-app**
-Technologies used: 
-Client: Javascript - CSS - React - React-Router-Dom - History - Testing with: - Enzyme
-Server: Node.js - Express.js  - Morgan - Cors - Helmet - bcryptjs - jsonwebtoken -  XSS - Nodemon - Knex - dotenv - Testing with: - Chai - Mocha - Supertest - pg
-APIs: google-maps-react, react-google-autocomplete, react-geocode
-
-<br>
-
-**snap-client**

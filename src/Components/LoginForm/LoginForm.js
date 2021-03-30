@@ -39,7 +39,7 @@ export default class LoginForm extends Component {
         <div className="form-wrapper">
           <h1>Login</h1>
           <form className="Login" onSubmit={this.handleSubmitJwtAuth}>
-            <div role="alert">{error && <p className="red">{error}</p>}</div>
+            <div role="alert">{error}</div>
             <div className="userName">
               <label htmlFor="username"> User Name</label>
               <input

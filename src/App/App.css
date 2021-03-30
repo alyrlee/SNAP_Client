@@ -2,17 +2,6 @@
   text-align: center;
 }
 
-/* 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-} */
 
 body {
   padding-top: 3.5rem;
@@ -21,7 +10,7 @@ body {
 /* index */
 .jumbotron {
   background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-    url(/Users/ashley/Desktop/1st Capstone/snap-locator-client/src/fruit.png) center top/cover no-repeat;
+    url("../images/fruit.png");
 }
 
 /* items */

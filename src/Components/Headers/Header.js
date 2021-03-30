@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Header.css";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import TokenService from "../Services/token-service";
 
 export default class Header extends Component {
@@ -25,11 +25,9 @@ export default class Header extends Component {
 
   renderLoginLink() {
     return (
-      <Router>
         <div>
           <Link to="/login"> Log in</Link>
         </div>
-      </Router>
     );
   }
 
@@ -41,7 +39,6 @@ export default class Header extends Component {
 
   render() {
     return (
-      <Router>
         <div>
           <ul className="header-bar">
             <li>
@@ -71,7 +68,6 @@ export default class Header extends Component {
             <Link to="/"></Link>
           </ul>
         </div>
-      </Router>
     );
   }
 }

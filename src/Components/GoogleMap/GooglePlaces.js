@@ -10,8 +10,7 @@ export class MapContainer extends Component {
   state = {
     places: [],
     showingInfoWindow: false,
-    visibleInfoWindowId: null,
-    cityInfoWindowVisible: false,
+    visibleInfoWindowId: false,
     activeMarker: {},
     selectedPlace: {},
     stores: {},
@@ -205,42 +204,41 @@ export class MapContainer extends Component {
     }
   };
 
-  
-  onMarkerClick = (id) => {
-    console.log('marker clicked!!', id);
-    this.setState({visibleInfoWindowId: id})
-    // this.setState({
-    //   selectedPlace: props,
-    //   activeMarker: marker,
-    //   showingInfoWindow: true,
-    //   visibleInfoWindowId: true,
-    //   markers: true,
-    //   content: "",
-    // });
+//toggle state for if current marker or a cs marker has been selected
+//manipulate active marker for type of marker clicked
+
+  onMarkerClick = (props, marker, cs, id, e) => {
+    this.setState({
+      selectedPlace: props,
+      activeMarker: marker,
+      showingInfoWindow: true,
+      visibleInfoWindowId: id,
+      markers: cs,
+      content: "",
+    });
   };
 
   onClose = (props) => {
-    // if (this.state.showingInfoWindow) {
-    //   this.setState({
-    //     visibleInfoWindowId: false,
-    //     showingInfoWindow: false,
-    //     activeMarker: null,
-    //     markers: null,
-    //     content: "",
-    //   });
-    // }
+    if (this.state.showingInfoWindow) {
+      this.setState({
+        visibleInfoWindowId: false,
+        showingInfoWindow: false,
+        activeMarker: null,
+        markers: null,
+        content: "",
+      });
+    }
   };
-
-  onMapClicked = (props) => {
-    // if (this.state.showingInfoWindow && this.state.visibleInfoWindowId) {
-    //   this.setState({
-    //     showingInfoWindow: false,
-    //     visibleInfoWindowId: false,
-    //     activeMarker: null,
-    //     markers: null,
-    //     content: "",
-    //   });
-    // }
+  onMapLoaded = (props) => {
+    if (this.state.showingInfoWindow && this.state.visibleInfoWindowId) {
+      this.setState({
+        showingInfoWindow: false,
+        visibleInfoWindowId: false,
+        activeMarker: null,
+        markers: null,
+        content: "",
+      });
+    }
   };
 
   createMarkers = () => {
@@ -251,49 +249,40 @@ export class MapContainer extends Component {
         console.log('this is cs!!', cs)
         return (
           <Marker
-            key={`${cs.latitude}${cs.longitude}`}
-            id={cs.ObjectId}
-            name="SNAP store location"
-            title={this.address}
-            address={cs.address}
-            content={this.state.markers.address}
-            onClick={() => this.onMarkerClick(cs.ObjectId)}
-            // onClick={() => this.setState({visibleInfoWindowId: cs.ObjectId})}
+          key={`${cs.latitude}${cs.longitude}`}
+          id={cs.ObjectId}
+          name="SNAP store location"
+          title={this.address}
+          address={cs.address}
+          content="this.state.cs.address"
+          onClick={() => this.onMarkerClick(cs.ObjectId)}
             position={{
               lat: cs.latitude,
               lng: cs.longitude,
             }}
           >
-            {/* <InfoWindow
-              marker={this.state.activeMarker}
-              onClose={this.onInfoWindowClose}
-              content={this.state.markers.address}
-            >
-              <div>
-                <h1>{this.state.selectedPlace.name}</h1>
-                <h1>{this.state.address}</h1>
-              </div>
-            </InfoWindow> */}
-
             <InfoWindow
-              position={{
-                lat: this.state.mapCenter.lat,
-                lng: this.state.mapCenter.lng,
-              }}
-              visible={cs.ObjectId === this.state.visibleInfoWindowId}
-              onClose={() => this.setState({visibleInfoWindowId: null})}
+             position={{
+              lat: cs.latitude,
+              lng: cs.longitude,
+            }}
+            visible
             >
+              {/* marker={this.state.activeMarker}
+              onClose={this.onInfoWindowClose}
+              visible={this.state.visibleInfoWindowId}
+              content= ""
+            > */}
               <div>
-                <h1>{cs.name}</h1>
+                <h1>{cs.title}</h1>
                 <h1>{cs.address}</h1>
+                <small>Save this loction! </small>
               </div>
             </InfoWindow>
           </Marker>
         );
       });
-      console.log('markers', markers);
       return markers;
-      
     }
   };
 
@@ -302,7 +291,7 @@ export class MapContainer extends Component {
       <Map
         google={this.props.google}
         onReady={this.state.place}
-        // style={{width: '100%', height: '100%', position: 'relative'}}
+        style={{marginTop: '25px', width: '100%', height: '100%', position: 'absolute'}}
         className={"map"}
         zoom={12}
         initialCenter={{
@@ -351,21 +340,32 @@ export class MapContainer extends Component {
               "https://cdn2.iconfinder.com/data/icons/IconsLandVistaMapMarkersIconsDemo/256/MapMarker_Marker_Outside_Chartreuse.png",
             scaledSize: new window.google.maps.Size(50, 50),
           }}
-          // onClick={this.onMarkerClick}
-          onClick={() => this.setState({cityInfoWindowVisible: true})}
+          onClick={this.onMarkerClick}
           position={{
             lat: this.state.mapCenter.lat,
             lng: this.state.mapCenter.lng,
-          }}
+          }} 
         />
+        {/* <InfoWindow
+         position={{
+          lat: this.state.mapCenter.lat,
+          lng: this.state.mapCenter.lng,
+        }} 
+          onClose={this.onInfoWindowClose}
+          visible={this.state.showingInfoWindow}
+        >
+        </InfoWindow> */}
         <InfoWindow
           position={{
             lat: this.state.mapCenter.lat,
             lng: this.state.mapCenter.lng,
           }}
-          visible={this.state.cityInfoWindowVisible}
-          onClose={() => this.setState({cityInfoWindowVisible: false})}
+          onClose={this.onInfoWindowClose}
+          visible={this.state.showingInfoWindow}
         >
+            <div>
+            <h1>Welcome</h1>
+          </div>
           <small>
             Click on any of the markers to display an additional info.
           </small>

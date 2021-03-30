@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+import Header from '../Components/Headers/Header';
 import LandingPage from "../Components/LandingPage /LandingPage";
 import LoginForm from "../Components/LoginForm/LoginForm";
 import PrivateRoute from "../Utils/PrivateRoute";
@@ -20,6 +21,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <main className="App__main">
+          <Header />
             {this.state.hasError && (
               <p className="red">There was an error! Oh no!</p>
             )}

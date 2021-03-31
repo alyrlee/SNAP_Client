@@ -261,15 +261,7 @@ export class MapContainer extends Component {
                 <h1>{this.state.address}</h1>
               </div>
             </InfoWindow>
-            <InfoWindow
-              position={{
-                lat: this.state.mapCenter.lat,
-                lng: this.state.mapCenter.lng,
-              }}
-              visible
-            >
-              <small>Click on the marker to display info.</small>
-            </InfoWindow>
+
           </Marker>
         );
       });

@@ -237,6 +237,7 @@ export class MapContainer extends Component {
     const isEmpty = Object.entries(cityStores).length === 0;
     if (!isEmpty) {
       const markers = cityStores.city.map((cs) => {
+        console.log(cs);
         return (
           <Marker
             key={`${cs.latitude}${cs.longitude}`}
@@ -248,6 +249,7 @@ export class MapContainer extends Component {
               lat: cs.latitude,
               lng: cs.longitude,
             }}
+            address={this.state.address}
           >
             <InfoWindow
               marker={this.state.activeMarker}
@@ -255,7 +257,8 @@ export class MapContainer extends Component {
               visible={this.state.visibleInfoWindowId}
             >
               <div>
-                <h1>{this.state.selectedPlace.name}</h1>
+                <h1>{this.state.store_name}</h1>
+                <h1>{this.state.address}</h1>
               </div>
             </InfoWindow>
             <InfoWindow
@@ -347,6 +350,7 @@ export class MapContainer extends Component {
         >
           <div>
             <h1>{this.state.name}</h1>
+            <h1>{this.state.onPlaceSelected}</h1>
           </div>
         </InfoWindow>
         <InfoWindow

@@ -38,7 +38,7 @@ export default class Profile extends Component {
       <div>
         <Header />
         <div className="profile_page">
-          <h3>Welcome, to your user account page!</h3>
+          <h3>Welcome to your user account page!</h3>
           <h2>{user.user_name}</h2>
         </div>
         <div className="SavedLocations">

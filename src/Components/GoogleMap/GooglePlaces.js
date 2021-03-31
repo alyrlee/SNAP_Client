@@ -10,11 +10,10 @@ export class MapContainer extends Component {
   state = {
     places: [],
     showingInfoWindow: false,
-    visibleInfoWindowId: false,
+    visibleInfoWindowId: null,
     activeMarker: {},
     selectedPlace: {},
     stores: {},
-    content: "",
     address: "",
     city: "",
     area: "",
@@ -61,6 +60,7 @@ export class MapContainer extends Component {
               position.coords.longitude
             ).then(
               (response) => {
+                console.log("geocode response", response);
                 const address = response.results[0].formatted_address,
                   addressArray = response.results[0].address_components,
                   city = this.getCity(addressArray),
@@ -72,6 +72,7 @@ export class MapContainer extends Component {
                   city: city ? city : "",
                   state: state ? state : "",
                 });
+                console.log("call getStoresByCityState?", city, state);
                 this.getStoresByCityFromAPI(city, state);
               },
               (error) => {
@@ -85,18 +86,15 @@ export class MapContainer extends Component {
       console.error("Geolocation is not supported by this browser!");
     }
   }
-
   getStoresByCityFromAPI = (city, state) => {
     AuthApiService.postCityState(city, state)
       .then((resJSON) => {
         this.setState({ cityStores: resJSON });
       })
       .catch((error) => {
-        if (error.resJSON) console.log(error.resJSON);
-        console.error({ error: error });
+        if (error.resJSON) console.error({ error: error });
       });
   };
-
   getCity = (addressArray) => {
     let city = "";
     for (let i = 0; i < addressArray.length; i++) {
@@ -106,7 +104,6 @@ export class MapContainer extends Component {
       }
     }
   };
-
   getArea = (addressArray) => {
     let area = "";
     for (let i = 0; i < addressArray.length; i++) {
@@ -123,7 +120,6 @@ export class MapContainer extends Component {
       }
     }
   };
-
   getState = (addressArray) => {
     let state = "";
     for (let i = 0; i < addressArray.length; i++) {
@@ -138,16 +134,17 @@ export class MapContainer extends Component {
       }
     }
   };
-
+  //review selectedPlace
   onChange = (event) => {
     event.preventDefault();
     this.props.onChange(this.state.data);
   };
 
+  onInfoWindowOpen = (event) => {};
+
   onMarkerDragEnd = (event) => {
     let newLat = event.latLng.lat(),
       newLng = event.latLng.lng();
-
     Geocode.fromLatLng(newLat, newLng).then(
       (response) => {
         const address = response.results[0].formatted_address,
@@ -165,7 +162,6 @@ export class MapContainer extends Component {
             lng: newLng,
             city: city,
             state: state,
-            address: address,
           },
           mapPosition: {
             lat: newLat,
@@ -183,7 +179,8 @@ export class MapContainer extends Component {
     console.log("plc -> on selected", place);
     const city = place.address_components[0].long_name;
     const state = place.address_components[2].short_name;
-    const address = place.address_components[1].long_name;
+    const address = place.formatted_address;
+
     this.getStoresByCityFromAPI(city, state);
     const { geometry } = place;
     if (geometry) {
@@ -203,18 +200,13 @@ export class MapContainer extends Component {
       }
     }
   };
-
-//toggle state for if current marker or a cs marker has been selected
-//manipulate active marker for type of marker clicked
-
-  onMarkerClick = (props, marker, cs, id, e) => {
+  onMarkerClick = (props, marker, e) => {
     this.setState({
       selectedPlace: props,
       activeMarker: marker,
       showingInfoWindow: true,
-      visibleInfoWindowId: id,
-      markers: cs,
-      content: "",
+      visibleInfoWindowId: true,
+      markers: true,
     });
   };
 
@@ -225,18 +217,18 @@ export class MapContainer extends Component {
         showingInfoWindow: false,
         activeMarker: null,
         markers: null,
-        content: "",
       });
     }
   };
-  onMapLoaded = (props) => {
+
+  onMapClicked = (props) => {
     if (this.state.showingInfoWindow && this.state.visibleInfoWindowId) {
       this.setState({
+        selectedPlace: props,
         showingInfoWindow: false,
         visibleInfoWindowId: false,
         activeMarker: null,
         markers: null,
-        content: "",
       });
     }
   };
@@ -246,54 +238,55 @@ export class MapContainer extends Component {
     const isEmpty = Object.entries(cityStores).length === 0;
     if (!isEmpty) {
       const markers = cityStores.city.map((cs) => {
-        console.log('this is cs!!', cs)
         return (
           <Marker
-          key={`${cs.latitude}${cs.longitude}`}
-          id={cs.ObjectId}
-          name="SNAP store location"
-          title={this.address}
-          address={cs.address}
-          content="this.state.cs.address"
-          onClick={() => this.onMarkerClick(cs.ObjectId)}
+            key={`${cs.latitude}${cs.longitude}`}
+            id={cs.ObjectId}
+            name="SNAP store location"
+            title={this.formatted_address}
+            content=""
             position={{
               lat: cs.latitude,
               lng: cs.longitude,
             }}
+            // onClick={() => this.onMarkerClick(cs.ObjectId)}
+            onClick={() => this.setState({
+              visibleInfoWindowId: cs.ObjectId},
+            )}
           >
             <InfoWindow
-             position={{
-              lat: cs.latitude,
-              lng: cs.longitude,
-            }}
-            visible
-            >
-              {/* marker={this.state.activeMarker}
+              marker={this.state.createMarkers}
               onClose={this.onInfoWindowClose}
               visible={this.state.visibleInfoWindowId}
-              content= ""
-            > */}
+            >
+              content={this.state.markers.address}
               <div>
-                <h1>{cs.title}</h1>
-                <h1>{cs.address}</h1>
-                <small>Save this loction! </small>
+                <h1>Details</h1>
               </div>
             </InfoWindow>
+
+            <InfoWindow
+              position={{
+                lat: cs.latitude,
+                lng: cs.longitude,
+              }}
+              visible={this.state.visibleInfoWindowId}
+            ></InfoWindow>
           </Marker>
         );
       });
       return markers;
     }
   };
-
   render() {
+    console.log("ML SLL state cityStores:", this.state.cityStores);
     return (
       <Map
         google={this.props.google}
         onReady={this.state.place}
-        style={{marginTop: '25px', width: '100%', height: '100%', position: 'absolute'}}
+        // style={{width: '100%', height: '100%', position: 'relative'}}
         className={"map"}
-        zoom={12}
+        zoom={13}
         initialCenter={{
           lat: this.state.mapCenter.lat,
           lng: this.state.mapCenter.lng,
@@ -304,14 +297,16 @@ export class MapContainer extends Component {
         }}
       >
         <Autocomplete
-          input id="autocomplete"
-          // type="text"
+          input
+          id="autocomplete"
+          type="text"
           placeholder="Search"
           fields={[
             "address_components",
             "formatted_address",
             "place_id",
             "geometry",
+            "name",
           ]}
           style={{
             width: "100%",
@@ -321,10 +316,12 @@ export class MapContainer extends Component {
           }}
           onPlaceSelected={this.onPlaceSelected}
           types={["(cities)"]}
+          // input={value.toString()}
           value={this.state.input}
           componentRestrictions={{ country: "us" }}
           onChange={(e) => this.setState({ input: e.target.value })}
-          onClick={() => {
+          onClick={(place, details = null) => {
+            console.log("stores and details!!", place, details);
           }}
           terms={{
             key: "AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU",
@@ -333,6 +330,9 @@ export class MapContainer extends Component {
           }}
         />
         {this.createMarkers()}
+        {/*
+        disable this marker if cs marker is in use 
+        */}
         <Marker
           name="Current location"
           icon={{
@@ -344,28 +344,24 @@ export class MapContainer extends Component {
           position={{
             lat: this.state.mapCenter.lat,
             lng: this.state.mapCenter.lng,
-          }} 
+          }}
         />
-        {/* <InfoWindow
-         position={{
-          lat: this.state.mapCenter.lat,
-          lng: this.state.mapCenter.lng,
-        }} 
+        <InfoWindow
+          marker={this.state.activeMarker}
           onClose={this.onInfoWindowClose}
           visible={this.state.showingInfoWindow}
         >
-        </InfoWindow> */}
+          <div>
+            <h1>{this.state.name}</h1>
+          </div>
+        </InfoWindow>
         <InfoWindow
           position={{
             lat: this.state.mapCenter.lat,
             lng: this.state.mapCenter.lng,
           }}
-          onClose={this.onInfoWindowClose}
           visible={this.state.showingInfoWindow}
         >
-            <div>
-            <h1>Welcome</h1>
-          </div>
           <small>
             Click on any of the markers to display an additional info.
           </small>

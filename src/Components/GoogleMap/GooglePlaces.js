@@ -72,7 +72,6 @@ export class MapContainer extends Component {
                   city: city ? city : "",
                   state: state ? state : "",
                 });
-                console.log("call getStoresByCityState?", city, state);
                 this.getStoresByCityFromAPI(city, state);
               },
               (error) => {
@@ -243,35 +242,31 @@ export class MapContainer extends Component {
             key={`${cs.latitude}${cs.longitude}`}
             id={cs.ObjectId}
             name="SNAP store location"
-            title={this.formatted_address}
-            content=""
+            title={cs.Store_Name}
+            onClick={this.onMarkerClick}
             position={{
               lat: cs.latitude,
               lng: cs.longitude,
             }}
-            // onClick={() => this.onMarkerClick(cs.ObjectId)}
-            onClick={() => this.setState({
-              visibleInfoWindowId: cs.ObjectId},
-            )}
           >
             <InfoWindow
-              marker={this.state.createMarkers}
+              marker={this.state.activeMarker}
               onClose={this.onInfoWindowClose}
               visible={this.state.visibleInfoWindowId}
             >
-              content={this.state.markers.address}
               <div>
-                <h1>Details</h1>
+                <h1>{this.state.selectedPlace.name}</h1>
               </div>
             </InfoWindow>
-
             <InfoWindow
               position={{
-                lat: cs.latitude,
-                lng: cs.longitude,
+                lat: this.state.mapCenter.lat,
+                lng: this.state.mapCenter.lng,
               }}
-              visible={this.state.visibleInfoWindowId}
-            ></InfoWindow>
+              visible
+            >
+              <small>Click on the marker to display info.</small>
+            </InfoWindow>
           </Marker>
         );
       });
@@ -279,7 +274,6 @@ export class MapContainer extends Component {
     }
   };
   render() {
-    console.log("ML SLL state cityStores:", this.state.cityStores);
     return (
       <Map
         google={this.props.google}

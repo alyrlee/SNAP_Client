@@ -12,7 +12,7 @@ export class MapContainer extends Component {
     places: [],
     showingInfoWindow: false,
     activeMarker: {},
-    selectedPlace: {},
+    onPlaceSelected: {},
     stores: {},
     address: "",
     city: "",
@@ -31,7 +31,7 @@ export class MapContainer extends Component {
       lat: 0,
       lng: 0,
     },
-    mapCenter: {
+    mapcenter: {
       lat: 42.3600825,
       lng: -71.0588801,
     },
@@ -89,6 +89,7 @@ export class MapContainer extends Component {
     AuthApiService.postCityState(city, state)
       .then((resJSON) => {
         this.setState({ cityStores: resJSON });
+        console.log('city and sate from API',resJSON);
       })
       .catch((error) => {
         if (error.resJSON) console.error({ error: error });
@@ -133,6 +134,12 @@ export class MapContainer extends Component {
       }
     }
   };
+  // getStoreName = (store_name) = {
+  //   const stores = cityStores.city.map((store_name) => {
+  //     state = store_name;
+  //   return stores;
+  //   )}
+  // };
 
   onChange = (event) => {
     event.preventDefault();
@@ -141,7 +148,7 @@ export class MapContainer extends Component {
 
   onInfoWindowOpen = (event) => {};
 
-  onMarkerDragEnd = (event) => {
+  onMarkerLoaded = (event) => {
     let newLat = event.latLng.lat(),
       newLng = event.latLng.lng();
     Geocode.fromLatLng(newLat, newLng).then(
@@ -159,8 +166,10 @@ export class MapContainer extends Component {
           markerPosition: {
             lat: newLat,
             lng: newLng,
+            // store_name: store_name,
             city: city,
             state: state,
+            address: address,
           },
           mapPosition: {
             lat: newLat,
@@ -186,7 +195,7 @@ export class MapContainer extends Component {
       const { location } = place.geometry;
       if (location) {
         this.setState({
-          mapCenter: {
+          mapcenter: {
             lat: location.lat(),
             lng: location.lng(),
           },
@@ -202,7 +211,7 @@ export class MapContainer extends Component {
 
   onMarkerClick = (props, marker, e) => {
     this.setState({
-      selectedPlace: props,
+      onPlaceSelected: props,
       activeMarker: marker,
       showingInfoWindow: true,
       markers: true,
@@ -222,7 +231,7 @@ export class MapContainer extends Component {
   onMapClicked = (props) => {
     if (this.state.showingInfoWindow) {
       this.setState({
-        selectedPlace: props,
+        onPlaceSelected: props,
         showingInfoWindow: false,
         activeMarker: null,
         markers: null,
@@ -238,18 +247,19 @@ export class MapContainer extends Component {
         console.log(cs);
         console.log("cs store name:", cs.store_name);
         console.log("cs address", cs.address);
+        // console.log("city stores city:", cityStores.city.cs.store_name)
         return (
           <Marker
             key={`${cs.latitude}${cs.longitude}`}
             id={cs.objectid}
-            name="SNAP store location"
+            name="SNAP Store Location"
+            store_name={cs.store_name}
             title={cs.store_name}
             position={{
               lat: cs.latitude,
               lng: cs.longitude,
             }}
-            address={this.state.address}
-            content=""
+            address={cs.address}
             onClick={this.onMarkerClick}
           >
             <InfoWindow
@@ -261,20 +271,22 @@ export class MapContainer extends Component {
               onClose={this.onInfoWindowClose}
               visible={this.state.showingInfoWindow}
             >
-            <div className="selected-cs">
-              visible={this.state.content}
-                <h1>{this.state.name}</h1>
-                <h1>{this.state.onPlaceSelected}</h1>
-                <h1>{this.state.cs}</h1>
-                <h1>{this.state.address}</h1>
+      {/* pass cs to render in div*/}
+              <div className="selected-cs">
+                visible={this.state.cs}
+                <h1>{this.state.cs.name}</h1>
+                <p>{this.state.cs.store_name}</p>
+                <p>{this.state.cs.address}</p>
               </div>
             </InfoWindow>
           </Marker>
         );
       });
+      console.log('markers', markers);
       return markers;
     }
   };
+      
   render() {
     return (
       <Map
@@ -284,12 +296,12 @@ export class MapContainer extends Component {
         className={"map"}
         zoom={13}
         initialCenter={{
-          lat: this.state.mapCenter.lat,
-          lng: this.state.mapCenter.lng,
+          lat: this.state.mapcenter.lat,
+          lng: this.state.mapcenter.lng,
         }}
         center={{
-          lat: this.state.mapCenter.lat,
-          lng: this.state.mapCenter.lng,
+          lat: this.state.mapcenter.lat,
+          lng: this.state.mapcenter.lng,
         }}
       >
         <Autocomplete
@@ -326,22 +338,27 @@ export class MapContainer extends Component {
           }}
         />
         {this.createMarkers()}
-        <Marker name="SNAP store location" onClick={this.onMarkerClick} />
+        <Marker name="SNAP store location" onClick={this.onMarkerClick} address={this.cs} name={this.content} />
         <InfoWindow
           marker={this.state.activeMarker}
-          content=""
           onClose={this.onInfoWindowClose}
           visible={this.state.showingInfoWindow}
         >
           <div>
-          <div style={{ backgroundColor: `yellow`, opacity: 0.75, padding: `12px` }}>
-            <div style={{ fontSize: `16px`, fontColor: `#08233B` }}>
-              SNAP Location Info
-            <h1>{this.state.name}</h1>
-            <h1>{this.state.onPlaceSelected}</h1>
-            <h1>{this.state.cs}</h1>
-          </div>
-          </div>
+            <div
+              style={{
+                backgroundColor: `yellow`,
+                opacity: 0.75,
+                padding: `12px`,
+              }}
+            >
+              <div style={{ fontSize: `16px`, fontColor: `#08233B` }}>
+                <div> SNAP Location Info </div>
+                <h1>{this.state.name}</h1>
+                <p>{this.state.markers.store_name}</p>
+                <p>{this.state.markers.address}</p>
+              </div>
+            </div>
           </div>
         </InfoWindow>
       </Map>

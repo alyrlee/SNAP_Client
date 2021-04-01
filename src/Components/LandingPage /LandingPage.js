@@ -28,7 +28,6 @@ export default class LandingPage extends Component {
 
     return (
       <div>
-        <Header />
         <section className="banner">
           <div className="Cover">
             <h2>SNAP Locator</h2>

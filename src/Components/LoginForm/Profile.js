@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Header from "../Headers/Header";
 import TokenService from "../Services/token-service";
 import AuthApiService from "../Services/auth-api-service";
 
@@ -13,16 +12,17 @@ export default class Profile extends Component {
   };
   componentDidMount() {
     AuthApiService.getProfile().then((resJSON) => {
+      console.log('user', resJSON);
       this.setState({
-        user: resJSON,
+        user: resJSON[0],
       });
       TokenService.saveUserId(this.state.user.id);
     });
   }
-  setCards = () => {
-    AuthApiService.getAllUserProfiles().then((resJSON) => {
+  setCard = () => {
+    AuthApiService.getProfile().then((resJSON) => {
       const userSavedLocations = resJSON.filter((user_name) => {
-        if (user_name === this.state.user.id) {
+        if (user_name === this.state.user_id) {
           return user_name;
         }
         return resJSON;
@@ -36,15 +36,13 @@ export default class Profile extends Component {
     const { user, userSavedLocations } = this.state;
     return (
       <div>
-        <Header />
         <div className="profile_page">
           <h3>Welcome to your user account page!</h3>
           <h2>{user.user_name}</h2>
         </div>
         <div className="SavedLocations">
           <h3>Saved Locations</h3>
-          {user.userSavedLocations}
-          {userSavedLocations}
+          <h2>{userSavedLocations}</h2>
         </div>
       </div>
     );

@@ -47,16 +47,11 @@ export default class Header extends Component {
               <Link to="/about">About</Link>
             </li>
             <li>
-              <Link to="/find">Find SNAP retailer</Link>
+              <Link to="/find">Find a SNAP retailer</Link>
             </li>
             {TokenService.hasAuthToken() ? (
               <li>
-                <Link to="/profile">My Account</Link>
-              </li>
-            ) : null}
-            {TokenService.hasAuthToken() ? (
-              <li>
-                <Link to="/">SNAP Locator</Link>
+                <Link to="/"></Link>
               </li>
             ) : null}
             <li>

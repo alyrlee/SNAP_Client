@@ -132,7 +132,7 @@ export class MapContainer extends Component {
       }
     }
   };
-  //review selectedPlace
+
   onChange = (event) => {
     event.preventDefault();
     this.props.onChange(this.state.data);
@@ -200,12 +200,6 @@ export class MapContainer extends Component {
   };
 
 
-  /*
-   selectedCSMarker: {},
-    setSelectedCSMarker: {},
-//create active marker for specific cs markers
-    */
-
   onMarkerClick = (props, marker, e) => {
     this.setState({
       selectedPlace: props,
@@ -258,13 +252,14 @@ export class MapContainer extends Component {
             }}
             address={this.state.address}
             content=""
-            onClick={() => {
-              this.setState({
-                selectedCSMarker: cs.ObjectId
-              });
-              console.log(cs.ObjectId);
-            }
-            }
+            onClick={this.onMarkerClick}
+            // onClick={() => {
+            //   this.setState({
+            //     selectedCSMarker: cs.ObjectId
+            //   });
+            //   console.log(cs.ObjectId);
+            // }
+            // }
           >
             {this.selectedCSMarker && (
               <InfoWindow
@@ -274,14 +269,16 @@ export class MapContainer extends Component {
                 }}
                 marker={this.state.activeMarker}
                 onClose={this.onInfoWindowClose}
-                visible={this.state.visibleInfoWindowId}
+                visible={this.state.showingInfoWindow}
               >
                 <div className="selected-cs">
-                  <h1>{selectedCSMaker.store_name}</h1>
-                  <h1>{selectedCSMaker.name}</h1>
-                  <h1>{selectedCSMaker.address}</h1>
+                  <h1>{this.state.name}</h1>
+                  <h1>{this.state.onPlaceSelected}</h1>
+                  <h1>{this.selectedCSMaker.store_name}</h1>
+                  <h1>{this.selectedCSMaker.name}</h1>
+                  <h1>{this.selectedCSMaker.address}</h1>
                 </div>
-              </InfoWindow>
+              </InfoWindow> 
             )}
           </Marker>
         );
@@ -339,44 +336,20 @@ export class MapContainer extends Component {
             input: "value",
           }} />
         {this.createMarkers()}
-        {/*
-                disable this marker if cs marker is in use
-                */}
-        {/* <Marker
-          name="Current location"
-          icon={{
-            url: "https://cdn2.iconfinder.com/data/icons/IconsLandVistaMapMarkersIconsDemo/256/MapMarker_Marker_Outside_Chartreuse.png",
-            scaledSize: new window.google.maps.Size(50, 50),
-          }}
-          onClick={this.onMarkerClick}
-          position={{
-            lat: this.state.mapCenter.lat,
-            lng: this.state.mapCenter.lng,
-          }} />
-        <InfoWindow
-          marker={this.state.activeMarker}
-          onClose={this.onInfoWindowClose}
-          visible={this.state.showingInfoWindow}
+       <Marker
+        name="SNAP store location"
+        onClick={this.onMarkerClick} />
+       <InfoWindow
+        marker={this.state.activeMarker}
+        content=""
+        onClose={this.onInfoWindowClose}
+        visible={this.state.showingInfoWindow} 
         >
-          <div>
-            <h1>{this.state.name}</h1>
-            <h1>{this.state.onPlaceSelected}</h1>
-          </div>
-          <small>
-            Click on any of the markers to display an additional info.
-          </small>
-        </InfoWindow> */}
-        {/* <InfoWindow
-          position={{
-            lat: this.state.mapCenter.lat,
-            lng: this.state.mapCenter.lng,
-          }}
-          visible={this.state.showingInfoWindow}
-        >
-          <small>
-            Click on any of the markers to display an additional info.
-          </small>
-        </InfoWindow> */}
+        <div>
+        <h1>{this.state.name}</h1>
+        <h1>{this.state.onPlaceSelected}</h1>
+        </div>
+        </InfoWindow>
       </Map>
     );
   }

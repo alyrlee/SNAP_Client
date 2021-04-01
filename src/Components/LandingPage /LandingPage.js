@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import "./LandingPage.css";
 import TokenService from "../Services/token-service";
-import Header from "../Headers/Header";
 
 export default class LandingPage extends Component {
   state = {

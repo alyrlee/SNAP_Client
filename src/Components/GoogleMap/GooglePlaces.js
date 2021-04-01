@@ -1,8 +1,9 @@
-import React, { Component } from "react";
-import { Map, GoogleApiWrapper, Marker, InfoWindow } from "google-maps-react";
+import React, {Component} from "react";
+import {Map, GoogleApiWrapper, Marker, InfoWindow} from "google-maps-react";
 import Autocomplete from "react-google-autocomplete";
 import AuthApiService from "../Services/auth-api-service";
 import Geocode from "react-geocode";
+
 Geocode.setApiKey("AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU");
 Geocode.enableDebug();
 
@@ -18,6 +19,7 @@ export class MapContainer extends Component {
     city: "",
     area: "",
     state: "",
+    content: "",
     markers: [],
     cityStores: {},
     markerPosition: {
@@ -41,7 +43,7 @@ export class MapContainer extends Component {
   };
 
   componentDidMount() {
-    if (navigator.geolocation) {
+    if(navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.setState(
           {
@@ -88,16 +90,17 @@ export class MapContainer extends Component {
   getStoresByCityFromAPI = (city, state) => {
     AuthApiService.postCityState(city, state)
       .then((resJSON) => {
-        this.setState({ cityStores: resJSON });
+        this.setState({cityStores: resJSON});
       })
       .catch((error) => {
-        if (error.resJSON) console.error({ error: error });
+        if(error.resJSON)
+          console.error({error: error});
       });
   };
   getCity = (addressArray) => {
     let city = "";
-    for (let i = 0; i < addressArray.length; i++) {
-      if (addressArray[i].types[0] && "locality" === addressArray[i].types[0]) {
+    for(let i = 0;i < addressArray.length;i++) {
+      if(addressArray[i].types[0] && "locality" === addressArray[i].types[0]) {
         city = addressArray[i].long_name;
         return city;
       }
@@ -105,13 +108,11 @@ export class MapContainer extends Component {
   };
   getArea = (addressArray) => {
     let area = "";
-    for (let i = 0; i < addressArray.length; i++) {
-      if (addressArray[i].types[0]) {
-        for (let j = 0; j < addressArray[i].types.length; j++) {
-          if (
-            "sublocality_level_1" === addressArray[i].types[j] ||
-            "locality" === addressArray[i].types[j]
-          ) {
+    for(let i = 0;i < addressArray.length;i++) {
+      if(addressArray[i].types[0]) {
+        for(let j = 0;j < addressArray[i].types.length;j++) {
+          if("sublocality_level_1" === addressArray[i].types[j] ||
+            "locality" === addressArray[i].types[j]) {
             area = addressArray[i].long_name;
             return area;
           }
@@ -121,12 +122,10 @@ export class MapContainer extends Component {
   };
   getState = (addressArray) => {
     let state = "";
-    for (let i = 0; i < addressArray.length; i++) {
-      for (let i = 0; i < addressArray.length; i++) {
-        if (
-          addressArray[i].types[0] &&
-          "administrative_area_level_1" === addressArray[i].types[0]
-        ) {
+    for(let i = 0;i < addressArray.length;i++) {
+      for(let i = 0;i < addressArray.length;i++) {
+        if(addressArray[i].types[0] &&
+          "administrative_area_level_1" === addressArray[i].types[0]) {
           state = addressArray[i].short_name;
           return state;
         }
@@ -181,10 +180,10 @@ export class MapContainer extends Component {
     const address = place.formatted_address;
 
     this.getStoresByCityFromAPI(city, state);
-    const { geometry } = place;
-    if (geometry) {
-      const { location } = place.geometry;
-      if (location) {
+    const {geometry} = place;
+    if(geometry) {
+      const {location} = place.geometry;
+      if(location) {
         this.setState({
           mapCenter: {
             lat: location.lat(),
@@ -199,6 +198,14 @@ export class MapContainer extends Component {
       }
     }
   };
+
+
+  /*
+   selectedCSMarker: {},
+    setSelectedCSMarker: {},
+//create active marker for specific cs markers
+    */
+
   onMarkerClick = (props, marker, e) => {
     this.setState({
       selectedPlace: props,
@@ -210,7 +217,7 @@ export class MapContainer extends Component {
   };
 
   onClose = (props) => {
-    if (this.state.showingInfoWindow) {
+    if(this.state.showingInfoWindow) {
       this.setState({
         visibleInfoWindowId: false,
         showingInfoWindow: false,
@@ -221,7 +228,7 @@ export class MapContainer extends Component {
   };
 
   onMapClicked = (props) => {
-    if (this.state.showingInfoWindow && this.state.visibleInfoWindowId) {
+    if(this.state.showingInfoWindow && this.state.visibleInfoWindowId) {
       this.setState({
         selectedPlace: props,
         showingInfoWindow: false,
@@ -233,9 +240,10 @@ export class MapContainer extends Component {
   };
 
   createMarkers = () => {
-    const { cityStores } = this.state;
+    const {cityStores} = this.state;
+    const selectedCSMaker= this.state;
     const isEmpty = Object.entries(cityStores).length === 0;
-    if (!isEmpty) {
+    if(!isEmpty) {
       const markers = cityStores.city.map((cs) => {
         console.log(cs);
         return (
@@ -244,24 +252,37 @@ export class MapContainer extends Component {
             id={cs.ObjectId}
             name="SNAP store location"
             title={cs.Store_Name}
-            onClick={this.onMarkerClick}
             position={{
               lat: cs.latitude,
               lng: cs.longitude,
             }}
             address={this.state.address}
+            content=""
+            onClick={() => {
+              this.setState({
+                selectedCSMarker: cs.ObjectId
+              });
+              console.log(cs.ObjectId);
+            }
+            }
           >
-            <InfoWindow
-              marker={this.state.activeMarker}
-              onClose={this.onInfoWindowClose}
-              visible={this.state.visibleInfoWindowId}
-            >
-              <div>
-                <h1>{this.state.store_name}</h1>
-                <h1>{this.state.address}</h1>
-              </div>
-            </InfoWindow>
-
+            {this.selectedCSMarker && (
+              <InfoWindow
+                position={{
+                  lat: selectedCSMaker.latitude,
+                  lng: selectedCSMaker.longitude,
+                }}
+                marker={this.state.activeMarker}
+                onClose={this.onInfoWindowClose}
+                visible={this.state.visibleInfoWindowId}
+              >
+                <div className="selected-cs">
+                  <h1>{selectedCSMaker.store_name}</h1>
+                  <h1>{selectedCSMaker.name}</h1>
+                  <h1>{selectedCSMaker.address}</h1>
+                </div>
+              </InfoWindow>
+            )}
           </Marker>
         );
       });
@@ -307,8 +328,8 @@ export class MapContainer extends Component {
           types={["(cities)"]}
           // input={value.toString()}
           value={this.state.input}
-          componentRestrictions={{ country: "us" }}
-          onChange={(e) => this.setState({ input: e.target.value })}
+          componentRestrictions={{country: "us"}}
+          onChange={(e) => this.setState({input: e.target.value})}
           onClick={(place, details = null) => {
             console.log("stores and details!!", place, details);
           }}
@@ -316,25 +337,22 @@ export class MapContainer extends Component {
             key: "AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU",
             language: "en",
             input: "value",
-          }}
-        />
+          }} />
         {this.createMarkers()}
         {/*
-        disable this marker if cs marker is in use 
-        */}
-        <Marker
+                disable this marker if cs marker is in use
+                */}
+        {/* <Marker
           name="Current location"
           icon={{
-            url:
-              "https://cdn2.iconfinder.com/data/icons/IconsLandVistaMapMarkersIconsDemo/256/MapMarker_Marker_Outside_Chartreuse.png",
+            url: "https://cdn2.iconfinder.com/data/icons/IconsLandVistaMapMarkersIconsDemo/256/MapMarker_Marker_Outside_Chartreuse.png",
             scaledSize: new window.google.maps.Size(50, 50),
           }}
           onClick={this.onMarkerClick}
           position={{
             lat: this.state.mapCenter.lat,
             lng: this.state.mapCenter.lng,
-          }}
-        />
+          }} />
         <InfoWindow
           marker={this.state.activeMarker}
           onClose={this.onInfoWindowClose}
@@ -344,8 +362,11 @@ export class MapContainer extends Component {
             <h1>{this.state.name}</h1>
             <h1>{this.state.onPlaceSelected}</h1>
           </div>
-        </InfoWindow>
-        <InfoWindow
+          <small>
+            Click on any of the markers to display an additional info.
+          </small>
+        </InfoWindow> */}
+        {/* <InfoWindow
           position={{
             lat: this.state.mapCenter.lat,
             lng: this.state.mapCenter.lng,
@@ -355,12 +376,11 @@ export class MapContainer extends Component {
           <small>
             Click on any of the markers to display an additional info.
           </small>
-        </InfoWindow>
+        </InfoWindow> */}
       </Map>
     );
   }
 }
-
 export default GoogleApiWrapper({
   apiKey: "AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU",
 })(MapContainer);

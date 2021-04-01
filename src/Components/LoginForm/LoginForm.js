@@ -26,7 +26,7 @@ export default class LoginForm extends Component {
         TokenService.saveAuthToken(res.authToken);
         this.props.onLoginSuccess();
       })
-      .then(() => history.push("/profile"))
+      .then(() => history.push("/find"))
       .catch((res) => {
         this.setState({ error: res.error });
       });

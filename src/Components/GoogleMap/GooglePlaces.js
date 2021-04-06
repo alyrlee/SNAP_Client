@@ -3,6 +3,7 @@ import { Map, GoogleApiWrapper, Marker, InfoWindow } from "google-maps-react";
 import Autocomplete from "react-google-autocomplete";
 import AuthApiService from "../Services/auth-api-service";
 import Geocode from "react-geocode";
+import ReactDOMServer from "react-dom/server";
 
 Geocode.setApiKey("AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU");
 Geocode.enableDebug();
@@ -18,7 +19,7 @@ export class MapContainer extends Component {
     city: "",
     area: "",
     state: "",
-    content: "",
+    content: null,
     markers: [],
     cityStores: {},
     markerPosition: {
@@ -89,7 +90,7 @@ export class MapContainer extends Component {
     AuthApiService.postCityState(city, state)
       .then((resJSON) => {
         this.setState({ cityStores: resJSON });
-        console.log('city and sate from API',resJSON);
+        console.log("city and sate from API", resJSON);
       })
       .catch((error) => {
         if (error.resJSON) console.error({ error: error });
@@ -134,12 +135,6 @@ export class MapContainer extends Component {
       }
     }
   };
-  // getStoreName = (store_name) = {
-  //   const stores = cityStores.city.map((store_name) => {
-  //     state = store_name;
-  //   return stores;
-  //   )}
-  // };
 
   onChange = (event) => {
     event.preventDefault();
@@ -166,7 +161,6 @@ export class MapContainer extends Component {
           markerPosition: {
             lat: newLat,
             lng: newLng,
-            // store_name: store_name,
             city: city,
             state: state,
             address: address,
@@ -239,6 +233,15 @@ export class MapContainer extends Component {
     }
   };
 
+  markerContent = (props) => {
+    if (this.state.showingInfoWindow) {
+      this.setState({
+        content: ReactDOMServer.renderToString("div"),
+        onClick: ("div"),
+      });
+    }
+  };
+
   createMarkers = () => {
     const { cityStores } = this.state;
     const isEmpty = Object.entries(cityStores).length === 0;
@@ -252,7 +255,7 @@ export class MapContainer extends Component {
           <Marker
             key={`${cs.latitude}${cs.longitude}`}
             id={cs.objectid}
-            name="SNAP Store Location"
+            name={cs.store_name}
             store_name={cs.store_name}
             title={cs.store_name}
             position={{
@@ -261,6 +264,7 @@ export class MapContainer extends Component {
             }}
             address={cs.address}
             onClick={this.onMarkerClick}
+            content={this.props.content}
           >
             <InfoWindow
               position={{
@@ -271,22 +275,22 @@ export class MapContainer extends Component {
               onClose={this.onInfoWindowClose}
               visible={this.state.showingInfoWindow}
             >
-      {/* pass cs to render in div*/}
+              let content = ReactDOMServer.renderToString({'div'}) `
               <div className="selected-cs">
-                visible={this.state.cs}
-                <h1>{this.state.cs.name}</h1>
-                <p>{this.state.cs.store_name}</p>
-                <p>{this.state.cs.address}</p>
+                <h1>{this.name}</h1>
+                <p>{this.store_name}</p>
+                <p>{this.address}</p>
               </div>
+              `
             </InfoWindow>
           </Marker>
         );
       });
-      console.log('markers', markers);
+      console.log("markers", markers);
       return markers;
     }
   };
-      
+
   render() {
     return (
       <Map
@@ -303,6 +307,7 @@ export class MapContainer extends Component {
           lat: this.state.mapcenter.lat,
           lng: this.state.mapcenter.lng,
         }}
+        content={null}
       >
         <Autocomplete
           input
@@ -328,9 +333,6 @@ export class MapContainer extends Component {
           value={this.state.input}
           componentRestrictions={{ country: "us" }}
           onChange={(e) => this.setState({ input: e.target.value })}
-          // onClick={(place, details = null) => {
-          //   console.log("stores and details!!", place, details);
-          // }}
           terms={{
             key: "AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU",
             language: "en",
@@ -338,11 +340,13 @@ export class MapContainer extends Component {
           }}
         />
         {this.createMarkers()}
-        <Marker name="SNAP store location" onClick={this.onMarkerClick} address={this.cs} name={this.content} />
+        <Marker />
+        {this.props.cs && this.props.cs.map((cs) => this.createMarker(cs))}
         <InfoWindow
           marker={this.state.activeMarker}
           onClose={this.onInfoWindowClose}
           visible={this.state.showingInfoWindow}
+          cs={this.props.cs}
         >
           <div>
             <div
@@ -353,10 +357,13 @@ export class MapContainer extends Component {
               }}
             >
               <div style={{ fontSize: `16px`, fontColor: `#08233B` }}>
+                <div content={this.content}>
                 <div> SNAP Location Info </div>
                 <h1>{this.state.name}</h1>
-                <p>{this.state.markers.store_name}</p>
+                <p>{this.state.store_name}</p>
                 <p>{this.state.markers.address}</p>
+                <h1>{this.state.onPlaceSelected.address} </h1>
+              </div>
               </div>
             </div>
           </div>
@@ -365,6 +372,7 @@ export class MapContainer extends Component {
     );
   }
 }
+
 export default GoogleApiWrapper({
   apiKey: "AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU",
 })(MapContainer);

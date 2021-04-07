@@ -11,6 +11,7 @@
     color: white;
     font-family: 'Roboto Mono', monospace;
     overflow: hidden;
+    text-align: center;
 }
 
 .Cover {
@@ -29,7 +30,7 @@
 }
 
 .banner p {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     margin-left: 150px;
     margin-right: 150px;
 }

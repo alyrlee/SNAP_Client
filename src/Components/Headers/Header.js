@@ -47,7 +47,7 @@ export default class Header extends Component {
               <Link to="/about">About</Link>
             </li>
             <li>
-              <Link to="/find">Find a SNAP retailer</Link>
+              <Link to="/find">Map</Link>
             </li>
             {TokenService.hasAuthToken() ? (
               <li>
@@ -65,3 +65,5 @@ export default class Header extends Component {
     );
   }
 }
+
+//https://stackoverflow.com/questions/50025717/jest-enzyme-invariant-violation-you-should-not-use-route-or-withrouter-ou

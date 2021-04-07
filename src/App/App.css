@@ -1,21 +1,125 @@
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .App {
   text-align: center;
 }
 
-
 body {
   padding-top: 3.5rem;
+  margin: 0;
+  width: 100%;
+  height: 100%;
 }
 
-/* index */
+
 .jumbotron {
   background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
     url("../images/fruit.png");
 }
 
-/* items */
-.search-form-inline {
-  margin-top: 5px;
+.container {
+  display: flex;
 }
+
+.item {
+  flex: 1;
+}
+
+@viewport {
+  width: 100vw; 
+}
+
+@viewport {
+  min-width: 640px;
+  max-width: 800px;
+}
+
+@viewport {
+  zoom: 0.75;
+  min-zoom: 0.5;
+  max-zoom: 0.9;
+}
+
+
+@media screen and (min-width: 800px) {
+  h1, h2, p {
+    font-size: 1.2rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  h1, h2, p {
+    font-size: 4rem;
+  }
+}
+
+@media only screen and (max-width: 823px) {
+  h1 {
+    font-size: 8vw;
+}
+  h2,
+  h3 {
+    font-size: 6vw;
+}
+  p {
+    font-size: 4vw;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  h1 {
+    font-size: 6vw;
+}
+  h2,
+  h3 {
+    font-size: 6vw;
+}
+  p {
+    font-size: 2vw;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  h1, h2, p {
+    font-size: 30px;
+ }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  h1, h2, p {
+    font-size: 30px;
+ }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  h1, h2, p {
+    font-size: 30px;
+ }
+}
+
+/*Galaxy S5 360 x 640 */
+/*Moto G4 360 x 640 */
+/*Pixel 2 411 x 731 */
+/*Pixel 2 XL 411 x 823 */
+/*iPhone 5/SE 320 x 568 */
+/*iPhone 6/7/8 375 x 667 */
+/*iPhone 6/7/8 Plus 414 x 736 */
+/*iPhone X 375 x 812 */
+/*Surface Duo 540 x 720 */
+/*Galaxy Fold 280 x 653 */
+
 
 

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./GooglePlaces.css";
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from "google-maps-react";
 import Autocomplete from "react-google-autocomplete";
 import AuthApiService from "../Services/auth-api-service";
@@ -203,16 +204,18 @@ export class MapContainer extends Component {
     }
   };
 
-  onMarkerClick = (props, marker, e) => {
+  onMarkerClick = (clickedMarkerInfo, marker, e) => {
+    console.log(' ~~~ -->> ~~~ this is not props!, ', clickedMarkerInfo)
+    console.log(' ~~~ -->> ~~~ marker!, ', marker, e)
     this.setState({
-      onPlaceSelected: props,
+      onPlaceSelected: clickedMarkerInfo,
       activeMarker: marker,
       showingInfoWindow: true,
       markers: true,
     });
   };
 
-  onClose = (props) => {
+  onInfoWindowClose = () => {
     if (this.state.showingInfoWindow) {
       this.setState({
         showingInfoWindow: false,
@@ -222,16 +225,6 @@ export class MapContainer extends Component {
     }
   };
 
-  onMapClicked = (props) => {
-    if (this.state.showingInfoWindow) {
-      this.setState({
-        onPlaceSelected: props,
-        showingInfoWindow: false,
-        activeMarker: null,
-        markers: null,
-      });
-    }
-  };
 
   markerContent = (props) => {
     if (this.state.showingInfoWindow) {
@@ -247,10 +240,6 @@ export class MapContainer extends Component {
     const isEmpty = Object.entries(cityStores).length === 0;
     if (!isEmpty) {
       const markers = cityStores.city.map((cs) => {
-        console.log(cs);
-        console.log("cs store name:", cs.store_name);
-        console.log("cs address", cs.address);
-        // console.log("city stores city:", cityStores.city.cs.store_name)
         return (
           <Marker
             key={`${cs.latitude}${cs.longitude}`}
@@ -264,7 +253,7 @@ export class MapContainer extends Component {
             }}
             address={cs.address}
             onClick={this.onMarkerClick}
-            content={this.props.content}
+            content={this.state.content}
           >
             <InfoWindow
               position={{
@@ -275,13 +264,12 @@ export class MapContainer extends Component {
               onClose={this.onInfoWindowClose}
               visible={this.state.showingInfoWindow}
             >
-              let content = ReactDOMServer.renderToString({'div'}) `
               <div className="selected-cs">
-                <h1>{this.name}</h1>
-                <p>{this.store_name}</p>
-                <p>{this.address}</p>
+                <h1>{cs.name}</h1>
+                <p>{cs.store_name}</p>
+                <p>{cs.address}</p>
               </div>
-              `
+              {/* ` */}
             </InfoWindow>
           </Marker>
         );
@@ -296,7 +284,7 @@ export class MapContainer extends Component {
       <Map
         google={this.props.google}
         onReady={this.state.place}
-        // style={{width: '100%', height: '100%', position: 'relative'}}
+        style={{width: '100%', height: '100%', position: 'absolute', marginTop: '3%'}}
         className={"map"}
         zoom={13}
         initialCenter={{
@@ -307,7 +295,7 @@ export class MapContainer extends Component {
           lat: this.state.mapcenter.lat,
           lng: this.state.mapcenter.lng,
         }}
-        content={null}
+        content={this.state.content}
       >
         <Autocomplete
           input
@@ -323,9 +311,10 @@ export class MapContainer extends Component {
           ]}
           style={{
             width: "100%",
-            height: "25px",
+            height: "70px",
             paddingLeft: "16px",
             marginBottom: "100px",
+            position: "relative"
           }}
           onPlaceSelected={this.onPlaceSelected}
           types={["(cities)"]}
@@ -340,13 +329,10 @@ export class MapContainer extends Component {
           }}
         />
         {this.createMarkers()}
-        <Marker />
-        {this.props.cs && this.props.cs.map((cs) => this.createMarker(cs))}
         <InfoWindow
           marker={this.state.activeMarker}
           onClose={this.onInfoWindowClose}
           visible={this.state.showingInfoWindow}
-          cs={this.props.cs}
         >
           <div>
             <div
@@ -354,15 +340,14 @@ export class MapContainer extends Component {
                 backgroundColor: `yellow`,
                 opacity: 0.75,
                 padding: `12px`,
+                border: `2.5px solid black`
               }}
             >
               <div style={{ fontSize: `16px`, fontColor: `#08233B` }}>
-                <div content={this.content}>
+                <div content={this.state.content}>
                 <div> SNAP Location Info </div>
-                <h1>{this.state.name}</h1>
-                <p>{this.state.store_name}</p>
-                <p>{this.state.markers.address}</p>
-                <h1>{this.state.onPlaceSelected.address} </h1>
+                <h3>{this.state.onPlaceSelected.name}</h3>
+                <h3>{this.state.onPlaceSelected.address}</h3>
               </div>
               </div>
             </div>

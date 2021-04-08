@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import TokenService from "../Services/token-service";
 import AuthApiService from "../Services/auth-api-service";
-import "../LoginForm/LoginForm.css";
+import "../../App/App.css";
 import history from "../../Contexts/history";
 
 export default class LoginForm extends Component {

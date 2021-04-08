@@ -34,6 +34,410 @@ body {
   flex: 1;
 }
 
+/* About */
+
+/*Landing Page */
+.banner {
+  background: 
+  url("../images/fruit.png") 
+  no-repeat
+  fixed;
+  background-size: 2250px 1500px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  color: white;
+  font-family: 'Roboto Mono', monospace;
+  overflow: hidden;
+}
+
+.Cover {
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.banner h2 {
+  margin-left: 100px;
+  font-size: 5rem;
+}
+
+.banner p {
+  font-size: 1.2rem;
+  margin-left: 150px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.banner button {
+  width: 200px;
+  height: 75px;
+  background-color: rgb(235, 177, 225);
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: all 0.9s;
+  border: none;
+  margin-top: 25px;
+  text-align: center;
+  position: relative;
+}
+
+.banner button:hover {
+  cursor: pointer;
+  background-color: #EF5252;; 
+  color: white;
+}
+
+@viewport {
+  min-width: 640px;
+  max-width: 800px;
+}
+
+@viewport {
+  zoom: 0.75;
+  min-zoom: 0.5;
+  max-zoom: 0.9;
+}
+
+
+@media screen and (min-width: 800px) {
+  h1, h2, p {
+    font-size: 1.2rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  h1, h2, p {
+    font-size: 4rem;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  h1, h2, p {
+    font-size: 1rem;
+ }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  h1, h2, p {
+    font-size: 30px;
+ }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  h1, h2, p {
+    font-size: 30px;
+ }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  h1, h2, p {
+    font-size: 30px;
+ }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  h1, h2, p {
+    font-size: 30px;
+ }
+}
+
+
+
+/*Header */
+.header-bar {
+  display: none;
+}
+.header-bar {
+  background-color: black;
+  width: 100%;
+  font-family: 'Roboto Mono', monospace;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  padding: 12px;
+  justify-content: flex-end;
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  height: 60px;
+  margin-top: -60px;
+  padding-bottom: 5px;
+}
+
+.fixed-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+
+.header-bar li {
+  padding: 6px 20px 6px 6px;
+  font-size: 1.25rem;
+  margin-top: 0px;
+}
+
+.header-bar a {
+  text-decoration: none;
+  color: white;
+}
+
+.header-bar a:visited {
+  text-decoration: none;
+  color: white;
+}
+
+.header-bar img {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  left: 10px;
+  top: 5px;
+}
+
+.header-bar ul {
+  color: black;
+
+}
+
+/*Login Form */
+.wrapper {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #EEEEEE;
+  background-image: url("../images/fruit.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: 'Roboto', sans-serif;
+}
+
+.form-wrapper {
+  color: #D8D9DE;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto', sans-serif;
+  font-size: 28px;
+  padding: 20px 40px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 16px 0px rgba(50, 50, 50, 0.61);
+  background-color: #3F3F3F;;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+h1 {
+  text-align: center;
+  width: 100%;
+  color: #EF5252;
+  font-weight: 500;
+  font-weight: lighter;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+label {
+  font-size: 0.8em;
+  margin-bottom: 0.25em;
+  color: #222;
+  font-weight: lighter;
+}
+
+input {
+  padding: 10px 10px;
+  display: block;
+  font-size: 18px;
+  color: 1a1a1a;
+  transform: translateY(-25px);
+  border-bottom: 2px solid #EF5252;
+  transition: 0.4s ease all;
+  text-align: left;
+}
+
+input::placeholder {
+  font-size: 1.2em;
+  font-weight: lighter;
+  color: red;;
+}
+
+.userName,
+.password,
+input::placeholder {
+text-align: center;
+}
+
+input.error {
+  border: 1px solid blue;
+}
+
+.errorMessage {
+  color:blue;
+  font-size: 0.75em;
+  display: relative;
+}
+
+
+.userName {
+  margin-left: 1%;
+}
+
+.retype-password
+{
+  margin-left: 1%;
+}
+
+.userName,
+.password,
+.input#retype-password {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.userName,
+.password {
+  width: 100%;
+  text-align: center;
+}
+
+.button#submit-login {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+.demoLogin {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.demoLogin button {
+  background-color:#EF5252;;
+  color: #fff;
+  border: 2px solid #fff;
+  width: 100%;
+  margin-top: 1em;
+  padding: 8px 0px;
+  font-size: 1em;
+  font-weight: lighter;
+  letter-spacing: 1px;
+  margin-bottom: 0.25em;
+}
+
+.demoLogin button:hover {
+  color: #9e519e;
+  background-color: #fff;
+  border: 2px solid #9e519e;
+}
+form.Login 
+a small {
+  margin-top: 1em;
+  color: #999;
+  font-weight: lighter;
+  padding-left: 75px;
+}
+
+
+/* Google Map */
+
+#map {
+  height: 100%;
+  margin-left: 200px;
+} 
+
+#state {
+  width: 200px;
+  float: left;
+}
+
+
+#infowindow-content .title {
+  font-weight: bold;
+}
+
+#infowindow-content {
+  display: none;
+}
+
+#map #infowindow-content {
+  display: inline;
+}
+
+/* .pac-card {
+  margin: 10px 10px 0 0;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+  font-family: Roboto;
+} */
+
+#pac-container {
+  padding-bottom: 12px;
+  margin-right: 12px;
+}
+
+.pac-controls {
+  display: inline-block;
+  padding: 5px 11px;
+}
+
+.pac-controls label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+#pac-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 400px;
+}
+
+#pac-input:focus {
+  border-color: #4d90fe;
+}
+
+#title {
+  color: #fff;
+  background-color: #4d90fe;
+  font-size: 25px;
+  font-weight: 500;
+  padding: 6px 12px;
+}
+
+
 @viewport {
   width: 100vw; 
 }
@@ -64,14 +468,14 @@ body {
 
 @media only screen and (max-width: 823px) {
   h1 {
-    font-size: 8vw;
+    font-size: 6vw;
 }
   h2,
   h3 {
-    font-size: 6vw;
+    font-size: 4vw;
 }
   p {
-    font-size: 4vw;
+    font-size: 2vw;
   }
 }
 
@@ -82,7 +486,7 @@ body {
 }
   h2,
   h3 {
-    font-size: 6vw;
+    font-size: 4vw;
 }
   p {
     font-size: 2vw;

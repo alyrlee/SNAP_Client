@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import "./LandingPage.css";
+import "../../App/App.css";
 import TokenService from "../Services/token-service";
 
 export default class LandingPage extends Component {

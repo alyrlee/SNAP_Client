@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./GooglePlaces.css";
+// import "../../App/App.css"
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from "google-maps-react";
 import Autocomplete from "react-google-autocomplete";
 import AuthApiService from "../Services/auth-api-service";

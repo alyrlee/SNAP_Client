@@ -14,7 +14,6 @@ const AuthApiService = {
     return fetch(`${config.API_ENDPOINT}/stores`, {
       method: "GET",
       headers: {
-        authorization: `basic ${TokenService.getAuthToken()}`,
         "content-type": "application/json",
       },
       body: JSON.stringify(stores),
@@ -26,7 +25,6 @@ const AuthApiService = {
     return fetch(`${config.API_ENDPOINT}/stores/cityState`, {
       method: "GET",
       headers: {
-        authorization: `basic ${TokenService.getAuthToken()}`,
         "content-type": "application/json",
       },
     }).then((res) => {
@@ -37,7 +35,6 @@ const AuthApiService = {
     return fetch(`${config.API_ENDPOINT}/stores/cityState`, {
       method: "POST",
       headers: {
-        authorization: `basic ${TokenService.getAuthToken()}`,
         "content-type": "application/json",
       },
       body: JSON.stringify({
@@ -52,7 +49,6 @@ const AuthApiService = {
     return fetch(`${config.API_ENDPOINT}/stores`, {
       method: "POST",
       headers: {
-        authorization: `basic ${TokenService.getAuthToken()}`,
         "content-type": "application/json",
       },
       body: JSON.stringify(stores),

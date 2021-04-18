@@ -8,16 +8,6 @@ export default class LandingPage extends Component {
     where: "",
   };
 
-  /*
-switchToHomePage = () => {
-    this.setState({
-      redirect: !this.state.redirect,
-      where: 'LandingPage',
-    });
-  };
-  */
-
-
   switchToHomePage = () => {
     this.setState({
       redirect: !this.state.redirect,

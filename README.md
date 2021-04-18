@@ -18,7 +18,8 @@ You can start by clicking on the "Get Started" button and you will be taken to t
 ![Image](src/images/about.png)
 ![Image](src/images/map.png)
 
-```**Technologies used:**
+```
+Technologies used:
 ```
 <br>
 Client:

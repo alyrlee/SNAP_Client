@@ -18,9 +18,8 @@ You can start by clicking on the "Get Started" button and you will be taken to t
 ![Image](src/images/about.png)
 ![Image](src/images/map.png)
 
+```**Technologies used:**
 ```
-<br>
-**Technologies used:**
 <br>
 Client:
 <br>
@@ -55,7 +54,7 @@ google-maps-react: https://github.com/fullstackreact/google-maps-react#readme
 react-google-autocomplete: https://github.com/ErrorPro/react-google-autocomplete#readme
 react-geocode: https://github.com/shukerullah/react-geocode#readme
 <br>
-```
+
 
 ## Considerataions for app development:
 

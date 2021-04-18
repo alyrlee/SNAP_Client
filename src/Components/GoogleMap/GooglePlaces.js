@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import "../../App/App.css"
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from "google-maps-react";
 import Autocomplete from "react-google-autocomplete";
 import AuthApiService from "../Services/auth-api-service";
@@ -91,7 +90,6 @@ export class MapContainer extends Component {
     AuthApiService.postCityState(city, state)
       .then((resJSON) => {
         this.setState({ cityStores: resJSON });
-        console.log("city and sate from API", resJSON);
       })
       .catch((error) => {
         if (error.resJSON) console.error({ error: error });
@@ -179,7 +177,6 @@ export class MapContainer extends Component {
   };
 
   onPlaceSelected = (place) => {
-    console.log("plc -> on selected", place);
     const city = place.address_components[0].long_name;
     const state = place.address_components[2].short_name;
     const address = place.formatted_address;
@@ -205,8 +202,6 @@ export class MapContainer extends Component {
   };
 
   onMarkerClick = (clickedMarkerInfo, marker, e) => {
-    console.log(' ~~~ -->> ~~~ this is not props!, ', clickedMarkerInfo)
-    console.log(' ~~~ -->> ~~~ marker!, ', marker, e)
     this.setState({
       onPlaceSelected: clickedMarkerInfo,
       activeMarker: marker,
@@ -225,12 +220,11 @@ export class MapContainer extends Component {
     }
   };
 
-
   markerContent = (props) => {
     if (this.state.showingInfoWindow) {
       this.setState({
         content: ReactDOMServer.renderToString("div"),
-        onClick: ("div"),
+        onClick: "div",
       });
     }
   };
@@ -274,7 +268,6 @@ export class MapContainer extends Component {
           </Marker>
         );
       });
-      console.log("markers", markers);
       return markers;
     }
   };
@@ -284,7 +277,12 @@ export class MapContainer extends Component {
       <Map
         google={this.props.google}
         onReady={this.state.place}
-        style={{width: '100%', height: '100%', position: 'absolute', marginTop: '3%'}}
+        style={{
+          width: "100%",
+          height: "100%",
+          position: "absolute",
+          marginTop: "3%",
+        }}
         className={"map"}
         zoom={13}
         initialCenter={{
@@ -314,7 +312,7 @@ export class MapContainer extends Component {
             height: "70px",
             paddingLeft: "16px",
             marginBottom: "100px",
-            position: "relative"
+            position: "relative",
           }}
           onPlaceSelected={this.onPlaceSelected}
           types={["(cities)"]}
@@ -340,15 +338,15 @@ export class MapContainer extends Component {
                 backgroundColor: `yellow`,
                 opacity: 0.75,
                 padding: `12px`,
-                border: `2.5px solid black`
+                border: `2.5px solid black`,
               }}
             >
               <div style={{ fontSize: `16px`, fontColor: `#08233B` }}>
                 <div content={this.state.content}>
-                <div> SNAP Location Info </div>
-                <h3>{this.state.onPlaceSelected.name}</h3>
-                <h3>{this.state.onPlaceSelected.address}</h3>
-              </div>
+                  <div> SNAP Location Info </div>
+                  <h3>{this.state.onPlaceSelected.name}</h3>
+                  <h3>{this.state.onPlaceSelected.address}</h3>
+                </div>
               </div>
             </div>
           </div>

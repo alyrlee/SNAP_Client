@@ -13,22 +13,12 @@ How to get started?
 You can start by clicking on the "Get Started" button and you will be taken to the map.
 
 
-![Image](src/Components/images/snap_login.pgg)
-```
-
-For User experience:
-
-Demo Account:
-
-User_Name: Demo User
-
-Password: DemoUser2020*
-
-```
+![Image](src/Components/images/map.png)
 
 <hr>
 
-![Image](src/images/snap.png)
+![Image](src/images/home.png)
+![Image](src/images/about.png)
 
 **snap-locator-app**
 <br>

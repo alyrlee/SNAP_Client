@@ -7,13 +7,21 @@ export default class LandingPage extends Component {
     redirect: false,
     where: "",
   };
-  switchPage = (link) => {
-    if (link === "Home" ()) {
-      link = "LandingPage";
-    }
+
+  /*
+switchToHomePage = () => {
     this.setState({
       redirect: !this.state.redirect,
-      where: link,
+      where: 'LandingPage',
+    });
+  };
+  */
+
+
+  switchToHomePage = () => {
+    this.setState({
+      redirect: !this.state.redirect,
+      where: 'LandingPage',
     });
     return;
   };
@@ -42,7 +50,7 @@ export default class LandingPage extends Component {
               Please click on "About" in the header to learn more about SNAP
             </p>
             <p>Click the button below "Get Started" and view the map</p>
-            <button onClick={() => this.switchPage("find")}>Get started</button>
+            <button onClick={this.switchToHomePage}>Get started</button>
           </div>
         </section>
       </div>

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import "../../App/App.css";
-import TokenService from "../Services/token-service";
 
 export default class LandingPage extends Component {
   state = {
@@ -9,7 +8,7 @@ export default class LandingPage extends Component {
     where: "",
   };
   switchPage = (link) => {
-    if (link === "Home" && TokenService.hasAuthToken()) {
+    if (link === "Home" ()) {
       link = "LandingPage";
     }
     this.setState({

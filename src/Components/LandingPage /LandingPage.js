@@ -31,11 +31,6 @@ export default class LandingPage extends Component {
           <div className="Cover">
             <h2>SNAP Locator</h2>
             <p>Steps on How to Get Started and Use this App:</p>
-            <p>Login using the Demo account</p>
-            <p> Login Credentials: </p>
-            <p>User name: Demo User </p>
-            <p>Password: DemoUser2020*</p>
-            <p>Upon successful login you will be directed to the google map</p>
             <p>
               The google map accepts search location based on city and state and
               returns locations in those areas

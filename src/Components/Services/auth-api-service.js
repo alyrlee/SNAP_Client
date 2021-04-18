@@ -1,9 +1,6 @@
 import TokenService from "../Services/token-service";
 import config from "../../config";
 
-// const user_name = 'DemoUser2020';
-// const password = 'DemoUser*';
-
 const url = new URL(`${config.API_ENDPOINT}cityState`);
 const params = {
   lat: 42.3600825,
@@ -13,31 +10,6 @@ const params = {
 url.search = new URLSearchParams(params).toString();
 
 const AuthApiService = {
-  postLogin({ user_name, password }) {
-    return fetch(`${config.API_ENDPOINT}/auth/login`, {
-      method: "POST",
-      headers: {
-        Authorization: `Schema ${user_name}:${password}`,
-        authorization: `basic ${TokenService.getAuthToken()}`,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ user_name, password }),
-    }).then((res) => {
-      return !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json();
-    });
-  },
-  postUser({ user }) {
-    return fetch(`${config.API_ENDPOINT}/register`, {
-      method: "POST",
-      headers: {
-        authorization: `basic ${TokenService.getAuthToken()}`,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(user),
-    }).then((res) => {
-      return !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json();
-    });
-  },
   getStores(stores) {
     return fetch(`${config.API_ENDPOINT}/stores`, {
       method: "GET",
@@ -87,39 +59,7 @@ const AuthApiService = {
     }).then((res) => {
       return !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json();
     });
-  },
-  getSavedLocations(ObjectId, Store_Name, user_name, password) {
-    return fetch(`${config.API_ENDPOINT}/SavedLocations`, {
-      method: "GET",
-      headers: {
-        Authorization: `Schema ${user_name}:${password}`,
-        authorization: `basic ${TokenService.getAuthToken()}`,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        ObjectId: ObjectId,
-        Store_Name: Store_Name,
-      }),
-    }).then((res) => {
-      return !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json();
-    });
-  },
-  postSavedLocations(ObjectId, Store_Name, user_name, password) {
-    return fetch(`${config.API_ENDPOINT}/SavedLocations`, {
-      method: "POST",
-      headers: {
-        Authorization: `Schema ${user_name}:${password}`,
-        authorization: `basic ${TokenService.getAuthToken()}`,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        ObjectId: ObjectId,
-        Store_Name: Store_Name,
-      }),
-    }).then((res) => {
-      return !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json();
-    });
-  },
-};
+  }
+  }
 
 export default AuthApiService;

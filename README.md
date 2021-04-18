@@ -21,11 +21,9 @@ You can start by clicking on the "Get Started" button and you will be taken to t
 ```
 Technologies used:
 ```
-
 ```
 Client:
 ```
-
 <br>
 Javascript: https://www.javascript.com/
 CSS: https://developer.mozilla.org/en-US/docs/Web/CSS
@@ -33,11 +31,9 @@ React.js: https://reactjs.org/
 React-Router-Dom: https://reactrouter.com/web/guides/quick-start
 History: https://reactrouter.com/web/api/Hooks/usehistory
 <br>
-
 ```
 Server:
 ```
-
 <br> 
 Node.js: https://nodejs.org/en/
 Express.js: https://expressjs.com/
@@ -49,18 +45,15 @@ Nodemon: https://nodemon.io/
 Knex: https://knexjs.org/#Installation-client
 Dotenv: https://github.com/motdotla/dotenv#readme
 postgreSql: https://www.postgresql.org/
-
 <br>
 ```
 Testing with:
 ```
-
 <br>
 Chai: https://www.chaijs.com/plugins/chai-react-element/
 Mocha: https://mochajs.org/
 Supertest: https://github.com/visionmedia/supertest#readme
 <br>
-
 ```
 APIs: 
 ```

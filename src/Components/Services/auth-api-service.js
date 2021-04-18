@@ -1,4 +1,3 @@
-import TokenService from "../Services/token-service";
 import config from "../../config";
 
 const url = new URL(`${config.API_ENDPOINT}cityState`);

@@ -18,17 +18,21 @@ You can start by clicking on the "Get Started" button and you will be taken to t
 ![Image](src/images/about.png)
 ![Image](src/images/map.png)
 
-```
-Technologies used:
-```
+
+## Technologies used:
+
 ```
 Client:
 ```
 <br>
 Javascript: https://www.javascript.com/
+
 CSS: https://developer.mozilla.org/en-US/docs/Web/CSS
+
 React.js: https://reactjs.org/
+
 React-Router-Dom: https://reactrouter.com/web/guides/quick-start
+
 History: https://reactrouter.com/web/api/Hooks/usehistory
 
 ```
@@ -36,14 +40,23 @@ Server:
 ```
 <br> 
 Node.js: https://nodejs.org/en/
+
 Express.js: https://expressjs.com/
+
 Morgan: https://github.com/expressjs/morgan#readme
+
 Cors: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+
 Helmet: https://helmetjs.github.io/
+
 XSS: https://jsxss.com/en/index.html
+
 Nodemon: https://nodemon.io/
+
 Knex: https://knexjs.org/#Installation-client
+
 Dotenv: https://github.com/motdotla/dotenv#readme
+
 postgreSql: https://www.postgresql.org/
 
 ```
@@ -51,7 +64,9 @@ Testing with:
 ```
 <br>
 Chai: https://www.chaijs.com/plugins/chai-react-element/
+
 Mocha: https://mochajs.org/
+
 Supertest: https://github.com/visionmedia/supertest#readme
 
 ```
@@ -59,7 +74,9 @@ APIs:
 ```
 <br>
 google-maps-react: https://github.com/fullstackreact/google-maps-react#readme
+
 react-google-autocomplete: https://github.com/ErrorPro/react-google-autocomplete#readme
+
 react-geocode: https://github.com/shukerullah/react-geocode#readme
 <br>
 

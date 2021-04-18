@@ -30,7 +30,7 @@ CSS: https://developer.mozilla.org/en-US/docs/Web/CSS
 React.js: https://reactjs.org/
 React-Router-Dom: https://reactrouter.com/web/guides/quick-start
 History: https://reactrouter.com/web/api/Hooks/usehistory
-<br>
+
 ```
 Server:
 ```
@@ -45,7 +45,7 @@ Nodemon: https://nodemon.io/
 Knex: https://knexjs.org/#Installation-client
 Dotenv: https://github.com/motdotla/dotenv#readme
 postgreSql: https://www.postgresql.org/
-<br>
+
 ```
 Testing with:
 ```
@@ -53,7 +53,7 @@ Testing with:
 Chai: https://www.chaijs.com/plugins/chai-react-element/
 Mocha: https://mochajs.org/
 Supertest: https://github.com/visionmedia/supertest#readme
-<br>
+
 ```
 APIs: 
 ```

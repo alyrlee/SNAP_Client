@@ -25,6 +25,7 @@ You can start by clicking on the "Get Started" button and you will be taken to t
 Client:
 ```
 <br>
+
 Javascript: https://www.javascript.com/
 
 CSS: https://developer.mozilla.org/en-US/docs/Web/CSS
@@ -39,6 +40,7 @@ History: https://reactrouter.com/web/api/Hooks/usehistory
 Server:
 ```
 <br> 
+
 Node.js: https://nodejs.org/en/
 
 Express.js: https://expressjs.com/
@@ -63,6 +65,7 @@ postgreSql: https://www.postgresql.org/
 Testing with:
 ```
 <br>
+
 Chai: https://www.chaijs.com/plugins/chai-react-element/
 
 Mocha: https://mochajs.org/

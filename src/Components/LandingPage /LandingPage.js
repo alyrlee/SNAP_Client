@@ -40,7 +40,7 @@ export default class LandingPage extends Component {
               Please click on "About" in the header to learn more about SNAP
             </p>
             <p>Click the button below "Get Started" and view the map</p>
-            <button onClick={() => this.switchPage("find")}>Get started</button>
+            <button onClick={this.switchToMapPage}>Get started</button>
           </div>
         </section>
       </div>
